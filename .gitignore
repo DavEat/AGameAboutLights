@@ -2,3 +2,6 @@ AGameAboutLights/Library/
 AGameAboutLights/Temp/
 AGameAboutLights/obj/
 Aymeric/
+*.suo
+*.csproj
+*.sln
