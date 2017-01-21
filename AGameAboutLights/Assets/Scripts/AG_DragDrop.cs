@@ -85,8 +85,8 @@ public class AG_DragDrop : MonoBehaviour {
             if (hit.transform == downObject && inputPosition == (Vector3)mousePos)
             {
                 float angle = 45;
-                /*if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
-                    angle = 90;*/
+                if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
+                    angle = 90;
                 downObject.parent.localEulerAngles = new Vector3(0, 0, downObject.parent.localEulerAngles.z + angle);
                 downObject = null;
                 DiplayGrid(false);
