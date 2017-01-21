@@ -12,7 +12,7 @@ public class AG_LightsManagement : MonoBehaviour {
     [SerializeField]
     private float lightWidth = 30;
 
-    public GameObject _light;
+    public GameObject _light, victoryScreen;
     private GameObject lastHitObject;
     private List<GameObject> listLight = new List<GameObject>();
 
@@ -107,8 +107,11 @@ public class AG_LightsManagement : MonoBehaviour {
                 AddLight();
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
+        {
+            victoryScreen.SetActive(true);
             Debug.Log("YOU WON !");
-        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prism)
+        }
+        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
             Debug.Log("Diffraction");
     }
 }
