@@ -3,7 +3,10 @@
 public enum ObjectType
 {
     wall,
-    mirror
+    mirror,
+    emitter,
+    receiver,
+    prism
 }
 
 public class AG_ElementType : MonoBehaviour {
