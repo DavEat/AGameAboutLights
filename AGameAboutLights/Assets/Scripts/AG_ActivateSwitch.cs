@@ -15,12 +15,12 @@ public class AG_ActivateSwitch : MonoBehaviour {
     {
         if (activated == false)
         {
-            GetComponent<Animator>().SetFloat("speed", 1.5f);
+            GetComponent<Animator>().SetFloat("speed", 2);
             GetComponent<Animator>().Play("SwitchAnimation");
         }
         else
         {
-            GetComponent<Animator>().SetFloat("speed", -1.5f);
+            GetComponent<Animator>().SetFloat("speed", -2);
             GetComponent<Animator>().Play("SwitchAnimation");
         }
         activated = !activated;
