@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class AG_Light_Mono : MonoBehaviour {
 
-    private AG_Light _light;
+    public AG_Light ag_light;
+
+    public void Init()
+    {
+        ag_light = new AG_Light(Color.red, new AG_Line(GetComponent<RectTransform>().localPosition, Vector2.right * 10, 1), GetComponent<RectTransform>(), GetComponent<Image>());
+    }
+
+    public void Init(Color color, AG_Line line)
+    {
+        ag_light = new AG_Light(color, line, GetComponent<RectTransform>(), GetComponent<Image>());
+    }
 }
 
 public class AG_Light
@@ -18,12 +29,12 @@ public class AG_Light
     public Color color
     {
         get { return _color; }
-        protected set { _color = value; }
+        set { _color = value; }
     }
     public AG_Line line
     {
         get { return _line; }
-        protected set { _line = value; }
+        set { _line = value; }
     }
     #endregion
     #region Function
@@ -33,23 +44,40 @@ public class AG_Light
         this._line = _line;
         this._rect = _rect;
         this._img = _img;
-
         UpdateLightColor();
         UpdateLightPosition();
     }
 
     public void UpdateLightColor()
     {
-        this._img.color = _color;
+        _img.color = _color;
     }
 
     public void UpdateLightPosition()
     {
         Vector2 dir = line.origin - line.end;
-        float angleZ = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        _rect.localPosition = line.origin;
-        _rect.localEulerAngles = new Vector3(0, 0, -angleZ);
+        float angleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        _rect.position = line.origin;
+        _rect.localEulerAngles = new Vector3(0, 0, angleZ);
         _rect.sizeDelta = new Vector2(Vector2.Distance(line.origin, line.end), line.width);        
+    }
+
+    public void UpdateLightPositionRaycast()
+    {
+        RaycastHit2D hit = GetRaycast();
+        if (hit.collider != null)
+        {
+            line.origin = _rect.position;
+            line.end = hit.point;
+            //Debug.DrawRay(_rect.position, Vector2.right * 100, Color.blue, 100);
+            UpdateLightPosition();
+        }
+        
+    }
+
+    public RaycastHit2D GetRaycast()
+    {
+        return Physics2D.Raycast(_rect.position, Quaternion.Euler(0,0,_rect.rotation.z - 90) * Vector2.up, Mathf.Infinity);
     }
     #endregion
 }
@@ -64,17 +92,17 @@ public class AG_Line
     public Vector2 origin
     {
         get { return _origin; }
-        protected set { _origin = value; }
+        set { _origin = value; }
     }
     public Vector2 end
     {
         get { return _end; }
-        protected set { _end = value; }
+        set { _end = value; }
     }
     public float width
     {
         get { return _width; }
-        protected set { _width = value; }
+        set { _width = value; }
     }
     #endregion
     #region Function
