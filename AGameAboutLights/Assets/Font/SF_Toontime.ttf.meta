@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 39bfd10c20461c14ba7e52826017ffff
+timeCreated: 1484996852
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SF Toontime
+  fontNames:
+  - SF Toontime
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

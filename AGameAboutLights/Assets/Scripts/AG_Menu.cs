@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AG_Menu : MonoBehaviour {
 
-    public GameObject levelsPanel, creditsPanel, flashPanel;
+    public GameObject levelsPanel, creditsPanel;
 
     public void displayLevels()
     {
