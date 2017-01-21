@@ -7,25 +7,59 @@ public class AG_LightsManagement : MonoBehaviour {
     public LayerMask layer;
 
     [SerializeField]
-    private int maxLineOfLine = 10;
+    private int maxLineOfLine = 20;
+    private int currentLight = 0;
     [SerializeField]
-    private float lightidth = 30;
+    private float lightWidth = 30;
 
     public GameObject _light;
     private GameObject lastHitObject;
-    private List<AG_Light_Mono> listLight = new List<AG_Light_Mono>();
+    private List<GameObject> listLight = new List<GameObject>();
 
     [SerializeField]
     private Transform stratLightPos, lightContener;
     private Vector2 _origin, _direction;
     private float angle;
+    public bool lightTurnOn = true;
+
+    public void ToggleLight()
+    {
+        lightTurnOn = !lightTurnOn;
+        if (lightTurnOn)
+            SetLights();
+        else
+        {
+            Debug.Log("destroy");
+            foreach (GameObject g in listLight)
+                if (g.activeSelf)
+                    g.SetActive(false);
+
+            lastHitObject.layer = LayerMask.NameToLayer("UI");
+            lastHitObject = null;
+        }      
+    }
 
     private void Start()
     {
-        lastHitObject = gameObject;
-        lastHitObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        CreateLights();
+    }
 
-        _origin = stratLightPos.position;        
+    private void CreateLights()
+    {
+        for (int i = 0; i < maxLineOfLine; i++)
+        {
+            listLight.Add(Instantiate(_light, lightContener));
+            listLight[listLight.Count - 1].SetActive(false);
+        }
+    }
+
+    public void SetLights()
+    {
+        currentLight = 0;
+        lastHitObject = gameObject;
+        lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
+
+        _origin = stratLightPos.position;
         angle = stratLightPos.eulerAngles.z;
         _direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
         AddLight();
@@ -38,12 +72,13 @@ public class AG_LightsManagement : MonoBehaviour {
         {
             RaycastIgnore(hit);
 
-            listLight.Add(Instantiate(_light, lightContener).GetComponent<AG_Light_Mono>());
-            listLight[listLight.Count - 1].Init(Color.red, new AG_Line(_origin, hit.point, lightidth));
+            listLight[currentLight].SetActive(true);
+            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(Color.red, new AG_Line(_origin, hit.point, lightWidth));
             _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
             _origin = hit.point;
 
-            EndPointLightAction(hit);
+            currentLight++;
+            EndPointLightAction(hit);            
         }
     }
 
@@ -51,15 +86,18 @@ public class AG_LightsManagement : MonoBehaviour {
     {
         if (lastHitObject != null)
             lastHitObject.layer = LayerMask.NameToLayer("UI");
-        lastHitObject = hit.transform.gameObject;
-        lastHitObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
+        {
+            lastHitObject = hit.transform.gameObject;
+            lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
+        }
     }
 
     private void EndPointLightAction(RaycastHit2D hit)
     {
         if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
         {
-            if (listLight.Count < maxLineOfLine)
+            if (currentLight < maxLineOfLine)
                 AddLight();
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)

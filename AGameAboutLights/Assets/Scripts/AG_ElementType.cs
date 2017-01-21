@@ -9,7 +9,14 @@ public enum ObjectType
     prism
 }
 
+public enum ObjectInteractionType
+{
+    empthy,
+    movable
+}
+
 public class AG_ElementType : MonoBehaviour {
 
     public ObjectType objectType;
+    public ObjectInteractionType objectInteractionType;
 }

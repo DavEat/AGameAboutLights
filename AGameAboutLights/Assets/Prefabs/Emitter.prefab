@@ -77,12 +77,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 4294967291
-  maxLineOfLine: 10
+    m_Bits: 4294967035
+  maxLineOfLine: 25
   lightidth: 30
   _light: {fileID: 1963911768328412, guid: e18ab32e75e6b6340884233f910f20d1, type: 2}
   stratLightPos: {fileID: 224777102487550156}
   lightContener: {fileID: 0}
+  lightTurnOn: 0
 --- !u!114 &114673402000551832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 2
+  objectInteractionType: 0
 --- !u!114 &114687223241338694
 MonoBehaviour:
   m_ObjectHideFlags: 1
