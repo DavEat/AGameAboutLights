@@ -11,19 +11,20 @@ public class AG_LightsManagement : MonoBehaviour {
 
     [SerializeField]
     private Transform stratLightPos;
-    private Vector3 _origin;
+    private Vector2 _origin, _direction;
     private float angle;
 
     private void Start()
     {
-        _origin = stratLightPos.position;
+        _origin = stratLightPos.position;        
         angle = stratLightPos.eulerAngles.z;
+        _direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
         AddLight();
     }
 
     public void AddLight()
     {
-        RaycastHit2D hit = Physics2D.Raycast(_origin, Quaternion.Euler(0,0,angle) * Vector2.up, Mathf.Infinity, layer);
+        RaycastHit2D hit = Physics2D.Raycast(_origin, _direction, Mathf.Infinity, layer);
         if (hit.collider != null)
         {
             if(lastHitObject != null)
@@ -35,14 +36,16 @@ public class AG_LightsManagement : MonoBehaviour {
             Debug.DrawRay(hit.point, hit.normal, Color.green, 20);
 
             listLight.Add(Instantiate(_light, transform.parent).GetComponent<AG_Light_Mono>());
-            listLight[listLight.Count - 1].Init(Color.red, new AG_Line(_origin, hit.point, 10));            
+            listLight[listLight.Count - 1].Init(Color.red, new AG_Line(_origin, hit.point, 10));
 
-            Vector2 dir = (Vector2.Reflect(_origin - (Vector3)hit.point, hit.normal) - hit.point);
-            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
+            /*Vector2 dir = (_direction - hit.point);
+            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;*/
 
             _origin = hit.point;
 
-            Debug.DrawRay(hit.point, -_origin, Color.blue, 20);
+            Debug.DrawRay(hit.point, _direction, Color.blue, 20);
             Debug.Log("angle : " + angle + " time : " + Time.frameCount);
 
             if (listLight.Count < 5 && hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
