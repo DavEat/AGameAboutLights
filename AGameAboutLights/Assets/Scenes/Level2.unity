@@ -141,12 +141,12 @@ Prefab:
     - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -254
+      value: -860
       objectReference: {fileID: 0}
     - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 140
+      value: 446
       objectReference: {fileID: 0}
     - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
         type: 2}
@@ -832,6 +832,11 @@ Prefab:
       propertyPath: lightContener
       value: 
       objectReference: {fileID: 358341168}
+    - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
+        type: 2}
+      propertyPath: dragDrop
+      value: 
+      objectReference: {fileID: 1741237904}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1534d4088e191d4c901f3996faf52e9, type: 2}
   m_IsPrefabParent: 0
@@ -1589,11 +1594,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114259808309771286, guid: d9b47064d8423cb4dadccf9e041d6425,
-        type: 2}
-      propertyPath: numberX
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9b47064d8423cb4dadccf9e041d6425, type: 2}
