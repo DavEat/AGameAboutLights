@@ -16,7 +16,7 @@ public class AG_LightsManagement : MonoBehaviour {
     private List<AG_Light_Mono> listLight = new List<AG_Light_Mono>();
 
     [SerializeField]
-    private Transform stratLightPos;
+    private Transform stratLightPos, lightContener;
     private Vector2 _origin, _direction;
     private float angle;
 
@@ -38,7 +38,7 @@ public class AG_LightsManagement : MonoBehaviour {
         {
             RaycastIgnore(hit);
 
-            listLight.Add(Instantiate(_light, transform.parent).GetComponent<AG_Light_Mono>());
+            listLight.Add(Instantiate(_light, lightContener).GetComponent<AG_Light_Mono>());
             listLight[listLight.Count - 1].Init(Color.red, new AG_Line(_origin, hit.point, lightidth));
             _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
             _origin = hit.point;

@@ -82,6 +82,7 @@ MonoBehaviour:
   lightidth: 30
   _light: {fileID: 1963911768328412, guid: e18ab32e75e6b6340884233f910f20d1, type: 2}
   stratLightPos: {fileID: 224777102487550156}
+  lightContener: {fileID: 0}
 --- !u!114 &114673402000551832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,7 +144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -920, y: 0}
+  m_AnchoredPosition: {x: -920.0005, y: 0.00024414062}
   m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224777102487550156
