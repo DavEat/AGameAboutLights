@@ -7,6 +7,8 @@ public class AG_Inventory : MonoBehaviour {
     [SerializeField]
     private List<Transform> _listPoints;
 
+    public Transform inventoryLimite;
+
     public List<Transform> listPoints
     {
         get { return _listPoints; }
