@@ -82,18 +82,18 @@ public class AG_DragDrop : MonoBehaviour {
         if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
         //if (downObject != null)
         {
-            if (mousePos == (Vector2)inputPosition)
+            if (hit.transform == downObject && inputPosition == (Vector3)mousePos)
             {
                 float angle = 45;
                 /*if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
                     angle = 90;*/
-                downObject.parent.localEulerAngles = new Vector3(0, 0, downObject.localEulerAngles.z + angle);
+                downObject.parent.localEulerAngles = new Vector3(0, 0, downObject.parent.localEulerAngles.z + angle);
                 downObject = null;
                 DiplayGrid(false);
             }
             else
             {
-                if (inputPosition.x < 132)
+                if (inputPosition.x < inventory.inventoryLimite.position.x)
                     downObject.parent.position = ChoseClosestPoint(inventory.listPoints, inputPosition).position;
                 else downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
 
