@@ -7,7 +7,7 @@ public class AG_Grid : MonoBehaviour {
     #region Var
     [SerializeField]
     private int numberX = 20, numberY = 11;
-    private int startgapX = 105, startgapY = 90;
+    private int startgapX = 285, startgapY = 90;
     [SerializeField]
     private int gap = 90;
     [SerializeField]
