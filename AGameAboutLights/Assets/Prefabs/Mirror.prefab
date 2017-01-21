@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114987245583067188}
   - component: {fileID: 61452829300634310}
   - component: {fileID: 114181850421055034}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 224265958084591730}
   - component: {fileID: 114798685917647252}
   - component: {fileID: 61950661436520498}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 190, y: 30}
+  m_Size: {x: 250, y: 90}
 --- !u!61 &61950661436520498
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -74,7 +74,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 200, y: 55}
+  m_Size: {x: 190, y: 30}
 --- !u!114 &114181850421055034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 1
-  objectInteractionType: 1
+  objectInteractionType: 0
 --- !u!114 &114987245583067188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,18 +140,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1660411507285776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224992253579880830}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.8, y: 81.1}
-  m_SizeDelta: {x: 200, y: 55}
+  m_AnchoredPosition: {x: -67, y: 3}
+  m_SizeDelta: {x: 250, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224992253579880830
 RectTransform:

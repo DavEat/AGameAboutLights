@@ -21,14 +21,20 @@ public class AG_LightsManagement : MonoBehaviour {
     private Vector2 _origin, _direction;
     private float angle;
     public bool lightTurnOn = true;
+    [SerializeField]
+    private AG_DragDrop dragDrop;
 
     public void ToggleLight()
     {
         lightTurnOn = !lightTurnOn;
         if (lightTurnOn)
+        {
             SetLights();
+            dragDrop.lazerTurnOn = true;
+        }
         else
         {
+            dragDrop.lazerTurnOn = false;
             Debug.Log("destroy");
             foreach (GameObject g in listLight)
                 if (g.activeSelf)

@@ -679,6 +679,11 @@ Prefab:
       propertyPath: lightContener
       value: 
       objectReference: {fileID: 1709072229}
+    - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
+        type: 2}
+      propertyPath: dragDrop
+      value: 
+      objectReference: {fileID: 1741237904}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1534d4088e191d4c901f3996faf52e9, type: 2}
   m_IsPrefabParent: 0
@@ -1190,12 +1195,12 @@ Prefab:
     - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 55
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
         type: 2}
@@ -1226,11 +1231,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224265958084591730, guid: d558d791016c2ac49ab4236075b23136,
-        type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d558d791016c2ac49ab4236075b23136, type: 2}
@@ -1264,10 +1264,10 @@ RectTransform:
   m_Father: {fileID: 1741237903}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1709072229 stripped
 RectTransform:
@@ -1390,6 +1390,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 256
+  lazerTurnOn: 0
   grid: {fileID: 451748666}
   inventory: {fileID: 1307373485}
 --- !u!1001 &1757971036

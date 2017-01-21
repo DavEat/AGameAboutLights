@@ -5,7 +5,7 @@ using UnityEngine;
 public class AG_DragDrop : MonoBehaviour {
 
     public LayerMask layer;
-
+    public bool lazerTurnOn = false; 
     private bool onInventory, objectDragged, down;
     private Transform downObject;
     private Vector2 mousePos;
@@ -17,46 +17,49 @@ public class AG_DragDrop : MonoBehaviour {
 
     void Update ()
     {
-        #if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
-        Vector3 inputPosition;
-        if (Input.GetMouseButtonUp(0))
+        if (!lazerTurnOn)
         {
-            inputPosition = Input.mousePosition;
-            OnPointerUp(inputPosition);
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            inputPosition = Input.mousePosition;
-            OnPointerDown(inputPosition);
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            inputPosition = Input.mousePosition;
-            OnPointer(inputPosition);
-        }
-        #else
-        if (Input.touchCount == 1)
-        {
-            Vector3 inputPosition = Input.touches[0].position;
-            if (Input.touches[0].phase == TouchPhase.Ended)
+            #if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
+            Vector3 inputPosition;
+            if (Input.GetMouseButtonUp(0))
             {
+                inputPosition = Input.mousePosition;
                 OnPointerUp(inputPosition);
             }
-            else if (Input.touches[0].phase == TouchPhase.Began)
+            else if (Input.GetMouseButtonDown(0))
             {
+                inputPosition = Input.mousePosition;
                 OnPointerDown(inputPosition);
             }
-            else if (Input.touches[0].phase == TouchPhase.Moved)
+            else if (Input.GetMouseButton(0))
             {
+                inputPosition = Input.mousePosition;
                 OnPointer(inputPosition);
             }
+            #else
+            if (Input.touchCount == 1)
+            {
+                Vector3 inputPosition = Input.touches[0].position;
+                if (Input.touches[0].phase == TouchPhase.Ended)
+                {
+                    OnPointerUp(inputPosition);
+                }
+                else if (Input.touches[0].phase == TouchPhase.Began)
+                {
+                    OnPointerDown(inputPosition);
+                }
+                else if (Input.touches[0].phase == TouchPhase.Moved)
+                {
+                    OnPointer(inputPosition);
+                }
+            }
+            #endif
         }
-        #endif
     }
 
     private void OnPointerDown(Vector3 inputPosition)
     {
-        RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity);
+        RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity, layer);
         if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
         {
             mousePos = inputPosition;
@@ -68,29 +71,30 @@ public class AG_DragDrop : MonoBehaviour {
 
     private void OnPointer(Vector3 inputPosition)
     {
+        if ((Vector2)inputPosition != mousePos)
         if (downObject != null)
-            downObject.position = inputPosition;
+            downObject.parent.position = inputPosition;
     }
 
     private void OnPointerUp(Vector3 inputPosition)
     {
-        RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity);
-        if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+        //RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity, layer);
+        //if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+        if (downObject != null)
         {
             if (mousePos == (Vector2)inputPosition)
             {
                 float angle = 45;
                 /*if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
                     angle = 90;*/
-                downObject.localEulerAngles = new Vector3(0, 0, downObject.localEulerAngles.z + angle);
+                downObject.parent.localEulerAngles = new Vector3(0, 0, downObject.localEulerAngles.z + angle);
                 downObject = null;
             }
             else
             {
                 if (inputPosition.x < 132)
-                    downObject.position =
-                        ChoseClosestPoint(inventory.listPoints, inputPosition).position;
-                else downObject.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
+                    downObject.parent.position = ChoseClosestPoint(inventory.listPoints, inputPosition).position;
+                else downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
 
                 downObject = null;
                 grid.gameObject.SetActive(false);
