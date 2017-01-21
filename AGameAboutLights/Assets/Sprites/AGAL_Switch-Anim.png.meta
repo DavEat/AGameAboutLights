@@ -1,9 +1,18 @@
 fileFormatVersion: 2
 guid: ee45c36960808d24789244f8ee229b61
-timeCreated: 1484996805
+timeCreated: 1485017419
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: AGAL_Switch-Anim_0
+    21300002: AGAL_Switch-Anim_1
+    21300004: AGAL_Switch-Anim_2
+    21300006: AGAL_Switch-Anim_3
+    21300008: AGAL_Switch-Anim_4
+    21300010: AGAL_Switch-Anim_5
+    21300012: AGAL_Switch-Anim_6
+    21300014: AGAL_Switch-Anim_7
+    21300016: AGAL_Switch-Anim_8
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -34,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -58,9 +67,158 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_0
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_1
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_2
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_3
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_4
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_5
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_6
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_7
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: AGAL_Switch-Anim_8
+      rect:
+        serializedVersion: 2
+        x: 1777
+        y: 27
+        width: 132
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
