@@ -65,7 +65,7 @@ public class AG_DragDrop : MonoBehaviour {
             mousePos = inputPosition;
             downObject = hit.transform;
             Debug.Log("hit obj : " + downObject);
-            grid.gameObject.SetActive(true);
+            DiplayGrid(true);
         }
     }
 
@@ -78,9 +78,9 @@ public class AG_DragDrop : MonoBehaviour {
 
     private void OnPointerUp(Vector3 inputPosition)
     {
-        //RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity, layer);
-        //if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
-        if (downObject != null)
+        RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity, layer);
+        if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+        //if (downObject != null)
         {
             if (mousePos == (Vector2)inputPosition)
             {
@@ -89,6 +89,7 @@ public class AG_DragDrop : MonoBehaviour {
                     angle = 90;*/
                 downObject.parent.localEulerAngles = new Vector3(0, 0, downObject.localEulerAngles.z + angle);
                 downObject = null;
+                DiplayGrid(false);
             }
             else
             {
@@ -97,10 +98,14 @@ public class AG_DragDrop : MonoBehaviour {
                 else downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
 
                 downObject = null;
-                grid.gameObject.SetActive(false);
+                DiplayGrid(false);
             }
         }
-        else downObject = null;
+        else
+        {
+            downObject = null;
+            DiplayGrid(false);
+        }
     }
 
     public Transform ChoseClosestPoint(List<Transform> list, Vector2 pos)
@@ -121,5 +126,11 @@ public class AG_DragDrop : MonoBehaviour {
             }
         }
         return null;
+    }
+
+    public void DiplayGrid(bool value)
+    {
+        if (!AG_GameSettings.displayGrid)
+            grid.gameObject.SetActive(value);
     }
 }
