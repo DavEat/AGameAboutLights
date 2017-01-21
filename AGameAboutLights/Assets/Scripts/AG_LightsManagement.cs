@@ -6,6 +6,9 @@ public class AG_LightsManagement : MonoBehaviour {
 
     public LayerMask layer;
 
+    [SerializeField]
+    private int maxLineOfLine = 10;
+
     public GameObject _light, lastHitObject;
     private List<AG_Light_Mono> listLight = new List<AG_Light_Mono>();
 
@@ -32,27 +35,13 @@ public class AG_LightsManagement : MonoBehaviour {
             lastHitObject = hit.transform.gameObject;
             lastHitObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
-            Debug.DrawLine(hit.point, _origin, Color.blue, 20);
-            Debug.DrawRay(hit.point, hit.normal, Color.green, 20);
-
             listLight.Add(Instantiate(_light, transform.parent).GetComponent<AG_Light_Mono>());
             listLight[listLight.Count - 1].Init(Color.red, new AG_Line(_origin, hit.point, 10));
-
-
             _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
-            /*Vector2 dir = (_direction - hit.point);
-            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;*/
-
             _origin = hit.point;
 
-            Debug.DrawRay(hit.point, _direction, Color.blue, 20);
-            Debug.Log("angle : " + angle + " time : " + Time.frameCount);
-
-            if (listLight.Count < 5 && hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
-            {
-                AddLight();                
-            } else Debug.Log("listLight count : " + listLight.Count + " time : " + Time.frameCount);
+            if (listLight.Count < maxLineOfLine && hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
+                AddLight();
         }
-        else Debug.Log("go out" + " time : " + Time.frameCount);
     }
 }
