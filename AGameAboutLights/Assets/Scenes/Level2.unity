@@ -3230,6 +3230,9 @@ MonoBehaviour:
   lightContener: {fileID: 1717005259}
   lightTurnOn: 0
   dragDrop: {fileID: 399866003}
+  mirrorChock: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+    type: 2}
+  listObject: {fileID: 1590199662}
 --- !u!114 &1984045458
 MonoBehaviour:
   m_ObjectHideFlags: 0

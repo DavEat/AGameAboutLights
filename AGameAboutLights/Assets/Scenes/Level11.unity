@@ -491,6 +491,33 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 270
       objectReference: {fileID: 0}
+    - target: {fileID: 114402898468303780, guid: 02f508f0790a10540885726e31f8f07e,
+        type: 2}
+      propertyPath: mirrorChock
+      value: 
+      objectReference: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+        type: 2}
+    - target: {fileID: 114402898468303780, guid: 02f508f0790a10540885726e31f8f07e,
+        type: 2}
+      propertyPath: listObject
+      value: 
+      objectReference: {fileID: 1338258956}
+    - target: {fileID: 114402898468303780, guid: 02f508f0790a10540885726e31f8f07e,
+        type: 2}
+      propertyPath: dragDrop
+      value: 
+      objectReference: {fileID: 1338258955}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02f508f0790a10540885726e31f8f07e, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1338258955 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114408929432035972, guid: 02f508f0790a10540885726e31f8f07e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1338258954}
+  m_Script: {fileID: 11500000, guid: 36e4a636b035a7f4b93cc031fa0fafc7, type: 3}
+--- !u!224 &1338258956 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224047224540607594, guid: 02f508f0790a10540885726e31f8f07e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1338258954}

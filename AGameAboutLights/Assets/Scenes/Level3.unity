@@ -218,9 +218,25 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1070967376}
+    - target: {fileID: 114124514519102782, guid: 2d4088939e1706941acbd6e0da4e95d9,
+        type: 2}
+      propertyPath: listObject
+      value: 
+      objectReference: {fileID: 469986689}
+    - target: {fileID: 114124514519102782, guid: 2d4088939e1706941acbd6e0da4e95d9,
+        type: 2}
+      propertyPath: mirrorChock
+      value: 
+      objectReference: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d4088939e1706941acbd6e0da4e95d9, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &469986689 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224952223065611986, guid: 2d4088939e1706941acbd6e0da4e95d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 469986688}
 --- !u!1 &641156424
 GameObject:
   m_ObjectHideFlags: 0

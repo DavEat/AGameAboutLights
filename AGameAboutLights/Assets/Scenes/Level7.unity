@@ -484,9 +484,25 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 360
       objectReference: {fileID: 0}
+    - target: {fileID: 114600702444761590, guid: c7935488828f0db4c846b107344444f9,
+        type: 2}
+      propertyPath: mirrorChock
+      value: 
+      objectReference: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+        type: 2}
+    - target: {fileID: 114600702444761590, guid: c7935488828f0db4c846b107344444f9,
+        type: 2}
+      propertyPath: listObject
+      value: 
+      objectReference: {fileID: 1644749988}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7935488828f0db4c846b107344444f9, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1644749988 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224517457273718382, guid: c7935488828f0db4c846b107344444f9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1644749987}
 --- !u!1001 &2142748072
 Prefab:
   m_ObjectHideFlags: 0
