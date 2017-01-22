@@ -8,28 +8,28 @@ public class AG_Light_Mono : MonoBehaviour {
 
     public void Init()
     {
-        ag_light = new AG_Light(Color.red, new AG_Line(GetComponent<RectTransform>().localPosition, Vector2.right * 10, 1), GetComponent<RectTransform>(), GetComponent<Image>());
+        ag_light = new AG_Light(0, new AG_Line(GetComponent<RectTransform>().localPosition, Vector2.right * 10, 1), GetComponent<RectTransform>(), GetComponent<Image>());
     }
 
-    public void Init(Color color, AG_Line line)
+    public void Init(int colorIndex, AG_Line line)
     {
-        ag_light = new AG_Light(color, line, GetComponent<RectTransform>(), GetComponent<Image>());
+        ag_light = new AG_Light(colorIndex, line, GetComponent<RectTransform>(), GetComponent<Image>());
     }
 }
 
 public class AG_Light
 {
     #region Var
-    private Color _color;
+    private int _colorIndex;
     private AG_Line _line;
     private RectTransform _rect;
     private Image _img;
     #endregion
     #region Struct
-    public Color color
+    public int colorIndex
     {
-        get { return _color; }
-        set { _color = value; }
+        get { return _colorIndex; }
+        set { _colorIndex = value; }
     }
     public AG_Line line
     {
@@ -38,9 +38,9 @@ public class AG_Light
     }
     #endregion
     #region Function
-    public AG_Light(Color _color, AG_Line _line, RectTransform _rect, Image _img)
+    public AG_Light(int _colorIndex, AG_Line _line, RectTransform _rect, Image _img)
     {
-        this._color = _color;
+        this._colorIndex = _colorIndex;
         this._line = _line;
         this._rect = _rect;
         this._img = _img;
@@ -50,7 +50,7 @@ public class AG_Light
 
     public void UpdateLightColor()
     {
-        _img.color = _color;
+        _img.color = AG_Color.colorList[_colorIndex];
     }
 
     public void UpdateLightPosition()
