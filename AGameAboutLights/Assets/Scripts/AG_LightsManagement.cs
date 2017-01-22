@@ -135,7 +135,7 @@ public class AG_LightsManagement : MonoBehaviour
         {
             victoryScreen.SetActive(true);
             AG_Receiver receiver = hit.transform.GetComponent<AG_Receiver>();
-            if (colorIndex == receiver.colorIndex)
+            if (colorIndex == receiver.colorIndex || receiver.colorIndex == -1)
                 receiver.alimented = true;
 
             CheckVictory();
