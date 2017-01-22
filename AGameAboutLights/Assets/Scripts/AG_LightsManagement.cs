@@ -140,10 +140,9 @@ public class AG_LightsManagement : MonoBehaviour
             AG_Receiver receiver = hit.transform.GetComponent<AG_Receiver>();
             if (colorIndex == receiver.colorIndex || receiver.colorIndex == -1)
                 receiver.alimented = true;
-
-            if (CheckVictory())
-                if (currentLight < maxLineOfLine)
-                    SetWaitingPrismaColor();
+            if (currentLight < maxLineOfLine)
+                SetWaitingPrismaColor();
+            CheckVictory();
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
         {
