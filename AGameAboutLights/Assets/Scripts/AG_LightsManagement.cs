@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AG_LightsManagement : MonoBehaviour {
 
@@ -108,6 +109,9 @@ public class AG_LightsManagement : MonoBehaviour {
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
         {
+            string level = SceneManager.GetActiveScene().name;
+            int levelFinished = int.Parse(level.Remove(0, 5));
+            PlayerPrefs.SetInt("LevelDone", levelFinished);
             victoryScreen.SetActive(true);
             Debug.Log("YOU WON !");
         }
