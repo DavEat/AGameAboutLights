@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AG_ActivateSwitch : MonoBehaviour {
+public class AG_ActivateSwitch : MonoBehaviour
+{
 
     private bool activated;
 
@@ -11,17 +12,19 @@ public class AG_ActivateSwitch : MonoBehaviour {
         activated = false;
     }
 
-    public void activate()
+    public void Activate()
     {
         if (activated == false)
         {
-            GetComponent<Animator>().SetFloat("speed", 2);
-            GetComponent<Animator>().Play("SwitchAnimation");
+            GetComponent<Animator>().SetBool("triggered", !activated);
+            /*GetComponent<Animator>().SetFloat("speed", 2);
+            GetComponent<Animator>().Play("SwitchAnimation");*/
         }
         else
         {
-            GetComponent<Animator>().SetFloat("speed", -2);
-            GetComponent<Animator>().Play("SwitchAnimation");
+            GetComponent<Animator>().SetBool("triggered", !activated);
+            /*GetComponent<Animator>().SetFloat("speed", -2);
+            GetComponent<Animator>().Play("SwitchAnimation");*/
         }
         activated = !activated;
     }
