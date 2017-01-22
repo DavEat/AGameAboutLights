@@ -1620,6 +1620,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ToggleLight
       objectReference: {fileID: 0}
+    - target: {fileID: 114576002972216060, guid: a85be202571738141890f5a9c9eb97dd,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Activate
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a85be202571738141890f5a9c9eb97dd, type: 2}
   m_IsPrefabParent: 0
