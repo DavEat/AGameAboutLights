@@ -6,7 +6,8 @@ public enum ObjectType
     mirror,
     emitter,
     receiver,
-    prisma
+    prisma,
+    filter
 }
 
 public enum ObjectInteractionType
@@ -19,9 +20,4 @@ public class AG_ElementType : MonoBehaviour {
 
     public ObjectType objectType;
     public ObjectInteractionType objectInteractionType;
-}
-
-public class PrismaFace : AG_ElementType
-{
-    public Transform face1, face2;
 }

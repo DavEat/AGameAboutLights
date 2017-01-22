@@ -80,7 +80,7 @@ public class AG_DragDrop : MonoBehaviour {
     {
         RaycastHit2D hit = Physics2D.Raycast(inputPosition, new Vector3(inputPosition.x, inputPosition.y, 10), Mathf.Infinity, layer);
         if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
-        //if (downObject != null)
+        if (downObject != null)
         {
             if (hit.transform == downObject && inputPosition == (Vector3)mousePos)
             {

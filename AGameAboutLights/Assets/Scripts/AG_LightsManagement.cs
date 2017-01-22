@@ -45,7 +45,7 @@ public class AG_LightsManagement : MonoBehaviour
                 if (g.activeSelf)
                     g.SetActive(false);
 
-            lastHitObject.layer = LayerMask.NameToLayer("UI");
+            lastHitObject.layer = LayerMask.NameToLayer("RaycastableByLight");
             lastHitObject = null;
         }
     }
@@ -88,14 +88,14 @@ public class AG_LightsManagement : MonoBehaviour
             listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
 
             currentLight++;
-            EndPointLightAction(hit);
+            EndPointLightAction(hit, colorIndex);
         }
     }
 
     private void RaycastIgnore(RaycastHit2D hit)
     {
         if (lastHitObject != null)
-            lastHitObject.layer = LayerMask.NameToLayer("UI");
+            lastHitObject.layer = LayerMask.NameToLayer("RaycastableByLight");
         if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
         {
             lastHitObject = hit.transform.gameObject;
@@ -106,12 +106,12 @@ public class AG_LightsManagement : MonoBehaviour
     private void RaycastIgnore(Transform _transform)
     {
         if (lastHitObject != null)
-            lastHitObject.layer = LayerMask.NameToLayer("UI");
+            lastHitObject.layer = LayerMask.NameToLayer("RaycastableByLight");
         lastHitObject = _transform.gameObject;
         lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
     }
 
-    private void EndPointLightAction(RaycastHit2D hit)
+    private void EndPointLightAction(RaycastHit2D hit, int colorIndex)
     {
         if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.wall)
         {
@@ -122,9 +122,10 @@ public class AG_LightsManagement : MonoBehaviour
         {
             if (currentLight < maxLineOfLine)
             {
+                RaycastIgnore(hit.transform);
                 _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
                 _origin = hit.point;
-                AddLight(0);
+                AddLight(colorIndex);
             }
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
@@ -137,12 +138,26 @@ public class AG_LightsManagement : MonoBehaviour
             if (currentLight < maxLineOfLine)
             {
                 //Debug.Log("Prisma");
-                InitNewPrisma(hit.transform);
+                InitNewPrisma(hit.transform, colorIndex);
             }
+        }
+        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.filter)
+        {
+            if (currentLight < maxLineOfLine)
+            {
+                Debug.Log("color index : " + colorIndex + " -> " + hit.transform.GetComponent<AG_Filter>().colorIndex);
+                if (colorIndex == hit.transform.GetComponent<AG_Filter>().colorIndex)
+                {
+                    RaycastIgnore(hit.transform);
+                    _origin = hit.point;
+                    AddLight(colorIndex);
+                }
+                else SetWaitingPrismaColor();
+            }                
         }
     }
 
-    private void InitNewPrisma(Transform _transform)
+    private void InitNewPrisma(Transform _transform, int _colorIndex)
     {
         AG_PrismaFace prisma = _transform.GetComponent<AG_PrismaFace>();
         RaycastIgnore(prisma.face1);
@@ -150,18 +165,21 @@ public class AG_LightsManagement : MonoBehaviour
         _origin = prisma.face1.position;
 
         prismaM.listPrismaFace.Add(prisma.face2);
-        int colorIndex = prismaM.PrismaColorManagement(listLight[currentLight - 1].GetComponent<AG_Light_Mono>().ag_light.colorIndex);
+        int colorIndex = prismaM.PrismaColorManagement(_colorIndex);
 
         AddLight(colorIndex);
     }
 
     private void SetWaitingPrismaColor()
     {
-        RaycastIgnore(prismaM.listPrismaFace[0]);
-        object[] objs = prismaM.PlayPrismaWaitingList();
-        _origin = (Vector2)objs[0];
-        _direction = (Vector2)objs[1];
-        AddLight((int)objs[2]);
+        if (prismaM.listPrismaFace.Count > 0)
+        {
+            RaycastIgnore(prismaM.listPrismaFace[0]);
+            object[] objs = prismaM.PlayPrismaWaitingList();
+            _origin = (Vector2)objs[0];
+            _direction = (Vector2)objs[1];
+            AddLight((int)objs[2]);
+        }
     }
 
 }

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224683660300444188}
   - component: {fileID: 60326554942895300}
   - component: {fileID: 114239298409819386}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: face0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224102642888689182}
   - component: {fileID: 60766700219152318}
   - component: {fileID: 114646121025733048}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: face2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224993140914841988}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Prisma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 224307853703732900}
   - component: {fileID: 60278879895762064}
   - component: {fileID: 114155732380367908}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: face1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 114724102184073122}
   - component: {fileID: 61140673018903632}
   - component: {fileID: 114897440435984108}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: PrismaInside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
