@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class AG_LightsManagement : MonoBehaviour {
+public class AG_LightsManagement : MonoBehaviour
+{
 
+    #region Var
     public LayerMask layer;
 
     [SerializeField]
@@ -25,6 +26,9 @@ public class AG_LightsManagement : MonoBehaviour {
     [SerializeField]
     private AG_DragDrop dragDrop;
 
+    private PrismaManagement prismaM;
+    #endregion
+
     public void ToggleLight()
     {
         lightTurnOn = !lightTurnOn;
@@ -43,11 +47,12 @@ public class AG_LightsManagement : MonoBehaviour {
 
             lastHitObject.layer = LayerMask.NameToLayer("UI");
             lastHitObject = null;
-        }      
+        }
     }
 
     private void Start()
     {
+        prismaM = new PrismaManagement();
         CreateLights();
     }
 
@@ -69,10 +74,10 @@ public class AG_LightsManagement : MonoBehaviour {
         _origin = stratLightPos.position;
         angle = stratLightPos.eulerAngles.z;
         _direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-        AddLight();
+        AddLight(0);
     }
 
-    public void AddLight()
+    public void AddLight(int colorIndex)
     {
         RaycastHit2D hit = Physics2D.Raycast(_origin, _direction, Mathf.Infinity, layer);
         if (hit.collider != null)
@@ -80,12 +85,10 @@ public class AG_LightsManagement : MonoBehaviour {
             RaycastIgnore(hit);
 
             listLight[currentLight].SetActive(true);
-            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(Color.red, new AG_Line(_origin, hit.point, lightWidth));
-            _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
-            _origin = hit.point;
+            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
 
             currentLight++;
-            EndPointLightAction(hit);            
+            EndPointLightAction(hit);
         }
     }
 
@@ -100,22 +103,122 @@ public class AG_LightsManagement : MonoBehaviour {
         }
     }
 
+    private void RaycastIgnore(Transform _transform)
+    {
+        if (lastHitObject != null)
+            lastHitObject.layer = LayerMask.NameToLayer("UI");
+        lastHitObject = _transform.gameObject;
+        lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
+    }
+
     private void EndPointLightAction(RaycastHit2D hit)
     {
-        if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
+        if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.wall)
         {
             if (currentLight < maxLineOfLine)
-                AddLight();
+                SetWaitingPrismaColor();
+        }
+        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
+        {
+            if (currentLight < maxLineOfLine)
+            {
+                _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
+                _origin = hit.point;
+                AddLight(0);
+            }
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
         {
-            string level = SceneManager.GetActiveScene().name;
-            int levelFinished = int.Parse(level.Remove(0, 5));
-            PlayerPrefs.SetInt("LevelDone", levelFinished);
             victoryScreen.SetActive(true);
             Debug.Log("YOU WON !");
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
-            Debug.Log("Diffraction");
+        {
+            if (currentLight < maxLineOfLine)
+            {
+                //Debug.Log("Prisma");
+                InitNewPrisma(hit.transform);
+            }
+        }
+    }
+
+    private void InitNewPrisma(Transform _transform)
+    {
+        AG_PrismaFace prisma = _transform.GetComponent<AG_PrismaFace>();
+        RaycastIgnore(prisma.face1);
+        _direction = prisma.face1.position - prisma.face1.parent.position;
+        _origin = prisma.face1.position;
+
+        prismaM.listPrismaFace.Add(prisma.face2);
+        int colorIndex = prismaM.PrismaColorManagement(listLight[currentLight - 1].GetComponent<AG_Light_Mono>().ag_light.colorIndex);
+
+        AddLight(colorIndex);
+    }
+
+    private void SetWaitingPrismaColor()
+    {
+        RaycastIgnore(prismaM.listPrismaFace[0]);
+        object[] objs = prismaM.PlayPrismaWaitingList();
+        _origin = (Vector2)objs[0];
+        _direction = (Vector2)objs[1];
+        AddLight((int)objs[2]);
+    }
+
+}
+
+public class PrismaManagement
+{
+    #region Var
+    private List<Transform> _listPrismaFace;
+    private List<int> _listPrismaColorIndex;
+    #endregion
+    #region Struct
+    public List<Transform> listPrismaFace
+    {
+        get { return _listPrismaFace; }
+        set { _listPrismaFace = value; }
+    }
+    public List<int> listPrismaColorIndex
+    {
+        get { return _listPrismaColorIndex; }
+        set { _listPrismaColorIndex = value; }
+    }
+    #endregion
+
+    public PrismaManagement()
+    {
+        _listPrismaFace = new List<Transform>();
+        _listPrismaColorIndex = new List<int>();
+    }
+
+    public int PrismaColorManagement(int colorIndex)
+    {
+        int[] arrayToReturn;
+        if (colorIndex == 0)
+            arrayToReturn = new int[] { 1, 2 };
+        else if (colorIndex == 1)
+            arrayToReturn = new int[] { 0, 2 };
+        else if (colorIndex == 2)
+            arrayToReturn = new int[] { 0, 1 };
+        else arrayToReturn = null;
+
+        listPrismaColorIndex.Add(arrayToReturn[1]);
+        return arrayToReturn[0];
+    }
+
+    public object[] PlayPrismaWaitingList()
+    {
+        if (listPrismaFace.Count > 0)
+        {
+            Vector2 _direction = listPrismaFace[0].position - listPrismaFace[0].parent.position;
+            Vector2 _origin = listPrismaFace[0].position;
+            listPrismaFace.RemoveAt(0);
+
+            int colorIndex = listPrismaColorIndex[0];
+            listPrismaColorIndex.RemoveAt(0);
+
+            return new object[] { _origin, _direction, colorIndex };
+        }
+        else return null;
     }
 }
