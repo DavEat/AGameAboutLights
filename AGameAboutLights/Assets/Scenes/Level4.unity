@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   lazerTurnOn: 0
   grid: {fileID: 1355644520}
   inventory: {fileID: 1495780745}

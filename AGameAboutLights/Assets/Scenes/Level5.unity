@@ -1263,30 +1263,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 61342206431454660, guid: d4180764a26d5cd4cb5a35bfb4a87fc1,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 61342206431454660, guid: d4180764a26d5cd4cb5a35bfb4a87fc1,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 61342206431454660, guid: d4180764a26d5cd4cb5a35bfb4a87fc1,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1355
-      objectReference: {fileID: 0}
-    - target: {fileID: 61342206431454660, guid: d4180764a26d5cd4cb5a35bfb4a87fc1,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 122
-      objectReference: {fileID: 0}
-    - target: {fileID: 1851600979163146, guid: d4180764a26d5cd4cb5a35bfb4a87fc1, type: 2}
-      propertyPath: m_Name
-      value: Wall
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d4180764a26d5cd4cb5a35bfb4a87fc1, type: 2}
   m_IsPrefabParent: 0
@@ -2176,7 +2152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   lazerTurnOn: 0
   grid: {fileID: 1355644520}
   inventory: {fileID: 1495780745}

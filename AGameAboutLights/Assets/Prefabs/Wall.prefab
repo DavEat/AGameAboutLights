@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114484204640514528}
   - component: {fileID: 61342206431454660}
   - component: {fileID: 114076230066965680}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,9 +41,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.0010986328, y: -3.281887}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1124.1927, y: 192.63144}
+  m_Size: {x: 1355, y: 122}
 --- !u!114 &114076230066965680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
+  objectInteractionType: 0
 --- !u!114 &114484204640514528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,7 +96,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1851600979163146}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -104,6 +105,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: -52}
-  m_SizeDelta: {x: 1273, y: 348}
+  m_AnchoredPosition: {x: -79, y: 244}
+  m_SizeDelta: {x: 1508, y: 279}
   m_Pivot: {x: 0.5, y: 0.5}
