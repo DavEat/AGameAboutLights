@@ -53,6 +53,16 @@ public class AG_Light
         _img.color = AG_Color.colorList[_colorIndex];
     }
 
+    public AG_Line GetLightValue()
+    {
+        AG_Line _line = new AG_Line(line.origin, line.end, line.width);
+        Vector2 dir = line.origin - line.end;
+        _line.angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        _line.distance = Vector2.Distance(line.origin, line.end);
+
+        return _line;
+    }
+
     public void UpdateLightPosition()
     {
         Vector2 dir = line.origin - line.end;
@@ -86,7 +96,7 @@ public class AG_Line
 {
     #region Var
     private Vector2 _origin, _end;
-    private float _width;
+    private float _width, _distance, _angle;
     #endregion
     #region Struct
     public Vector2 origin
@@ -103,6 +113,16 @@ public class AG_Line
     {
         get { return _width; }
         set { _width = value; }
+    }
+    public float distance
+    {
+        get { return _distance; }
+        set { _distance = value; }
+    }
+    public float angle
+    {
+        get { return _angle; }
+        set { _angle = value; }
     }
     #endregion
     #region Function

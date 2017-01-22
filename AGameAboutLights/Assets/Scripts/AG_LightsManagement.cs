@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
+//using DG.Tweening;
 
 public class AG_LightsManagement : MonoBehaviour
 {
@@ -233,13 +233,9 @@ public class AG_LightsManagement : MonoBehaviour
 
     /*private void LightAnim()
     {
-        AG_Line line = listLight[currentLight].GetComponent<AG_Light_Mono>().ag_light.UpdateLightValue();
-
+        AG_Line line = listLight[currentLight].GetComponent<AG_Light_Mono>().ag_light.GetLightValue();
         float duration = 6f * line.distance;
-
         RectTransform light = listLight[currentLight].GetComponent<RectTransform>();
-
-
 
         /*Sequence inTween = DOTween.Sequence();
         inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration, false))
