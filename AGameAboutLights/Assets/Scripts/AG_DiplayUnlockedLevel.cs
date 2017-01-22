@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class AG_DiplayUnlockedLevel : MonoBehaviour {
 
-	void Update () {
-		for(int i = 1; i < PlayerPrefs.GetInt("LevelDone"); i++)
+    public List<UnityEngine.UI.Button> levelsButton;
+
+	public void checkUnlockedLevel () {
+        for (int i = 0; i < levelsButton.Count; i++)
         {
-            Transform bouton = GetComponent<Transform>().transform.Find("Level" + i);
-            bouton.GetComponent<GameObject>().SetActive(true);
+            if (i <= PlayerPrefs.GetInt("LevelDone"))
+            { 
+                levelsButton[i].interactable = (true);
+            }
+            else
+            {
+                levelsButton[i].interactable=(false);
+                //levelsButton[i].GetComponentInChildren<UnityEngine.UI.Text>().color = new Color(200, 200, 200, 128);
+            }
         }
 	}
 }
