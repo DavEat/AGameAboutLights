@@ -11,19 +11,17 @@ public class AG_ActivateSwitch : MonoBehaviour {
         activated = false;
     }
 
-    public void Activate()
+    public void activate()
     {
         if (activated == false)
         {
-            GetComponent<Animator>().SetBool("triggered", !activated);
-            /*GetComponent<Animator>().SetFloat("speed", 2);
-            GetComponent<Animator>().Play("SwitchAnimation");*/
+            GetComponent<Animator>().SetFloat("speed", 2);
+            GetComponent<Animator>().Play("SwitchAnimation");
         }
         else
         {
-            GetComponent<Animator>().SetBool("triggered", !activated);
-            /*GetComponent<Animator>().SetFloat("speed", -2);
-            GetComponent<Animator>().Play("SwitchAnimation");*/
+            GetComponent<Animator>().SetFloat("speed", -2);
+            GetComponent<Animator>().Play("SwitchAnimation");
         }
         activated = !activated;
     }

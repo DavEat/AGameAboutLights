@@ -420,6 +420,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224202877181044568, guid: ae89ac5baf610214aae011ec05cb004f,
     type: 2}
   m_PrefabInternal: {fileID: 408672054}
+--- !u!1 &408672056 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1765271565903554, guid: ae89ac5baf610214aae011ec05cb004f,
+    type: 2}
+  m_PrefabInternal: {fileID: 408672054}
 --- !u!114 &514792186 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
@@ -936,6 +941,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
+        type: 2}
+      propertyPath: victoryScreen
+      value: 
+      objectReference: {fileID: 408672056}
     - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
         type: 2}
       propertyPath: lightContener
