@@ -10,8 +10,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Agal
-  productName: AGameAboutLights
+  companyName: DAV It !
+  productName: A Game About Lights
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
@@ -65,7 +65,7 @@ PlayerSettings:
   allowedAutorotateToLandscapeLeft: 1
   useOSAutorotation: 1
   use32BitDisplayBuffer: 1
-  disableDepthAndStencilBuffers: 0
+  disableDepthAndStencilBuffers: 1
   defaultIsFullScreen: 1
   defaultIsNativeResolution: 1
   runInBackground: 0
@@ -206,13 +206,13 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: f7c4966558ffa964da324be945792c78,
+  resolutionDialogBanner: {fileID: 2800000, guid: 05f976baecd915047abdaed06d1f54a9,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: iPhone
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 0e5f29a04ab155c4bb9867ebcb6300b5, type: 3}
+      m_Icon: {fileID: 2800000, guid: f7c4966558ffa964da324be945792c78, type: 3}
       m_Width: 180
       m_Height: 180
     - serializedVersion: 2
@@ -250,7 +250,7 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 0e5f29a04ab155c4bb9867ebcb6300b5, type: 3}
+      m_Icon: {fileID: 2800000, guid: f7c4966558ffa964da324be945792c78, type: 3}
       m_Width: 192
       m_Height: 192
     - serializedVersion: 2
@@ -445,7 +445,9 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLUseWasm: 0
   webGLCompressionFormat: 1
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: Donothing
+    4: Donothing
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
