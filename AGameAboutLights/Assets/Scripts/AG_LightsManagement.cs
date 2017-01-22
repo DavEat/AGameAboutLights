@@ -9,6 +9,8 @@ public class AG_LightsManagement : MonoBehaviour
     #region Var
     public LayerMask layer;
 
+    public AG_Receiver[] listReceiver; 
+
     [SerializeField]
     private int maxLineOfLine = 20;
     private int currentLight = 0;
@@ -132,7 +134,11 @@ public class AG_LightsManagement : MonoBehaviour
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
         {
             victoryScreen.SetActive(true);
-            Debug.Log("YOU WON !");
+            AG_Receiver receiver = hit.transform.GetComponent<AG_Receiver>();
+            if (colorIndex == receiver.colorIndex)
+                receiver.alimented = true;
+
+            CheckVictory();
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
         {
@@ -183,6 +189,18 @@ public class AG_LightsManagement : MonoBehaviour
         }
     }
 
+    private void CheckVictory()
+    {
+        bool victory = true;
+        foreach (AG_Receiver receiver in listReceiver)
+            if (!receiver.alimented)
+                victory = false;
+
+        if (victory)
+        {
+            Debug.Log("YOU WON");
+        }
+    }
 }
 
 public class PrismaManagement
