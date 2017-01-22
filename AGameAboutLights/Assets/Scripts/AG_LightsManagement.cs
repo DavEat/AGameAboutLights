@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class AG_LightsManagement : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class AG_LightsManagement : MonoBehaviour
     #region Var
     public LayerMask layer;
 
-    public AG_Receiver[] listReceiver; 
+    public AG_Receiver[] listReceiver;
 
     [SerializeField]
     private int maxLineOfLine = 20;
@@ -30,6 +31,7 @@ public class AG_LightsManagement : MonoBehaviour
     private AG_DragDrop dragDrop;
 
     private PrismaManagement prismaM;
+    private List<LightConstructor> listLightConstructor = new List<LightConstructor>();
     #endregion
 
     public void ToggleLight()
@@ -87,8 +89,10 @@ public class AG_LightsManagement : MonoBehaviour
         {
             RaycastIgnore(hit);
 
-            listLight[currentLight].SetActive(true);
-            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
+            //listLight[currentLight].SetActive(true);
+            //listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
+
+            listLightConstructor.Add(new LightConstructor(colorIndex, _origin, hit.point));
 
             currentLight++;
             EndPointLightAction(hit, colorIndex);
@@ -137,7 +141,9 @@ public class AG_LightsManagement : MonoBehaviour
             if (colorIndex == receiver.colorIndex || receiver.colorIndex == -1)
                 receiver.alimented = true;
 
-            CheckVictory();
+            if (CheckVictory())
+                if (currentLight < maxLineOfLine)
+                    SetWaitingPrismaColor();
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
         {
@@ -159,7 +165,7 @@ public class AG_LightsManagement : MonoBehaviour
                     AddLight(colorIndex);
                 }
                 else SetWaitingPrismaColor();
-            }                
+            }
         }
     }
 
@@ -186,9 +192,14 @@ public class AG_LightsManagement : MonoBehaviour
             _direction = (Vector2)objs[1];
             AddLight((int)objs[2]);
         }
+        else
+        {
+            currentLight = 0;
+            SpawnLights();
+        }
     }
 
-    private void CheckVictory()
+    private bool CheckVictory()
     {
         bool victory = true;
         foreach (AG_Receiver receiver in listReceiver)
@@ -200,7 +211,49 @@ public class AG_LightsManagement : MonoBehaviour
             victoryScreen.SetActive(true);
             Debug.Log("YOU WON");
         }
+        return victory;
     }
+
+    private void SpawnLights()
+    {
+        //currentLight = 0;
+        foreach (LightConstructor listConstrucor in listLightConstructor)
+        //if (currentLight < maxLineOfLine)
+        {
+            listLight[currentLight].SetActive(true);
+            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(listLightConstructor[currentLight].colorIndex, new AG_Line(listLightConstructor[currentLight].origin, listLightConstructor[currentLight].direction, lightWidth));
+            //LightAnim();
+            currentLight++;
+        }
+        //else
+        {
+            currentLight = 0;
+            listLightConstructor = new List<LightConstructor>();
+        }
+    }
+
+    /*private void LightAnim()
+    {
+        AG_Line line = listLight[currentLight].GetComponent<AG_Light_Mono>().ag_light.UpdateLightValue();
+
+        float duration = 6f * line.distance;
+
+        RectTransform light = listLight[currentLight].GetComponent<RectTransform>();
+
+
+
+        /*Sequence inTween = DOTween.Sequence();
+        inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration, false))
+               .AppendInterval(0.1f)
+               .OnComplete(() => { SpawnLights(); });
+        inTween.Play();*/
+    //}
+
+    /*IEnumerator lightAnim()
+    {
+
+    }*/
+
 }
 
 public class PrismaManagement
@@ -260,4 +313,31 @@ public class PrismaManagement
     }
 }
 
-//public class 
+public class LightConstructor
+{
+    private Vector2 _origin, _direction;
+    private int _colorIndex;
+
+    public Vector2 origin
+    {
+        get { return _origin; }
+        set { _origin = value; }
+    }
+    public Vector2 direction
+    {
+        get { return _direction; }
+        set { _direction = value; }
+    }
+    public int colorIndex
+    {
+        get { return _colorIndex; }
+        set { _colorIndex = value; }
+    }
+
+    public LightConstructor(int _colorIndex, Vector2 _origin, Vector2 _direction)
+    {
+        this._origin = _origin;
+        this._direction = _direction;
+        this._colorIndex = _colorIndex;
+    }
+}
