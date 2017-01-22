@@ -946,6 +946,16 @@ Prefab:
       propertyPath: dragDrop
       value: 
       objectReference: {fileID: 1741237904}
+    - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
+        type: 2}
+      propertyPath: stratLightPos
+      value: 
+      objectReference: {fileID: 1284328637}
+    - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
+        type: 2}
+      propertyPath: victoryScreen
+      value: 
+      objectReference: {fileID: 1544351887}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1534d4088e191d4c901f3996faf52e9, type: 2}
   m_IsPrefabParent: 0
@@ -1755,6 +1765,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224726570656200958, guid: 93c95ddb88532b84eab218c44e39979e,
     type: 2}
   m_PrefabInternal: {fileID: 885910134}
+--- !u!1 &1544351887 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1765271565903554, guid: ae89ac5baf610214aae011ec05cb004f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1284328636}
 --- !u!1001 &1630412511
 Prefab:
   m_ObjectHideFlags: 0

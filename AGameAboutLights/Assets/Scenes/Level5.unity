@@ -1153,6 +1153,11 @@ Prefab:
       propertyPath: dragDrop
       value: 
       objectReference: {fileID: 1741237904}
+    - target: {fileID: 114164703206815522, guid: f1534d4088e191d4c901f3996faf52e9,
+        type: 2}
+      propertyPath: victoryScreen
+      value: 
+      objectReference: {fileID: 1275850774}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1534d4088e191d4c901f3996faf52e9, type: 2}
   m_IsPrefabParent: 0
@@ -1589,6 +1594,11 @@ Prefab:
 --- !u!224 &1275850773 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224202877181044568, guid: ae89ac5baf610214aae011ec05cb004f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1275850772}
+--- !u!1 &1275850774 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1765271565903554, guid: ae89ac5baf610214aae011ec05cb004f,
     type: 2}
   m_PrefabInternal: {fileID: 1275850772}
 --- !u!1 &1295274644
