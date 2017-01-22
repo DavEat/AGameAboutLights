@@ -133,7 +133,6 @@ public class AG_LightsManagement : MonoBehaviour
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
         {
-            victoryScreen.SetActive(true);
             AG_Receiver receiver = hit.transform.GetComponent<AG_Receiver>();
             if (colorIndex == receiver.colorIndex || receiver.colorIndex == -1)
                 receiver.alimented = true;
@@ -198,6 +197,7 @@ public class AG_LightsManagement : MonoBehaviour
 
         if (victory)
         {
+            victoryScreen.SetActive(true);
             Debug.Log("YOU WON");
         }
     }

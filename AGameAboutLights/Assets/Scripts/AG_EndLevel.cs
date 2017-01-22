@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class AG_EndLevel : MonoBehaviour {
 
+    public GameObject settingScreen;
+
     private void OnEnable()
     {
         string level = SceneManager.GetActiveScene().name;
@@ -24,4 +26,9 @@ public class AG_EndLevel : MonoBehaviour {
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void accessSettings()
+    {
+        settingScreen.SetActive(!settingScreen.active);
+    } 
 }
