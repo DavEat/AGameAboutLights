@@ -15,6 +15,11 @@ public class AG_Light_Mono : MonoBehaviour {
     {
         ag_light = new AG_Light(colorIndex, line, GetComponent<RectTransform>(), GetComponent<Image>());
     }
+
+    public void Init(int colorIndex, AG_Line line, bool notSetRendere)
+    {
+        ag_light = new AG_Light(colorIndex, line, GetComponent<RectTransform>(), GetComponent<Image>(), notSetRendere);
+    }
 }
 
 public class AG_Light
@@ -48,6 +53,18 @@ public class AG_Light
         UpdateLightPosition();
     }
 
+    public AG_Light(int _colorIndex, AG_Line _line, RectTransform _rect, Image _img, bool notSetRendere)
+    {
+        this._colorIndex = _colorIndex;
+        this._line = _line;
+        this._rect = _rect;
+        this._img = _img;
+        if (notSetRendere)
+            UpdateLightPosition();
+        else UpdateLightLenghtZero();
+        UpdateLightColor();        
+    }
+
     public void UpdateLightColor()
     {
         _img.color = AG_Color.colorList[_colorIndex];
@@ -70,6 +87,15 @@ public class AG_Light
         _rect.position = line.origin;
         _rect.localEulerAngles = new Vector3(0, 0, 180 + angleZ);
         _rect.sizeDelta = new Vector2(Vector2.Distance(line.origin, line.end), line.width);        
+    }
+
+    public void UpdateLightLenghtZero()
+    {
+        Vector2 dir = line.origin - line.end;
+        float angleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        _rect.position = line.origin;
+        _rect.localEulerAngles = new Vector3(0, 0, 180 + angleZ);
+        _rect.sizeDelta = new Vector2(0, line.width);
     }
 
     public void UpdateLightPositionRaycast()

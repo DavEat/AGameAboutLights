@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using DG.Tweening;
+using DG.Tweening;
 
 public class AG_LightsManagement : MonoBehaviour
 {
@@ -216,38 +216,37 @@ public class AG_LightsManagement : MonoBehaviour
     private void SpawnLights()
     {
         //currentLight = 0;
-        foreach (LightConstructor listConstrucor in listLightConstructor)
-        //if (currentLight < maxLineOfLine)
+        //foreach (LightConstructor listConstrucor in listLightConstructor)
+        if (currentLight < maxLineOfLine && currentLight < listLightConstructor.Count)
         {
             listLight[currentLight].SetActive(true);
-            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(listLightConstructor[currentLight].colorIndex, new AG_Line(listLightConstructor[currentLight].origin, listLightConstructor[currentLight].direction, lightWidth));
-            //LightAnim();
+            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(listLightConstructor[currentLight].colorIndex, new AG_Line(listLightConstructor[currentLight].origin, listLightConstructor[currentLight].direction, lightWidth), false);
+            LightAnim();
             currentLight++;
         }
-        //else
+        else
         {
             currentLight = 0;
             listLightConstructor = new List<LightConstructor>();
         }
     }
 
-    /*private void LightAnim()
+
+    public GameObject mirrorChock;
+    public Transform listObject;
+    private void LightAnim()
     {
         AG_Line line = listLight[currentLight].GetComponent<AG_Light_Mono>().ag_light.GetLightValue();
-        float duration = 6f * line.distance;
+        float duration = 0.0005f * line.distance;
         RectTransform light = listLight[currentLight].GetComponent<RectTransform>();
 
-        /*Sequence inTween = DOTween.Sequence();
-        inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration, false))
-               .AppendInterval(0.1f)
+        Sequence inTween = DOTween.Sequence();
+        inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration))
+               .AppendCallback(() => { Instantiate(mirrorChock, line.end, Quaternion.Euler(0, 0, 0), listObject); })
+               .AppendInterval(0.005f)
                .OnComplete(() => { SpawnLights(); });
-        inTween.Play();*/
-    //}
-
-    /*IEnumerator lightAnim()
-    {
-
-    }*/
+        inTween.Play();
+    }
 
 }
 
