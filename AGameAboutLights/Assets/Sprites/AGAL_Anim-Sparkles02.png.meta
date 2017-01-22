@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 881c2d44141167949aa35205880a2123
-timeCreated: 1485044138
+guid: 96ca2311157c1bb43a9beebed94b0dff
+timeCreated: 1485044154
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: AGAL_Anim-Sparkles_0
-    21300002: AGAL_Anim-Sparkles_1
-    21300004: AGAL_Anim-Sparkles_2
-    21300006: AGAL_Anim-Sparkles_3
-    21300008: AGAL_Anim-Sparkles_4
+    21300000: AGAL_Anim-Sparkles02_0
+    21300002: AGAL_Anim-Sparkles02_1
+    21300004: AGAL_Anim-Sparkles02_2
+    21300006: AGAL_Anim-Sparkles02_3
+    21300008: AGAL_Anim-Sparkles02_4
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -91,7 +91,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AGAL_Anim-Sparkles_0
+      name: AGAL_Anim-Sparkles02_0
       rect:
         serializedVersion: 2
         x: 0
@@ -104,7 +104,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: AGAL_Anim-Sparkles_1
+      name: AGAL_Anim-Sparkles02_1
       rect:
         serializedVersion: 2
         x: 256
@@ -117,7 +117,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: AGAL_Anim-Sparkles_2
+      name: AGAL_Anim-Sparkles02_2
       rect:
         serializedVersion: 2
         x: 512
@@ -130,7 +130,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: AGAL_Anim-Sparkles_3
+      name: AGAL_Anim-Sparkles02_3
       rect:
         serializedVersion: 2
         x: 768
@@ -143,7 +143,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: AGAL_Anim-Sparkles_4
+      name: AGAL_Anim-Sparkles02_4
       rect:
         serializedVersion: 2
         x: 1024
