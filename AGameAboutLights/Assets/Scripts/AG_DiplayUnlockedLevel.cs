@@ -16,7 +16,6 @@ public class AG_DiplayUnlockedLevel : MonoBehaviour {
             else
             {
                 levelsButton[i].interactable=(false);
-                //levelsButton[i].GetComponentInChildren<UnityEngine.UI.Text>().color = new Color(200, 200, 200, 128);
             }
         }
 	}
