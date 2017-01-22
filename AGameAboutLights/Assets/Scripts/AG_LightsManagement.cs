@@ -242,7 +242,9 @@ public class AG_LightsManagement : MonoBehaviour
 
         Sequence inTween = DOTween.Sequence();
         inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration))
-               .AppendCallback(() => { Instantiate(mirrorChock, line.end, Quaternion.Euler(0, 0, 0), listObject); })
+               .AppendCallback(() => {
+                   if (mirrorChock != null && listObject != null)
+                       Instantiate(mirrorChock, line.end, Quaternion.Euler(0, 0, 0), listObject); })
                .AppendInterval(0.005f)
                .OnComplete(() => { SpawnLights(); });
         inTween.Play();
