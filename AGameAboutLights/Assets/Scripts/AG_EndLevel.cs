@@ -29,6 +29,6 @@ public class AG_EndLevel : MonoBehaviour {
 
     public void accessSettings()
     {
-        settingScreen.SetActive(!settingScreen.active);
+        settingScreen.SetActive(!settingScreen.activeSelf);
     } 
 }

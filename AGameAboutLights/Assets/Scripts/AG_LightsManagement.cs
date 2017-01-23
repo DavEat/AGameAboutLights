@@ -23,7 +23,7 @@ public class AG_LightsManagement : MonoBehaviour
     private List<GameObject> listLight = new List<GameObject>();
 
     [SerializeField]
-    private Transform stratLightPos, lightContener;
+    private Transform stratLightPos, lightContener = null;
     private Vector2 _origin, _direction;
     private float angle;
     public bool lightTurnOn = true;
@@ -45,7 +45,9 @@ public class AG_LightsManagement : MonoBehaviour
         else
         {
             dragDrop.lazerTurnOn = false;
-            Debug.Log("destroy");
+            listLightConstructor = new List<LightConstructor>();
+            inTween.Kill();
+            //Debug.Log("destroy");
             foreach (GameObject g in listLight)
                 if (g.activeSelf)
                     g.SetActive(false);
@@ -197,19 +199,19 @@ public class AG_LightsManagement : MonoBehaviour
             SpawnLights();
         }
     }
-
+    private bool victory;
     private bool CheckVictory()
     {
-        bool victory = true;
+        victory = true;
         foreach (AG_Receiver receiver in listReceiver)
             if (!receiver.alimented)
                 victory = false;
 
-        if (victory)
+        /*if (victory)
         {
             victoryScreen.SetActive(true);
             Debug.Log("YOU WON");
-        }
+        }*/
         return victory;
     }
 
@@ -228,19 +230,26 @@ public class AG_LightsManagement : MonoBehaviour
         {
             currentLight = 0;
             listLightConstructor = new List<LightConstructor>();
+            if (victory)
+            {
+                //victoryScreen.SetActive(true);
+                //Debug.Log("YOU WON");
+                VictoryAnim();
+            }
         }
     }
 
 
     public GameObject mirrorChock;
     public Transform listObject;
+    private Sequence inTween;
     private void LightAnim()
     {
         AG_Line line = listLight[currentLight].GetComponent<AG_Light_Mono>().ag_light.GetLightValue();
         float duration = 0.0005f * line.distance;
         RectTransform light = listLight[currentLight].GetComponent<RectTransform>();
 
-        Sequence inTween = DOTween.Sequence();
+        inTween = DOTween.Sequence();
         inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration))
                .AppendCallback(() => {
                    if (mirrorChock != null && listObject != null)
@@ -248,6 +257,12 @@ public class AG_LightsManagement : MonoBehaviour
                .AppendInterval(0.005f)
                .OnComplete(() => { SpawnLights(); });
         inTween.Play();
+    }
+
+    private void VictoryAnim()
+    {
+        Sequence inTween = DOTween.Sequence();
+        inTween.AppendInterval(0.3f).OnComplete(() => { victoryScreen.SetActive(true); }).Play();
     }
 
 }

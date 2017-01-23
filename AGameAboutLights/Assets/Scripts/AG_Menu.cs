@@ -8,12 +8,12 @@ public class AG_Menu : MonoBehaviour {
 
     public void displayLevels()
     {
-        levelsPanel.SetActive(!levelsPanel.active);
+        levelsPanel.SetActive(!levelsPanel.activeSelf);
     }
 
     public void displayCredits()
     {
-        creditsPanel.SetActive(!creditsPanel.active);
+        creditsPanel.SetActive(!creditsPanel.activeSelf);
     }
 
     public void exitGame()
