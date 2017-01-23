@@ -441,12 +441,22 @@ Prefab:
       propertyPath: listObject
       value: 
       objectReference: {fileID: 728466776}
+    - target: {fileID: 114775738884272280, guid: 12087e3182c27a64e837f724715ae5a3,
+        type: 2}
+      propertyPath: settingScreen
+      value: 
+      objectReference: {fileID: 728466777}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12087e3182c27a64e837f724715ae5a3, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &728466776 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224341283970345354, guid: 12087e3182c27a64e837f724715ae5a3,
+    type: 2}
+  m_PrefabInternal: {fileID: 728466775}
+--- !u!1 &728466777 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1447551059550566, guid: 12087e3182c27a64e837f724715ae5a3,
     type: 2}
   m_PrefabInternal: {fileID: 728466775}
 --- !u!1 &1070967372

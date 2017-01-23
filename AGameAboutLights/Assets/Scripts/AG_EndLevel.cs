@@ -7,7 +7,7 @@ public class AG_EndLevel : MonoBehaviour {
 
     public GameObject settingScreen;
 
-    private void OnEnable()
+    private void SaveProgression()
     {
         string level = SceneManager.GetActiveScene().name;
         int levelDone = int.Parse(level.Remove(0, 5));

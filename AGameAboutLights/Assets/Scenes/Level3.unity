@@ -244,12 +244,22 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 128
       objectReference: {fileID: 0}
+    - target: {fileID: 114538389993314520, guid: 2d4088939e1706941acbd6e0da4e95d9,
+        type: 2}
+      propertyPath: settingScreen
+      value: 
+      objectReference: {fileID: 469986690}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d4088939e1706941acbd6e0da4e95d9, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &469986689 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224952223065611986, guid: 2d4088939e1706941acbd6e0da4e95d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 469986688}
+--- !u!1 &469986690 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1010851964686536, guid: 2d4088939e1706941acbd6e0da4e95d9,
     type: 2}
   m_PrefabInternal: {fileID: 469986688}
 --- !u!1 &641156424

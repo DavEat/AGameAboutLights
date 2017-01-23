@@ -4106,7 +4106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1861393a8ff307439129daf24fb053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingScreen: {fileID: 0}
+  settingScreen: {fileID: 1405076551}
 --- !u!114 &442508259
 MonoBehaviour:
   m_ObjectHideFlags: 0
