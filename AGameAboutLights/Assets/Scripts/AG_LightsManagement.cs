@@ -207,11 +207,12 @@ public class AG_LightsManagement : MonoBehaviour
             if (!receiver.alimented)
                 victory = false;
 
-        /*if (victory)
+        if (victory)
         {
-            victoryScreen.SetActive(true);
-            Debug.Log("YOU WON");
-        }*/
+            //victoryScreen.SetActive(true);
+            //Debug.Log("YOU WON");
+            AG_EndLevel.SaveProgression();
+        }
         return victory;
     }
 
