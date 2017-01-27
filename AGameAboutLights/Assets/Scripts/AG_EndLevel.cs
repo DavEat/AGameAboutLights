@@ -11,7 +11,7 @@ public class AG_EndLevel : MonoBehaviour {
     {
         string level = SceneManager.GetActiveScene().name;
         int levelDone = int.Parse(level.Remove(0, 5));
-        if(!PlayerPrefs.HasKey("LevelDone") || levelDone < PlayerPrefs.GetInt("LevelDone"))
+		if(levelDone > PlayerPrefs.GetInt("LevelDone") || !PlayerPrefs.HasKey("LevelDone"))
             PlayerPrefs.SetInt("LevelDone", levelDone);
         Debug.Log(PlayerPrefs.GetInt("LevelDone"));
     }
