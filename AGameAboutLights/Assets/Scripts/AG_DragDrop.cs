@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 
 public class AG_DragDrop : MonoBehaviour {
@@ -12,9 +13,11 @@ public class AG_DragDrop : MonoBehaviour {
     [SerializeField] private LayerMask layerRotation;
     [SerializeField] private Transform _rotation;
     private bool _rotating;
+
+    private readonly int[] remarkableAngles = {-180, -135, -90, -45, 0, 45, 90, 135, 180};
     #endregion
 
-	public bool lazerTurnOn = false; 
+    public bool lazerTurnOn = false; 
 	private bool onInventory, objectDragged, down;
 	private Transform downObject;
 	private Vector2 mousePos;
@@ -110,9 +113,31 @@ public class AG_DragDrop : MonoBehaviour {
 	{
         if (_rotating && target != null)
         {
-            Vector2 dir = Input.mousePosition - _rotation.position;
+            Vector2 dir = inputPosition - (Vector2)_rotation.position;
             float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            Vector3 angles = new Vector3(0, 0, angleZ);
+            Debug.Log("angle z : " + angleZ);
+            Vector3 angles;
+            if (Vector2.Distance(inputPosition, target.position) > _rotation.GetChild(1).localPosition.y * 1.3f)
+            {
+                angles = new Vector3(0, 0, angleZ);                
+            }
+            else
+            {
+                int currentNearest = remarkableAngles[0];
+                int currentDifference = Mathf.Abs(currentNearest - Mathf.RoundToInt(angleZ));
+
+                for (int i = 1; i < remarkableAngles.Length; i++)
+                {
+                    int diff = Mathf.Abs(remarkableAngles[i] - Mathf.RoundToInt(angleZ));
+                    if (diff < currentDifference)
+                    {
+                        currentDifference = diff;
+                        currentNearest = remarkableAngles[i];
+                    }
+                }
+                Debug.Log("current nearest : " + currentNearest);
+                angles = new Vector3(0, 0, currentNearest);
+            }
             _rotation.eulerAngles = angles;
             target.eulerAngles = angles;
         }
