@@ -174,8 +174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 4
   objectInteractionType: 0
-  face1: {fileID: 224683660300444188}
-  face2: {fileID: 224102642888689182}
+  face1: {fileID: 224102642888689182}
+  face2: {fileID: 224683660300444188}
 --- !u!114 &114239298409819386
 MonoBehaviour:
   m_ObjectHideFlags: 1

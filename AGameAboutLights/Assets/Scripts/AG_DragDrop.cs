@@ -95,18 +95,21 @@ public class AG_DragDrop : MonoBehaviour {
             else _rotation.gameObject.SetActive(false);
         }
 
-        RaycastHit2D hit = RaycastScreenPoint();
-		if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
-		{
-			if (lazerTurnOn)
-				lightsManagement.ToggleLight();
-            if (_rotation.gameObject.activeSelf)
-                _rotation.gameObject.SetActive(false);
+        if (!_rotating)
+        {
+            RaycastHit2D hit = RaycastScreenPoint();
+            if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+            {
+                if (lazerTurnOn)
+                    lightsManagement.ToggleLight();
+                if (_rotation.gameObject.activeSelf)
+                    _rotation.gameObject.SetActive(false);
 
-			mousePos = inputPosition;
-			downObject = hit.transform;
-			DiplayGrid(true);
-		}
+                mousePos = inputPosition;
+                downObject = hit.transform;
+                DiplayGrid(true);
+            }
+        }
 	}
 
 	private void OnPointer(Vector2 inputPosition)
@@ -115,9 +118,9 @@ public class AG_DragDrop : MonoBehaviour {
         {
             Vector2 dir = inputPosition - (Vector2)_rotation.position;
             float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-            Debug.Log("angle z : " + angleZ);
+
             Vector3 angles;
-            if (Vector2.Distance(inputPosition, target.position) > _rotation.GetChild(1).localPosition.y * 1.3f)
+            if (Vector2.Distance(inputPosition, target.position) < _rotation.GetChild(1).localPosition.y)
             {
                 angles = new Vector3(0, 0, angleZ);                
             }
@@ -135,7 +138,6 @@ public class AG_DragDrop : MonoBehaviour {
                         currentNearest = remarkableAngles[i];
                     }
                 }
-                Debug.Log("current nearest : " + currentNearest);
                 angles = new Vector3(0, 0, currentNearest);
             }
             _rotation.eulerAngles = angles;
