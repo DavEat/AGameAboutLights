@@ -1,0 +1,352 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 1050 Ti (ID=0x1c82)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   10.18.10.4358
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween43.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween43.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween50.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween50.dll into Unity Child Domain
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween46.dll (this message is harmless)
+Loading C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\DOTween46.dll into Unity Child Domain
+- Completed reload, in  0.262 seconds
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\WIN10 X64\Documents\_Unity Projects\AGameAboutLights\Build\Windows\A Game About Lights_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 59Hz; virtual: 3840x1080 at -1920,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.874967 ms
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.601734 ms
+
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 464.
+Total: 0.312387 ms (FindLiveObjects: 0.033676 ms CreateObjectMapping: 0.016677 ms MarkObjects: 0.243752 ms  DeleteObjects: 0.017639 ms)
+
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.847039 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 487.
+Total: 0.294427 ms (FindLiveObjects: 0.022450 ms CreateObjectMapping: 0.017319 ms MarkObjects: 0.244072 ms  DeleteObjects: 0.010263 ms)
+
+2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.805023 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 511.
+Total: 0.342215 ms (FindLiveObjects: 0.036562 ms CreateObjectMapping: 0.029506 ms MarkObjects: 0.270372 ms  DeleteObjects: 0.004490 ms)
+
+3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.866603 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 525.
+Total: 0.357289 ms (FindLiveObjects: 0.043298 ms CreateObjectMapping: 0.030789 ms MarkObjects: 0.273900 ms  DeleteObjects: 0.008338 ms)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (631.0, 184.0) - mousepos : (631.0, 184.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (631.0, 184.0) - mousepos : (631.0, 184.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (636.0, 643.0) - mousepos : (636.0, 643.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (636.0, 643.0) - mousepos : (636.0, 643.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.939729 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1327.
+Total: 0.701429 ms (FindLiveObjects: 0.085954 ms CreateObjectMapping: 0.048429 ms MarkObjects: 0.557422 ms  DeleteObjects: 0.008659 ms)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1618.0, 643.0) - mousepos : (1618.0, 643.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1618.0, 643.0) - mousepos : (1618.0, 643.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (372.0, 627.0) - mousepos : (372.0, 627.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (372.0, 627.0) - mousepos : (372.0, 627.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.161992 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 1335.
+Total: 0.749538 ms (FindLiveObjects: 0.081785 ms CreateObjectMapping: 0.035600 ms MarkObjects: 0.626379 ms  DeleteObjects: 0.005131 ms)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (740.0, 179.0) - mousepos : (740.0, 179.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (737.0, 179.0) - mousepos : (737.0, 179.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (730.0, 633.0) - mousepos : (730.0, 633.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (730.0, 633.0) - mousepos : (730.0, 633.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1545.0, 175.0) - mousepos : (1545.0, 175.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1545.0, 175.0) - mousepos : (1545.0, 175.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.141786 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 1299.
+Total: 0.724521 ms (FindLiveObjects: 0.077295 ms CreateObjectMapping: 0.035279 ms MarkObjects: 0.598796 ms  DeleteObjects: 0.012508 ms)
+
+7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.080207 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1325.
+Total: 0.748896 ms (FindLiveObjects: 0.096217 ms CreateObjectMapping: 0.035600 ms MarkObjects: 0.606173 ms  DeleteObjects: 0.010263 ms)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (268.0, 344.0) - mousepos : (268.0, 344.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (268.0, 344.0) - mousepos : (268.0, 344.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (642.0, 802.0) - mousepos : (642.0, 802.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (642.0, 802.0) - mousepos : (642.0, 802.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.193423 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1345.
+Total: 0.760122 ms (FindLiveObjects: 0.100387 ms CreateObjectMapping: 0.035600 ms MarkObjects: 0.612267 ms  DeleteObjects: 0.010904 ms)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (1179.0, 524.0) - mousepos : (1179.0, 524.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1004.0, 174.0) - mousepos : (1004.0, 174.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1004.0, 174.0) - mousepos : (1004.0, 174.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.222289 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 1339.
+Total: 0.739595 ms (FindLiveObjects: 0.059013 ms CreateObjectMapping: 0.035600 ms MarkObjects: 0.632793 ms  DeleteObjects: 0.011225 ms)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1344.0, 807.0) - mousepos : (1344.0, 807.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1345.0, 807.0) - mousepos : (1345.0, 807.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1364.0, 536.0) - mousepos : (1364.0, 536.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (1364.0, 536.0) - mousepos : (1364.0, 536.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at AG_LightsManagement.CheckVictory () [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.EndPointLightAction (RaycastHit2D hit, Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.AddLight (Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.EndPointLightAction (RaycastHit2D hit, Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.AddLight (Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.EndPointLightAction (RaycastHit2D hit, Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.AddLight (Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.EndPointLightAction (RaycastHit2D hit, Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.AddLight (Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.EndPointLightAction (RaycastHit2D hit, Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.AddLight (Int32 colorIndex) [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.SetLights () [0x00000] in <filename unknown>:0 
+  at AG_LightsManagement.ToggleLight () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCall.Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
+  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
+  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+Unloading 8 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.169048 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 572.
+Total: 0.417906 ms (FindLiveObjects: 0.048429 ms CreateObjectMapping: 0.025337 ms MarkObjects: 0.333234 ms  DeleteObjects: 0.010263 ms)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (1366.0, 182.0) - mousepos : (1366.0, 182.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (1366.0, 181.0) - mousepos : (1366.0, 181.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (1361.0, 174.0) - mousepos : (1361.0, 174.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (1361.0, 174.0) - mousepos : (1361.0, 174.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (1361.0, 174.0) - mousepos : (1361.0, 174.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (740.0, 533.0) - mousepos : (740.0, 533.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (737.0, 528.0) - mousepos : (737.0, 528.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : PrismaInside - downObject : PrismaInside (UnityEngine.RectTransform) - input mouse pos : (736.0, 517.0) - mousepos : (736.0, 517.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (652.0, 732.0) - mousepos : (652.0, 732.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit transform : MirrorInside - downObject : MirrorInside (UnityEngine.RectTransform) - input mouse pos : (639.0, 740.0) - mousepos : (639.0, 740.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+color index : 2 -> 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.907977 ms
+
+Unloading 61 unused Assets to reduce memory usage. Loaded Objects now: 532.
+Total: 0.641453 ms (FindLiveObjects: 0.041373 ms CreateObjectMapping: 0.038166 ms MarkObjects: 0.358893 ms  DeleteObjects: 0.202378 ms)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1d1c -> priority: 1 
