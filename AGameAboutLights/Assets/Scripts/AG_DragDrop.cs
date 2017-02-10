@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class AG_DragDrop : MonoBehaviour {
 
@@ -9,6 +11,9 @@ public class AG_DragDrop : MonoBehaviour {
 	private bool onInventory, objectDragged, down;
 	private Transform downObject;
 	private Vector2 mousePos;
+
+	[HideInInspector]
+	public AG_LightsManagement lightsManagement;
 
 	[SerializeField]
 	private AG_Grid grid;
@@ -23,7 +28,7 @@ public class AG_DragDrop : MonoBehaviour {
 
 	void Update ()
 	{
-		if (!lazerTurnOn)
+		if (true)
 		{
 			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
 			if (Input.GetMouseButtonUp(0))
@@ -67,6 +72,8 @@ public class AG_DragDrop : MonoBehaviour {
 		RaycastHit2D hit = RaycastScreenPoint();
 		if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
 		{
+			if (lazerTurnOn)
+				lightsManagement.ToggleLight();
 			mousePos = inputPosition;
 			downObject = hit.transform;
 			DiplayGrid(true);
@@ -85,6 +92,8 @@ public class AG_DragDrop : MonoBehaviour {
 		RaycastHit2D hit = RaycastScreenPoint();
 		if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
 		{
+			if (lazerTurnOn)
+				lightsManagement.ToggleLight();
 			if (downObject != null)
 			{
 				if (inputPosition == mousePos)

@@ -41,6 +41,9 @@ public class AG_LightsManagement : MonoBehaviour
         {
             SetLights();
             dragDrop.lazerTurnOn = true;
+
+			if (dragDrop.lightsManagement == null)
+				dragDrop.lightsManagement = this;
         }
         else
         {
