@@ -24,7 +24,8 @@ public class AG_Grid : MonoBehaviour {
 
 	void Start ()
     {
-        CreateGried();
+        if (listPoints.Count == 0)
+            CreateGried();
     }
 
     private void CreateGried()

@@ -16,7 +16,7 @@ TagManager:
   - IgnoreLazerRaycast
   - MovableObject
   - RaycastableByLight
-  - 
+  - RotationElem
   - 
   - 
   - 

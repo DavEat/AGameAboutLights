@@ -133,6 +133,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ca605c1c5b9f3a4fb35a8c8ea7c4a92, type: 2}
   m_IsPrefabParent: 0
+--- !u!82 &512795483 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82389964436401420, guid: 4ca605c1c5b9f3a4fb35a8c8ea7c4a92,
+    type: 2}
+  m_PrefabInternal: {fileID: 512795482}
 --- !u!1001 &567593846
 Prefab:
   m_ObjectHideFlags: 0
@@ -230,6 +235,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114820354895663908, guid: 02f508f0790a10540885726e31f8f07e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 512795483}
     - target: {fileID: 223184823203381308, guid: 02f508f0790a10540885726e31f8f07e,
         type: 2}
       propertyPath: m_Camera

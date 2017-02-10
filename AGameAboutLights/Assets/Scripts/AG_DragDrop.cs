@@ -5,22 +5,38 @@ using UnityEngine.Events;
 
 
 public class AG_DragDrop : MonoBehaviour {
+    #region Var
+    [SerializeField] private LayerMask layer;
 
-	public LayerMask layer;
+    #region RotationManager    
+    [SerializeField] private LayerMask layerRotation;
+    [SerializeField] private Transform _rotation;
+    private bool _rotating;
+    #endregion
+
 	public bool lazerTurnOn = false; 
 	private bool onInventory, objectDragged, down;
 	private Transform downObject;
 	private Vector2 mousePos;
 
-	[HideInInspector]
-	public AG_LightsManagement lightsManagement;
+    private AG_LightsManagement _lightsManagement;
 
-	[SerializeField]
-	private AG_Grid grid;
-	[SerializeField]
-	private AG_Inventory inventory;
+	[SerializeField] private AG_Grid grid;	
+	[SerializeField] private AG_Inventory inventory;
 
-	private RaycastHit2D RaycastScreenPoint()
+
+
+    #endregion
+
+    #region Struct
+    public AG_LightsManagement lightsManagement
+    {
+        get { return _lightsManagement; }
+        set { _lightsManagement = value; }
+    }
+    #endregion
+
+    public RaycastHit2D RaycastScreenPoint()
 	{
 		Debug.DrawRay (Input.mousePosition, Vector2.up * 10, Color.red, 10);
 		return Physics2D.Raycast(Input.mousePosition, Vector2.up, 0.01f, layer);
@@ -31,19 +47,17 @@ public class AG_DragDrop : MonoBehaviour {
 		if (true)
 		{
 			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
+            Vector2 inputPosition = Input.mousePosition;
 			if (Input.GetMouseButtonUp(0))
-			{
-				Vector2 inputPosition = Input.mousePosition;
+			{				
 				OnPointerUp(inputPosition);
 			}
 			else if (Input.GetMouseButtonDown(0))
 			{
-				Vector2 inputPosition = Input.mousePosition;
 				OnPointerDown(inputPosition);
 			}
 			else if (Input.GetMouseButton(0))
 			{
-				Vector2 inputPosition = Input.mousePosition;
 				OnPointer(inputPosition);
 			}
 			#else
@@ -67,13 +81,25 @@ public class AG_DragDrop : MonoBehaviour {
 		}
 	}
 
+    private Transform target;
 	private void OnPointerDown(Vector2 inputPosition)
 	{
-		RaycastHit2D hit = RaycastScreenPoint();
+        if (_rotation.gameObject.activeSelf && !_rotating && target != null && _rotation != null)
+        {
+            RaycastHit2D hitRotation = Physics2D.Raycast(Input.mousePosition, target.rotation * Vector2.up, 0.01f, layerRotation);
+            if (hitRotation.collider != null)
+                _rotating = true;
+            else _rotation.gameObject.SetActive(false);
+        }
+
+        RaycastHit2D hit = RaycastScreenPoint();
 		if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
 		{
 			if (lazerTurnOn)
 				lightsManagement.ToggleLight();
+            if (_rotation.gameObject.activeSelf)
+                _rotation.gameObject.SetActive(false);
+
 			mousePos = inputPosition;
 			downObject = hit.transform;
 			DiplayGrid(true);
@@ -82,50 +108,71 @@ public class AG_DragDrop : MonoBehaviour {
 
 	private void OnPointer(Vector2 inputPosition)
 	{
-		if ((Vector2)inputPosition != mousePos)
-		if (downObject != null)
-			downObject.parent.position = inputPosition;
-	}
+        if (_rotating && target != null)
+        {
+            Vector2 dir = Input.mousePosition - _rotation.position;
+            float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+            Vector3 angles = new Vector3(0, 0, angleZ);
+            _rotation.eulerAngles = angles;
+            target.eulerAngles = angles;
+        }
+        else
+        {
+            if ((Vector2)inputPosition != mousePos)
+                if (downObject != null)
+                    downObject.parent.position = inputPosition;
+        }
+    }
 
 	private void OnPointerUp(Vector2 inputPosition)
 	{
-		RaycastHit2D hit = RaycastScreenPoint();
-		if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
-		{
-			if (lazerTurnOn)
-				lightsManagement.ToggleLight();
-			if (downObject != null)
-			{
-				if (inputPosition == mousePos)
-				{
-					if (hit.transform == downObject)
-					{
-						Debug.Log("hit transform : " + hit.transform.name + " - downObject : " + downObject + " - input mouse pos : " + inputPosition + " - mousepos : " + mousePos);
-						float angle = 45;
-						if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
-							angle = 90;
-						downObject.parent.localEulerAngles = new Vector3 (0, 0, downObject.parent.localEulerAngles.z + angle);
-						downObject = null;
-						DiplayGrid (false);
-					}
-				}
-				else
-				{
-					if (inputPosition.x < inventory.inventoryLimite.position.x)
-						downObject.parent.position = ChoseClosestPoint(inventory.listPoints, inputPosition).position;
-					else
-						downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
+        if (_rotating)
+            _rotating = false;
+        else
+        {
+            RaycastHit2D hit = RaycastScreenPoint();
+            if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+            {
+                if (lazerTurnOn)
+                    lightsManagement.ToggleLight();
+                if (downObject != null)
+                {
+                    if (inputPosition == mousePos)
+                    {
+                        if (hit.transform == downObject)
+                        {
+                            target = downObject.parent;
+                            _rotation.transform.eulerAngles = hit.transform.parent.eulerAngles;
+                            _rotation.transform.position = hit.transform.parent.position;
+                            _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
 
-					downObject = null;
-					DiplayGrid (false);
-				}
-			}
-			else
-			{
-				//downObject = null;
-				DiplayGrid (false);
-			}
-		}
+                            /*Debug.Log("hit transform : " + hit.transform.name + " - downObject : " + downObject + " - input mouse pos : " + inputPosition + " - mousepos : " + mousePos);
+                            float angle = 45;
+                            if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
+                                angle = 90;
+                            downObject.parent.localEulerAngles = new Vector3 (0, 0, downObject.parent.localEulerAngles.z + angle);*/
+                            downObject = null;
+                            DiplayGrid(false);
+                        }
+                    }
+                    else
+                    {
+                        if (inputPosition.x < inventory.inventoryLimite.position.x)
+                            downObject.parent.position = ChoseClosestPoint(inventory.listPoints, inputPosition).position;
+                        else
+                            downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
+
+                        downObject = null;
+                        DiplayGrid(false);
+                    }
+                }
+                else
+                {
+                    //downObject = null;
+                    DiplayGrid(false);
+                }
+            }
+        }
 	}
 
 	public Transform ChoseClosestPoint(List<Transform> list, Vector2 pos)
