@@ -21,6 +21,7 @@ public class AG_Inventory : MonoBehaviour {
     ///<summary>Scrool rect enable = value </summary>
     public void SetScroll(bool value)
     {
+        if (_scroll != null)
         if (_scroll.enabled != value)
             _scroll.enabled = value;
     }
