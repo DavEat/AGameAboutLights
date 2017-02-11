@@ -1865,6 +1865,7 @@ MonoBehaviour:
   lazerTurnOn: 0
   grid: {fileID: 603436028}
   inventory: {fileID: 103119795}
+  creatingNewObject: 0
 --- !u!114 &692000749
 MonoBehaviour:
   m_ObjectHideFlags: 0

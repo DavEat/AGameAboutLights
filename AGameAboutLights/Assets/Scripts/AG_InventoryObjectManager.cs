@@ -60,8 +60,10 @@ public class AG_InventoryObjectManager : MonoBehaviour {
                 currentNumber++;
                 UpdateDisplayNumber();
                 listObjects[0].SetActive(true);
-                listObjects[0].transform.position = _transform.position;
-                return listObjects[0].transform;
+                Transform t = listObjects[0].transform;
+                t.transform.position = _transform.position;
+                listObjects.RemoveAt(0);
+                return t;
             }
         }
         else

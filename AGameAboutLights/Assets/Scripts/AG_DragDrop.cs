@@ -113,13 +113,14 @@ public class AG_DragDrop : MonoBehaviour {
                 }
                 else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
                 {
+                    mousePos = inputPosition;
                     enterObj = hit.transform;
                     creatingNewObject = true;                    
                 }
             }
         }
 	}
-    private bool creatingNewObject;
+    public bool creatingNewObject;
     private Transform enterObj;
 	private void OnPointer(Vector2 inputPosition)
 	{
@@ -170,7 +171,7 @@ public class AG_DragDrop : MonoBehaviour {
                     if (_rotation.gameObject.activeSelf)
                         _rotation.gameObject.SetActive(false);
 
-                    mousePos = inputPosition;
+                    //mousePos = inputPosition;
                     downObject = obj.GetChild(0);
                     DiplayGrid(true);
                 }
