@@ -98,20 +98,29 @@ public class AG_DragDrop : MonoBehaviour {
         if (!_rotating)
         {
             RaycastHit2D hit = RaycastScreenPoint();
-            if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+            if (hit.collider != null)
             {
-                if (lazerTurnOn)
-                    lightsManagement.ToggleLight();
-                if (_rotation.gameObject.activeSelf)
-                    _rotation.gameObject.SetActive(false);
+                if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+                {
+                    if (lazerTurnOn)
+                        lightsManagement.ToggleLight();
+                    if (_rotation.gameObject.activeSelf)
+                        _rotation.gameObject.SetActive(false);
 
-                mousePos = inputPosition;
-                downObject = hit.transform;
-                DiplayGrid(true);
+                    mousePos = inputPosition;
+                    downObject = hit.transform;
+                    DiplayGrid(true);
+                }
+                else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
+                {
+                    enterObj = hit.transform;
+                    creatingNewObject = true;                    
+                }
             }
         }
 	}
-
+    private bool creatingNewObject;
+    private Transform enterObj;
 	private void OnPointer(Vector2 inputPosition)
 	{
         if (_rotating && target != null)
@@ -148,13 +157,33 @@ public class AG_DragDrop : MonoBehaviour {
             if ((Vector2)inputPosition != mousePos)
                 if (downObject != null)
                     downObject.parent.position = inputPosition;
+
+            if (creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
+            {
+                Transform obj = enterObj.GetComponent<AG_InventoryObjectManager>().OnSelect();
+                if (obj != null)
+                {
+                    creatingNewObject = false;
+                    inventory.SetScroll(false);
+                    if (lazerTurnOn)
+                        lightsManagement.ToggleLight();
+                    if (_rotation.gameObject.activeSelf)
+                        _rotation.gameObject.SetActive(false);
+
+                    mousePos = inputPosition;
+                    downObject = obj.GetChild(0);
+                    DiplayGrid(true);
+                }
+            }
         }
     }
 
 	private void OnPointerUp(Vector2 inputPosition)
 	{
+        inventory.SetScroll(true);
+
         if (_rotating)
-            _rotating = false;
+            _rotating = false;        
         else
         {
             RaycastHit2D hit = RaycastScreenPoint();
@@ -185,7 +214,7 @@ public class AG_DragDrop : MonoBehaviour {
                     else
                     {
                         if (inputPosition.x < inventory.inventoryLimite.position.x)
-                            downObject.parent.position = ChoseClosestPoint(inventory.listPoints, inputPosition).position;
+                            inventory.AddToInventory(downObject);
                         else
                             downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
 

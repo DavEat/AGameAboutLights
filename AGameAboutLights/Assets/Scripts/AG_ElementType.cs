@@ -2,18 +2,20 @@
 
 public enum ObjectType
 {
-    wall,
+    empthy,
     mirror,
     emitter,
     receiver,
     prisma,
-    filter
+    filter,
+    wall
 }
 
 public enum ObjectInteractionType
 {
     empthy,
-    movable
+    movable,
+    inventory
 }
 
 public class AG_ElementType : MonoBehaviour {
