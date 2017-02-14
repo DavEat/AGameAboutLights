@@ -14,7 +14,8 @@ public class AG_DragDrop : MonoBehaviour {
     [SerializeField] private Transform _rotation;
     private bool _rotating;
 
-    private readonly int[] remarkableAngles = {-180, -135, -90, -45, 0, 45, 90, 135, 180};
+    private readonly int[] remarkableAngles45 = {-180, -135, -90, -45, 0, 45, 90, 135, 180};
+    private readonly int[] remarkableAngles60 = { -180, -90, 0, 90, 180 };
     #endregion
 
     public bool lazerTurnOn = false; 
@@ -136,16 +137,21 @@ public class AG_DragDrop : MonoBehaviour {
             }
             else
             {
-                int currentNearest = remarkableAngles[0];
+                int[] snapAngle;
+                if (target.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
+                    snapAngle = remarkableAngles60;
+                else snapAngle = remarkableAngles45;
+
+                int currentNearest = snapAngle[0];
                 int currentDifference = Mathf.Abs(currentNearest - Mathf.RoundToInt(angleZ));
 
-                for (int i = 1; i < remarkableAngles.Length; i++)
+                for (int i = 1; i < snapAngle.Length; i++)
                 {
-                    int diff = Mathf.Abs(remarkableAngles[i] - Mathf.RoundToInt(angleZ));
+                    int diff = Mathf.Abs(snapAngle[i] - Mathf.RoundToInt(angleZ));
                     if (diff < currentDifference)
                     {
                         currentDifference = diff;
-                        currentNearest = remarkableAngles[i];
+                        currentNearest = snapAngle[i];
                     }
                 }
                 angles = new Vector3(0, 0, currentNearest);

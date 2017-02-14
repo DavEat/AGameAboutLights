@@ -8,6 +8,8 @@ public class AG_LightsManagement : MonoBehaviour
 {
 
     #region Var
+    public AG_Color.ColorName startColor;
+
     public LayerMask layer;
 
     public AG_Receiver[] listReceiver;
@@ -84,7 +86,7 @@ public class AG_LightsManagement : MonoBehaviour
         _origin = stratLightPos.position;
         angle = stratLightPos.eulerAngles.z;
         _direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-        AddLight(0);
+        AddLight((int)startColor);
     }
 
     public void AddLight(int colorIndex)
@@ -143,10 +145,12 @@ public class AG_LightsManagement : MonoBehaviour
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
         {
             AG_Receiver receiver = hit.transform.GetComponent<AG_Receiver>();
-            if (colorIndex == receiver.colorIndex || receiver.colorIndex == -1)
+            if (colorIndex == (int)receiver.color || receiver.color == AG_Color.ColorName.none)
                 receiver.alimented = true;
+
             if (currentLight < maxLineOfLine)
                 SetWaitingPrismaColor();
+
             CheckVictory();
         }
         else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
@@ -161,8 +165,8 @@ public class AG_LightsManagement : MonoBehaviour
         {
             if (currentLight < maxLineOfLine)
             {
-                Debug.Log("color index : " + colorIndex + " -> " + hit.transform.GetComponent<AG_Filter>().colorIndex);
-                if (colorIndex == hit.transform.GetComponent<AG_Filter>().colorIndex)
+                //Debug.Log("color index : " + colorIndex + " -> " + hit.transform.GetComponent<AG_Filter>().color);
+                if (colorIndex == (int)hit.transform.GetComponent<AG_Filter>().color)
                 {
                     RaycastIgnore(hit.transform);
                     _origin = hit.point;
@@ -300,11 +304,17 @@ public class PrismaManagement
     {
         int[] arrayToReturn;
         if (colorIndex == 0)
-            arrayToReturn = new int[] { 1, 2 };
+            arrayToReturn = new int[] { 5, 1 };
         else if (colorIndex == 1)
             arrayToReturn = new int[] { 0, 2 };
         else if (colorIndex == 2)
-            arrayToReturn = new int[] { 0, 1 };
+            arrayToReturn = new int[] { 1, 3 };
+        else if (colorIndex == 3)
+            arrayToReturn = new int[] { 2, 4 };
+        else if (colorIndex == 4)
+            arrayToReturn = new int[] { 3, 5 };
+        else if (colorIndex == 5)
+            arrayToReturn = new int[] { 0, 4 };
         else arrayToReturn = null;
 
         listPrismaColorIndex.Add(arrayToReturn[1]);

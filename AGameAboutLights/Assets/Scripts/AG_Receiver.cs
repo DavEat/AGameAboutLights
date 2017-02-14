@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class AG_Receiver : AG_ElementType 
 {
-    public int colorIndex;
+    public AG_Color.ColorName color;
     public Image receiverColorImage;
     private bool _alimented;
 
@@ -15,8 +15,8 @@ public class AG_Receiver : AG_ElementType
 
     void Start()
     {
-        if (colorIndex != -1)
-            receiverColorImage.color = AG_Color.colorList[colorIndex];
+        if (color != AG_Color.ColorName.none)
+            receiverColorImage.color = AG_Color.colorList[(int)color];
         else receiverColorImage.color = Color.white;
     }
 }

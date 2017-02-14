@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class AG_Filter : AG_ElementType
 {
-    public int colorIndex;
+    public AG_Color.ColorName color;
     public Image filterColorImage;
 
     void Start()
     {
-        if (colorIndex != -1)
-            filterColorImage.color = AG_Color.colorList[colorIndex];
+        if (color != AG_Color.ColorName.none)
+            filterColorImage.color = AG_Color.colorList[(int)color];
         else filterColorImage.color = Color.white;
     }
 }

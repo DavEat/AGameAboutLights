@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224993140914841988}
+  - component: {fileID: 114464263745100984}
   m_Layer: 10
   m_Name: Prisma
   m_TagString: Untagged
@@ -191,6 +192,19 @@ MonoBehaviour:
   objectInteractionType: 0
   face1: {fileID: 224307853703732900}
   face2: {fileID: 224102642888689182}
+--- !u!114 &114464263745100984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1558192448209972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 4
+  objectInteractionType: 1
 --- !u!114 &114646121025733048
 MonoBehaviour:
   m_ObjectHideFlags: 1
