@@ -18,7 +18,6 @@ public class AG_InventoryObjectManager : MonoBehaviour {
     [SerializeField] private Transform parent;
 
     private Transform _transform;
-    private AG_ElementType _elementType;
     #endregion
     #region Struct
     /// <summary> number of item of that type </summary>
@@ -42,7 +41,6 @@ public class AG_InventoryObjectManager : MonoBehaviour {
     private void Start()
     {
         _transform = transform;
-        _elementType = GetComponent<AG_ElementType>();
         UpdateDisplayNumber();
     }
     #endregion

@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
-
 
 public class AG_DragDrop : MonoBehaviour {
     #region Var
@@ -18,26 +15,26 @@ public class AG_DragDrop : MonoBehaviour {
     private readonly int[] remarkableAngles90 = { -180, -90, 0, 90, 180 };
     #endregion
 
-    public bool lazerTurnOn = false; 
+    [HideInInspector] public bool lazerTurnOn = false; 
 	private bool onInventory, objectDragged, down;
 	private Transform downObject;
 	private Vector2 mousePos;
 
-    private AG_LightsManagement _lightsManagement;
+    //private AG_LightsManagement _lightsManagement;
 
 	[SerializeField] private AG_Grid grid;	
 	[SerializeField] private AG_Inventory inventory;
 
-
+    [SerializeField] private UnityEvent toggleLight;
 
     #endregion
 
     #region Struct
-    public AG_LightsManagement lightsManagement
+    /*public AG_LightsManagement lightsManagement
     {
         get { return _lightsManagement; }
         set { _lightsManagement = value; }
-    }
+    }*/
     #endregion
 
     public RaycastHit2D RaycastScreenPoint()
@@ -104,7 +101,7 @@ public class AG_DragDrop : MonoBehaviour {
                 if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
                 {
                     if (lazerTurnOn)
-                        lightsManagement.ToggleLight();
+                        toggleLight.Invoke();
                     if (_rotation.gameObject.activeSelf)
                         _rotation.gameObject.SetActive(false);
 
@@ -173,7 +170,7 @@ public class AG_DragDrop : MonoBehaviour {
                     creatingNewObject = false;
                     inventory.SetScroll(false);
                     if (lazerTurnOn)
-                        lightsManagement.ToggleLight();
+                        toggleLight.Invoke();
                     if (_rotation.gameObject.activeSelf)
                         _rotation.gameObject.SetActive(false);
 
@@ -197,7 +194,7 @@ public class AG_DragDrop : MonoBehaviour {
             if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
             {
                 if (lazerTurnOn)
-                    lightsManagement.ToggleLight();
+                    toggleLight.Invoke();
                 if (downObject != null)
                 {
                     if (inputPosition == mousePos)
@@ -208,12 +205,7 @@ public class AG_DragDrop : MonoBehaviour {
                             _rotation.transform.eulerAngles = hit.transform.parent.eulerAngles;
                             _rotation.transform.position = hit.transform.parent.position;
                             _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
-
-                            /*Debug.Log("hit transform : " + hit.transform.name + " - downObject : " + downObject + " - input mouse pos : " + inputPosition + " - mousepos : " + mousePos);
-                            float angle = 45;
-                            if (downObject.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
-                                angle = 90;
-                            downObject.parent.localEulerAngles = new Vector3 (0, 0, downObject.parent.localEulerAngles.z + angle);*/
+                            
                             downObject = null;
                             DiplayGrid(false);
                         }
@@ -231,7 +223,6 @@ public class AG_DragDrop : MonoBehaviour {
                 }
                 else
                 {
-                    //downObject = null;
                     DiplayGrid(false);
                 }
             }

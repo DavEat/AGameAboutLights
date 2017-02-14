@@ -29,8 +29,7 @@ public class AG_LightsManagement : MonoBehaviour
     private Vector2 _origin, _direction;
     private float angle;
     public bool lightTurnOn = true;
-    [SerializeField]
-    private AG_DragDrop dragDrop;
+    [SerializeField] private AG_DragDrop dragDrop;
 
     private PrismaManagement prismaM;
     private List<LightConstructor> listLightConstructor = new List<LightConstructor>();
@@ -43,9 +42,6 @@ public class AG_LightsManagement : MonoBehaviour
         {
             SetLights();
             dragDrop.lazerTurnOn = true;
-
-			if (dragDrop.lightsManagement == null)
-				dragDrop.lightsManagement = this;
         }
         else
         {
