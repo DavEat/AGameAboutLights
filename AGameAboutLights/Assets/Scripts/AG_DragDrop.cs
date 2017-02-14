@@ -15,7 +15,7 @@ public class AG_DragDrop : MonoBehaviour {
     private bool _rotating;
 
     private readonly int[] remarkableAngles45 = {-180, -135, -90, -45, 0, 45, 90, 135, 180};
-    private readonly int[] remarkableAngles60 = { -180, -90, 0, 90, 180 };
+    private readonly int[] remarkableAngles90 = { -180, -90, 0, 90, 180 };
     #endregion
 
     public bool lazerTurnOn = false; 
@@ -139,7 +139,7 @@ public class AG_DragDrop : MonoBehaviour {
             {
                 int[] snapAngle;
                 if (target.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
-                    snapAngle = remarkableAngles60;
+                    snapAngle = remarkableAngles90;
                 else snapAngle = remarkableAngles45;
 
                 int currentNearest = snapAngle[0];

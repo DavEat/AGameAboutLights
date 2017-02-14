@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Linq;
 
-public class XmlManager : MonoBehaviour
+public class XmlManager
 {
 	#region Var
     [HideInInspector]
@@ -31,7 +31,7 @@ public class XmlManager : MonoBehaviour
     {
         //DontDestroyOnLoad(gameObject);
         fileLocation = Application.dataPath + "/Scenes/Dav/";
-        fileExtention = ".BMCSave";
+        fileExtention = ".HeiwaSave";
         //fileName = "2017-01-31-01-16-15-12" + fileExtention;
         mySave = new Save();
     }
@@ -40,36 +40,6 @@ public class XmlManager : MonoBehaviour
     {    
     	Load();
     }
-
-    /*void OnGUI()
-    {
-        // Loading The Player...    
-        if (GUI.Button(new Rect(10, 70, 80, 40), "Load"))
-        {
-
-        }
-
-        if (SceneManager.GetActiveScene().name != "Menu")
-        {
-            // Saving The Player... 
-            if (GUI.Button(new Rect(10, 140, 80, 40), "Save"))
-            {
-                if (listObjToSave != null)
-                    Save();
-            }
-
-            if (GUI.Button(new Rect(10, 210, 80, 40), "Menu"))
-            {
-                SceneManager.LoadScene("Menu");
-            }
-
-            if (SceneManager.GetActiveScene().name != "IntroRoomMerged")
-            if (GUI.Button(new Rect(10, 280, 80, 40), "IntroRoomMerged"))
-            {
-                SceneManager.LoadScene("IntroRoomMerged");
-            }
-        }
-    }*/
 
     private void SaveExist()
     {
@@ -94,9 +64,7 @@ public class XmlManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Load data from the file name in : "fileName"
-    /// </summary>
+    /// <summary>Load data from the file name in : "fileName"</summary>
     public void Load()
     {
         LoadXML();
@@ -107,56 +75,12 @@ public class XmlManager : MonoBehaviour
             // notice how I use a reference to type (UserData) here, you need this 
             // so that the returned object is converted into the correct type 
             mySave = (Save)DeserializeObject(_data);
-			int currentElemId = -1;
-
-			// set the players position to the data we loaded 
-			currentElemId = mySave.infos.human.id;
-			savalbesObj[currentElemId].transform.position = mySave.infos.human.transform.position;
-			savalbesObj[currentElemId].transform.eulerAngles = mySave.infos.human.transform.rotation;
-			if (mySave.infos.human.parentId != -1)
-				savalbesObj[currentElemId].transform.parent = savalbesObj[mySave.infos.human.parentId].transform;
-
-            // set the ball position to the data we loaded
-			currentElemId = mySave.infos.ball.id;
-			savalbesObj[currentElemId].transform.position = mySave.infos.ball.transform.position;
-			savalbesObj[currentElemId].transform.eulerAngles = mySave.infos.ball.transform.rotation;
-			if (mySave.infos.ball.parentId != -1)
-				savalbesObj[currentElemId].transform.parent = savalbesObj[mySave.infos.ball.parentId].transform;
-
-            // set the cubes position to the data we loaded
-			if (mySave.infos.cubes != null)
-            for (int i = 0; i < mySave.infos.cubes.Length; i++)
-            {
-				if (i < savalbesObj.Length)
-                {
-					currentElemId = mySave.infos.cubes[i].id;
-					savalbesObj[currentElemId].transform.position = mySave.infos.cubes[i].transform.position;
-					savalbesObj[currentElemId].transform.eulerAngles = mySave.infos.cubes[i].transform.rotation;
-					savalbesObj[currentElemId].transform.localScale = mySave.infos.cubes[i].transform.scale;
-					if (mySave.infos.cubes[i].parentId != -1)
-						savalbesObj[currentElemId].transform.parent = savalbesObj[mySave.infos.cubes[i].parentId].transform;
-                }
-            }
-			if (mySave.infos.platforms != null)
-			for (int i = 0; i < mySave.infos.platforms.Length; i++)
-			{
-				if (i < savalbesObj.Length)
-				{
-					currentElemId = mySave.infos.platforms[i].id;
-					savalbesObj[currentElemId].transform.position = mySave.infos.platforms[i].transform.position;
-					savalbesObj[currentElemId].transform.eulerAngles = mySave.infos.platforms[i].transform.rotation;
-					savalbesObj[currentElemId].transform.localScale = mySave.infos.platforms[i].transform.scale;
-				}
-			}
         }
     }
 
-    /// <summary>
-    /// Save data in the file name in : "fileName"
-    /// </summary>
+    /// <summary>Save data in the file name in : "fileName"</summary>
     public void Save()
-    {        
-
+    {
         int chapter = 15, room = 12;
         //Debug.Log("CreateFileName() : " + CreateFileName());
         fileName = CreateFileName();
@@ -165,9 +89,7 @@ public class XmlManager : MonoBehaviour
 		mySave.infos.sceneName = SceneManager.GetActiveScene().name;
 
         //Save save info
-        mySave.infos.saveInfo.chapter = chapter; // need class chapter info
-        mySave.infos.saveInfo.room = room; // need class room info
-        mySave.infos.saveInfo.date = new DateTime();
+        mySave.infos.saveInfos.date = new DateTime();
 
         /*//Save player
         mySave.infos.player.transform.position = listObjToSave.player.position;
@@ -228,7 +150,7 @@ public class XmlManager : MonoBehaviour
     {
         XmlSerializer xs = new XmlSerializer(typeof(Save));
         MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(pXmlizedString));
-        XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+        //XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
         return xs.Deserialize(memoryStream);
     }
 
@@ -300,54 +222,53 @@ public class Save
     {
         public int sceneID;
         public string sceneName;
-        public SaveInfo saveInfo;
-		public GameplayInfos gameplayInfos;
-		public HumanInfos human;
-        public BallInfos ball;
-        public cube[] cubes;
-		public platform[] platforms;
+        public SaveInfo saveInfos;
+        LevelInfos levelInfos;
     }
 
     public struct SaveInfo
     {
-        public int chapter, room;
+        public int difficulty;
         public DateTime date;
     }
-     
-    public struct HumanInfos
+
+    public struct InventoryInfos
     {
-		public int id, parentId;
-        public string name;
-        public TransformInfos transform;
+        InventoryElem[] listElements;
     }
 
-	public struct GameplayInfos
-	{
-		public int id;
-		public bool haveIt, haveCall, haveControl;
-	}
-
-    public struct BallInfos
+    public struct InventoryElem
     {
-		public int id, parentId;
-		public float electricPower, size;
-        public TransformInfos transform;
+        public int typeId, quantity;
     }
 
-    public struct cube // in lower case to keep the structur in the xml
+    public struct LevelInfos
     {
-		public int id, parentId;
-        public TransformCompleteInfos transform;
+        InventoryInfos inventory;
+        EmitterInfos[] emitters;
+        ReceiverInfos[] receivers;
+        WallsInfos[] walls;
     }
 
-	public struct platform // in lower case to keep the structur in the xml
-	{
-		public int id;
-		public bool active;
-		public TransformCompleteInfos transform;
-	}
+    public struct EmitterInfos
+    {
+        public int typeId;
+        public RectMinTransformInfos rect;
+    }
 
-    public struct TransformInfos
+    public struct ReceiverInfos
+    {
+        public int typeId;
+        public RectMinTransformInfos rect;
+    }
+
+    public struct WallsInfos
+    {
+        public int typeId;
+        public RectTransformInfos rect;
+    }
+
+    /*public struct TransformInfos
     {
         public Vector3 position, rotation;
     }
@@ -355,6 +276,24 @@ public class Save
     public struct TransformCompleteInfos
     {
         public Vector3 position, rotation, scale;
+    }*/
+
+    public struct RectTransformInfos
+    {
+        public Vector2 position, deltaSize;
+        public float angleZ;
+    }
+
+    public struct RectMinTransformInfos
+    {
+        public Vector2 position;
+        public float angleZ;
+    }
+
+    public struct RectTransformCompleteInfos
+    {
+        public Vector2 position, scale, deltaSize;
+        public float angleZ;
     }
 }
 
@@ -394,12 +333,12 @@ public class SG_Collector : MonoBehaviour
 	public static Save.Infos SortObjToSave()
 	{
 		Save.Infos infos = new Save.Infos();
-		List<Save.cube> listCubes = new List<Save.cube>();
-		List<Save.platform> listPlatform = new List<Save.platform>();
+		//List<Save.cube> listCubes = new List<Save.cube>();
+		//List<Save.platform> listPlatform = new List<Save.platform>();
 
 		SG_SavableObj[] savableObjs = CollectSavableObj();
 
-		foreach (SG_SavableObj save in savableObjs)
+		/*foreach (SG_SavableObj save in savableObjs)
 		{
 			if (save.savableObjType == SG_Savable.SavableObjType.cube)
 				listCubes.Add (((SG_Cube)save).data);
@@ -411,52 +350,13 @@ public class SG_Collector : MonoBehaviour
 				infos.ball = ((SG_ControllableBall)save).data;
 			else if (save.savableObjType == SG_Savable.SavableObjType.gameplay)
 				infos.gameplayInfos = ((SG_Gameplay)save).data;
-		}
+		}*/
 
-		infos.cubes = listCubes.ToArray();
-		infos.platforms = listPlatform.ToArray();
+		//infos.cubes = listCubes.ToArray();
+		//infos.platforms = listPlatform.ToArray();
 
 		return infos;
 	}
-
-    /*public static ToLoad SortObjToLoad()
-    {
-        ToLoad toLoad = new ToLoad();
-
-        List<Transform> listCubes = new List<Transform>();
-        List<Transform> listPlatform = new List<Transform>();
-
-        SG_SavableObj[] savableObjs = CollectSavableObj();
-
-        foreach (SG_SavableObj save in savableObjs)
-        {
-            if (save.savableObjType == SG_Savable.SavableObjType.cube)
-                listCubes.Add(save.transform);
-            else if (save.savableObjType == SG_Savable.SavableObjType.platform)
-                listPlatform.Add(save.transform);
-            else if (save.savableObjType == SG_Savable.SavableObjType.human)
-                toLoad.human = save.transform;
-            else if (save.savableObjType == SG_Savable.SavableObjType.controllableball)
-                toLoad.ball = save.transform;
-            else if (save.savableObjType == SG_Savable.SavableObjType.gameplay)
-                toLoad.gameplay = save.transform.gameObject;
-        }
-
-        listPlatform.Sort();
-        
-        toLoad.listCubes = listCubes.ToArray();
-        toLoad.listPlatform = listPlatform.ToArray();
-
-        return toLoad;
-    }
-
-    public struct ToLoad
-    {
-        public Transform human, ball;
-        public GameObject gameplay;
-
-        public Transform[] listCubes, listPlatform;
-    }*/
 }
 
 public class Emcryption
