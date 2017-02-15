@@ -30,7 +30,7 @@ public class XmlManager
     private void Awake()
     {
         //DontDestroyOnLoad(gameObject);
-        fileLocation = Application.dataPath + "/Scenes/Dav/";
+        fileLocation = Application.dataPath + "/Save/";
         fileExtention = ".HeiwaSave";
         //fileName = "2017-01-31-01-16-15-12" + fileExtention;
         mySave = new Save();
@@ -70,7 +70,7 @@ public class XmlManager
         LoadXML();
         if (_data.ToString() != "")
         {
-			SG_SavableObj[] savalbesObj = SG_Collector.CollectSavableObjSorted();
+			//SG_SavableObj[] savalbesObj = SG_Collector.CollectSavableObjSorted();
 
             // notice how I use a reference to type (UserData) here, you need this 
             // so that the returned object is converted into the correct type 
@@ -81,8 +81,6 @@ public class XmlManager
     /// <summary>Save data in the file name in : "fileName"</summary>
     public void Save()
     {
-        int chapter = 15, room = 12;
-        //Debug.Log("CreateFileName() : " + CreateFileName());
         fileName = CreateFileName();
 
 		mySave.infos = SG_Collector.SortObjToSave();
@@ -252,13 +250,13 @@ public class Save
 
     public struct EmitterInfos
     {
-        public int typeId;
+        public int typeId, colorIndex;
         public RectMinTransformInfos rect;
     }
 
     public struct ReceiverInfos
     {
-        public int typeId;
+        public int typeId, colorIndex;
         public RectMinTransformInfos rect;
     }
 
@@ -268,15 +266,11 @@ public class Save
         public RectTransformInfos rect;
     }
 
-    /*public struct TransformInfos
+    public struct FiltersInfos
     {
-        public Vector3 position, rotation;
+        public int typeId, colorIndex;
+        public RectMinTransformInfos rect;
     }
-
-    public struct TransformCompleteInfos
-    {
-        public Vector3 position, rotation, scale;
-    }*/
 
     public struct RectTransformInfos
     {
@@ -299,13 +293,13 @@ public class Save
 
 public class SG_Collector : MonoBehaviour
 {
-	public static SG_Savable[] CollectSavable()
+	public static AG_ElementType[] CollectSavable()
 	{
-		return FindObjectsOfType<SG_Savable> ();
+		return FindObjectsOfType<AG_ElementType> ();
 	}
 
 	/// Collects the savables sorted by id.
-	public static SG_SavableObj[] CollectSavableObjSorted()
+	/*public static SG_SavableObj[] CollectSavableObjSorted()
 	{
 		SG_Savable[] savables = FindObjectsOfType<SG_Savable>();
 		savables.OrderBy(x => x.id).ToList();
@@ -316,46 +310,42 @@ public class SG_Collector : MonoBehaviour
 			savableObjs[i] = savables[i].savable;
 		}
 		return savableObjs;
-	}
+	}*/
 
-	public static SG_SavableObj[] CollectSavableObj()
+	/*public static SG_SavableObj[] CollectSavableObj()
 	{
-		SG_Savable[] savables = CollectSavable();
-		SG_SavableObj[] savableObjs = new SG_SavableObj[savables.Length];
+		AG_ElementType[] savables = CollectSavable();
+		AG_ElementType[] savableObjs = new AG_ElementType[savables.Length];
 		for (int i = 0; i < savables.Length; i++)
 		{
 			savables[i].SetClass ();
 			savableObjs[i] = savables[i].savable;
 		}
 		return savableObjs;
-	}
+	}*/
 
 	public static Save.Infos SortObjToSave()
 	{
 		Save.Infos infos = new Save.Infos();
-		//List<Save.cube> listCubes = new List<Save.cube>();
-		//List<Save.platform> listPlatform = new List<Save.platform>();
+        List<Save.EmitterInfos> listEmitter = new List<Save.EmitterInfos>();
+        List<Save.ReceiverInfos> listReceiver = new List<Save.ReceiverInfos>();
 
-		SG_SavableObj[] savableObjs = CollectSavableObj();
+        AG_ElementType[] elements = CollectSavable();
 
-		/*foreach (SG_SavableObj save in savableObjs)
-		{
-			if (save.savableObjType == SG_Savable.SavableObjType.cube)
-				listCubes.Add (((SG_Cube)save).data);
-			else if (save.savableObjType == SG_Savable.SavableObjType.platform)
-				listPlatform.Add (((SG_Platform)save).data);
-			else if (save.savableObjType == SG_Savable.SavableObjType.human)
-				infos.human = ((SG_Human)save).data;
-			else if (save.savableObjType == SG_Savable.SavableObjType.controllableball)
-				infos.ball = ((SG_ControllableBall)save).data;
-			else if (save.savableObjType == SG_Savable.SavableObjType.gameplay)
-				infos.gameplayInfos = ((SG_Gameplay)save).data;
-		}*/
+        foreach (AG_ElementType elem in elements)
+        {
+            switch (elem.objectType)
+            {                
+                case ObjectType.emitter:
+                    listEmitter.Add(((AG_Emitter)elem).info);
+                    break;
+                default:
+                    Debug.Log("Uncorrect enter in saves");
+                    break;
+            }
+        }
 
-		//infos.cubes = listCubes.ToArray();
-		//infos.platforms = listPlatform.ToArray();
-
-		return infos;
+        return infos;
 	}
 }
 

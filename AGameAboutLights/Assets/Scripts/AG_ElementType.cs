@@ -20,6 +20,7 @@ public enum ObjectInteractionType
 
 public class AG_ElementType : MonoBehaviour {
 
-    public ObjectType objectType;
+    public bool tosave;
     public ObjectInteractionType objectInteractionType;
+    public ObjectType objectType;    
 }

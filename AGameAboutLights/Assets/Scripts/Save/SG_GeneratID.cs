@@ -14,10 +14,10 @@ public class SG_GeneratID : MonoBehaviour {
 	public void Generator()
 	{
 		_id = 0;
-		SG_Savable[] savables = SG_Collector.CollectSavable();
+        //SG_Savable[] savables = SG_Collector.CollectSavable();
 
-		foreach (SG_Savable save in savables)
-			save.id = _id++;
+        //foreach (SG_Savable save in savables)
+        //save.id = _id++;
 	}
 }
 

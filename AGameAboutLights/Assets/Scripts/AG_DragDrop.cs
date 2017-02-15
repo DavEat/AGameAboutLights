@@ -27,6 +27,10 @@ public class AG_DragDrop : MonoBehaviour {
 
     [SerializeField] private UnityEvent toggleLight;
 
+    #region Inventory Var
+    private bool _creatingNewObject;
+    private Transform _enterObj;
+    #endregion
     #endregion
 
     #region Struct
@@ -112,14 +116,13 @@ public class AG_DragDrop : MonoBehaviour {
                 else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
                 {
                     mousePos = inputPosition;
-                    enterObj = hit.transform;
-                    creatingNewObject = true;                    
+                    _enterObj = hit.transform;
+                    _creatingNewObject = true;                    
                 }
             }
         }
 	}
-    public bool creatingNewObject;
-    private Transform enterObj;
+    
 	private void OnPointer(Vector2 inputPosition)
 	{
         if (_rotating && target != null)
@@ -162,12 +165,12 @@ public class AG_DragDrop : MonoBehaviour {
                 if (downObject != null)
                     downObject.parent.position = inputPosition;
 
-            if (creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
+            if (_creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
             {
-                Transform obj = enterObj.GetComponent<AG_InventoryObjectManager>().OnSelect();
+                Transform obj = _enterObj.GetComponent<AG_InventoryObjectManager>().OnSelect();
                 if (obj != null)
                 {
-                    creatingNewObject = false;
+                    _creatingNewObject = false;
                     inventory.SetScroll(false);
                     if (lazerTurnOn)
                         toggleLight.Invoke();

@@ -1,18 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AG_Receiver : AG_ElementType 
+public class AG_Emitter : AG_ElementType 
 {
     public AG_Color.ColorName color;
     public Image receiverColorImage;
-    private bool _alimented;
     [HideInInspector] public RectTransform _rect;
-
-    public bool alimented
-    {
-        get { return _alimented; }
-        set { _alimented = value; }
-    }
+    public Save.EmitterInfos info;
 
     void Start()
     {

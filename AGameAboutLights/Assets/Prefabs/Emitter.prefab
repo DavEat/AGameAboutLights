@@ -75,9 +75,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a946f697fc995294e9ee6fe2f9bb13de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startColor: 0
   layer:
     serializedVersion: 2
     m_Bits: 1024
+  listReceiver: []
   maxLineOfLine: 25
   lightWidth: 30
   _light: {fileID: 1963911768328412, guid: e18ab32e75e6b6340884233f910f20d1, type: 2}
@@ -86,6 +88,9 @@ MonoBehaviour:
   lightContener: {fileID: 0}
   lightTurnOn: 0
   dragDrop: {fileID: 0}
+  mirrorChock: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+    type: 2}
+  listObject: {fileID: 0}
 --- !u!114 &114673402000551832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tosave: 1
   objectType: 2
   objectInteractionType: 0
 --- !u!114 &114687223241338694
@@ -148,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -717, y: -0.0000049825}
+  m_AnchoredPosition: {x: -720, y: 2}
   m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224777102487550156
