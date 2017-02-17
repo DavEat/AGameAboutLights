@@ -24,8 +24,10 @@ public class AG_Grid : MonoBehaviour {
 
 	void Start ()
     {
-        if (listPoints.Count == 0)
+        if (transform.childCount == 0)
             CreateGried();
+        else foreach (Transform t in transform.GetComponentsInChildren<Transform>())
+                listPoints.Add(t);
     }
 
     private void CreateGried()

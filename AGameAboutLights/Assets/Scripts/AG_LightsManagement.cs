@@ -8,7 +8,7 @@ public class AG_LightsManagement : MonoBehaviour
 {
 
     #region Var
-    public AG_Color.ColorName startColor;
+    //public AG_Color.ColorName startColor;
 
     public LayerMask layer;
 
@@ -82,7 +82,7 @@ public class AG_LightsManagement : MonoBehaviour
         _origin = stratLightPos.position;
         angle = stratLightPos.eulerAngles.z;
         _direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-        AddLight((int)startColor);
+        AddLight((int)GetComponent<AG_Emitter>().color);
     }
 
     public void AddLight(int colorIndex)
@@ -161,6 +161,7 @@ public class AG_LightsManagement : MonoBehaviour
         {
             if (currentLight < maxLineOfLine)
             {
+                Debug.Log("colorIndex : " + colorIndex + " filter color index" + (int)hit.transform.GetComponent<AG_Filter>().color);
                 //Debug.Log("color index : " + colorIndex + " -> " + hit.transform.GetComponent<AG_Filter>().color);
                 if (colorIndex == (int)hit.transform.GetComponent<AG_Filter>().color)
                 {
@@ -299,18 +300,18 @@ public class PrismaManagement
     public int PrismaColorManagement(int colorIndex)
     {
         int[] arrayToReturn;
-        if (colorIndex == 0)
-            arrayToReturn = new int[] { 5, 1 };
-        else if (colorIndex == 1)
-            arrayToReturn = new int[] { 0, 2 };
+        if (colorIndex == 1)
+            arrayToReturn = new int[] { 6, 2 };
         else if (colorIndex == 2)
-            arrayToReturn = new int[] { 1, 3 };
+            arrayToReturn = new int[] { 1, 2 };
         else if (colorIndex == 3)
             arrayToReturn = new int[] { 2, 4 };
         else if (colorIndex == 4)
             arrayToReturn = new int[] { 3, 5 };
         else if (colorIndex == 5)
-            arrayToReturn = new int[] { 0, 4 };
+            arrayToReturn = new int[] { 4, 6 };
+        else if (colorIndex == 6)
+            arrayToReturn = new int[] { 1, 5 };
         else arrayToReturn = null;
 
         listPrismaColorIndex.Add(arrayToReturn[1]);

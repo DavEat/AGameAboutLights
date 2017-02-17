@@ -16,8 +16,8 @@ public class AG_DragDrop : MonoBehaviour {
     #endregion
 
     [HideInInspector] public bool lazerTurnOn = false; 
-	private bool onInventory, objectDragged, down;
-	private Transform downObject;
+	private bool onInventory, objectDragged;
+	private Transform _downObject;
 	private Vector2 mousePos;
 
     //private AG_LightsManagement _lightsManagement;
@@ -34,11 +34,11 @@ public class AG_DragDrop : MonoBehaviour {
     #endregion
 
     #region Struct
-    /*public AG_LightsManagement lightsManagement
+    public Transform downObject
     {
-        get { return _lightsManagement; }
-        set { _lightsManagement = value; }
-    }*/
+        get { return _downObject; }
+        private set { _downObject = value; }
+    }
     #endregion
 
     public RaycastHit2D RaycastScreenPoint()
