@@ -13,6 +13,8 @@ public class AG_LightsManagement : MonoBehaviour
     public LayerMask layer;
 
     public AG_Receiver[] listReceiver;
+    public AG_Emitter[] listEmitter;
+    private int currentEmitterIndex = 0;
 
     [SerializeField]
     private int maxLineOfLine = 20;
@@ -25,7 +27,7 @@ public class AG_LightsManagement : MonoBehaviour
     private List<GameObject> listLight = new List<GameObject>();
 
     [SerializeField]
-    private Transform stratLightPos, lightContener = null;
+    private Transform lightContener = null;
     private Vector2 _origin, _direction;
     private float angle;
     public bool lightTurnOn = true;
@@ -79,10 +81,10 @@ public class AG_LightsManagement : MonoBehaviour
         lastHitObject = gameObject;
         lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
 
-        _origin = stratLightPos.position;
-        angle = stratLightPos.eulerAngles.z;
+        _origin = listEmitter[currentEmitterIndex].startLightPos.position;
+        angle = listEmitter[currentEmitterIndex].startLightPos.eulerAngles.z;
         _direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-        AddLight((int)GetComponent<AG_Emitter>().color);
+        AddLight((int)listEmitter[currentEmitterIndex].color);
     }
 
     public void AddLight(int colorIndex)
@@ -123,12 +125,14 @@ public class AG_LightsManagement : MonoBehaviour
 
     private void EndPointLightAction(RaycastHit2D hit, int colorIndex)
     {
-        if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.wall)
+        ObjectType objectType = hit.transform.GetComponent<AG_ElementType>().objectType;
+
+        if (objectType == ObjectType.wall || objectType == ObjectType.emitter)
         {
             if (currentLight < maxLineOfLine)
                 SetWaitingPrismaColor();
         }
-        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.mirror)
+        else if (objectType == ObjectType.mirror)
         {
             if (currentLight < maxLineOfLine)
             {
@@ -138,7 +142,7 @@ public class AG_LightsManagement : MonoBehaviour
                 AddLight(colorIndex);
             }
         }
-        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.receiver)
+        else if (objectType == ObjectType.receiver)
         {
             AG_Receiver receiver = hit.transform.GetComponent<AG_Receiver>();
             if (colorIndex == (int)receiver.color || receiver.color == AG_Color.ColorName.none)
@@ -149,7 +153,7 @@ public class AG_LightsManagement : MonoBehaviour
 
             CheckVictory();
         }
-        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.prisma)
+        else if (objectType == ObjectType.prisma)
         {
             if (currentLight < maxLineOfLine)
             {
@@ -157,11 +161,11 @@ public class AG_LightsManagement : MonoBehaviour
                 InitNewPrisma(hit.transform, colorIndex);
             }
         }
-        else if (hit.transform.GetComponent<AG_ElementType>().objectType == ObjectType.filter)
+        else if (objectType == ObjectType.filter)
         {
             if (currentLight < maxLineOfLine)
             {
-                Debug.Log("colorIndex : " + colorIndex + " filter color index" + (int)hit.transform.GetComponent<AG_Filter>().color);
+                //Debug.Log("colorIndex : " + colorIndex + " filter color index" + (int)hit.transform.GetComponent<AG_Filter>().color);
                 //Debug.Log("color index : " + colorIndex + " -> " + hit.transform.GetComponent<AG_Filter>().color);
                 if (colorIndex == (int)hit.transform.GetComponent<AG_Filter>().color)
                 {

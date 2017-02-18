@@ -3,34 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class AG_EditorManager : MonoBehaviour {
 
+    #region Var
     public bool _editing;
-    private GameObject _currentOpenMenu;
-    private Transform selectedObj;
+    
+    private Transform _selectedObj;
 
+    [SerializeField] private AG_ScaleToolManager _scaleTool;
+    public bool snap = true;
+
+    #endregion
+
+    #region Struct
+    public AG_ScaleToolManager scaleTool
+    {
+        get { return _scaleTool; }
+        private set { _scaleTool = value; }
+    }
+    #endregion
+
+    public void ToggleSnap()
+    {
+        snap = !snap;
+    }
 
     #region Graphics & Animations of the editor
-    public void ToogleObjectsMenu(GameObject menu)
+
+    private RectTransform _currentOpenMenu;
+    private float openTime = 0.5f, closeTime = 0.3f;
+
+    public void ToogleObjectsMenu(RectTransform menu)
     {
-        if (_currentOpenMenu != null && _currentOpenMenu.activeSelf)
+        if (_currentOpenMenu != null/* && _currentOpenMenu.anchoredPosition.x <= 0*/)
         {
-            if (menu != _currentOpenMenu)
+            if (true)
             {
-                _currentOpenMenu.SetActive(false);
-                _currentOpenMenu = menu;
-                _currentOpenMenu.SetActive(true);
+                if (menu != _currentOpenMenu)
+                {
+                    OpenCloseMenu(menu, _currentOpenMenu);
+                    _currentOpenMenu = menu;
+                }
+                else
+                {
+                    inTweenOpen.Kill();
+                    CloseMenu(_currentOpenMenu);
+                }
             }
-            else _currentOpenMenu.SetActive(false);
         }
         else
         {
             if (menu != _currentOpenMenu)
                 _currentOpenMenu = menu;
-            _currentOpenMenu.SetActive(true);
+            OpenMenu(_currentOpenMenu);
         }
-
+    }
+    Sequence inTweenOpen;
+    private void OpenMenu(RectTransform rect)
+    {
+        inTweenOpen = DOTween.Sequence();
+        inTweenOpen.Append(rect.DOAnchorPos(new Vector2(0, 0), openTime));
+        inTweenOpen.Play();
+    }
+    private void OpenCloseMenu(RectTransform rectOpen, RectTransform rectClose)
+    {
+        Sequence inTween = DOTween.Sequence();
+        inTween.Append(rectClose.DOAnchorPos(new Vector2(rectClose.sizeDelta.x * 0.8f, 0), closeTime * 0.8f))
+               .Append(rectClose.DOAnchorPos(new Vector2(rectClose.sizeDelta.x, 0), closeTime * 0.2f))
+               .Join(rectOpen.DOAnchorPos(new Vector2(0, 0), openTime));
+        inTween.Play();
+    }
+    private void CloseMenu(RectTransform rect)
+    {
+        Debug.Log("close : " + rect.name);
+        Sequence inTween = DOTween.Sequence();
+        inTween.Append(rect.DOAnchorPos(new Vector2(rect.sizeDelta.x + 20, 0), closeTime))
+               .OnComplete(() => { _currentOpenMenu = null; });
+        inTween.Play();
     }
     #endregion
 
@@ -52,6 +103,7 @@ public class AG_EditorManager : MonoBehaviour {
     [HideInInspector] public bool lazerTurnOn = false;
     private bool _onInventory, _objectDragged;
     private Transform _downObject;
+    private Vector2 _downPosDiff;
     private Vector2 mousePos;
 
     //private AG_LightsManagement _lightsManagement;
@@ -122,7 +174,10 @@ public class AG_EditorManager : MonoBehaviour {
 
     private Transform target;
 	private void OnPointerDown(Vector2 inputPosition)
-	{
+    {
+        if (scaleTool.ActiveSelf())
+            scaleTool.OnPointerDown(inputPosition);
+
         if (_rotation.gameObject.activeSelf && !_rotating && target != null && _rotation != null)
         {
             RaycastHit2D hitRotation = Physics2D.Raycast(Input.mousePosition, target.rotation * Vector2.up, 0.01f, layerRotation);
@@ -145,7 +200,8 @@ public class AG_EditorManager : MonoBehaviour {
 
                     mousePos = inputPosition;
                     downObject = hit.transform;
-                    DiplayGrid(true);
+                    _downPosDiff = (Vector2)downObject.parent.position - inputPosition;
+                    //DiplayGrid(true);
                 }
                 else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
                 {
@@ -154,12 +210,16 @@ public class AG_EditorManager : MonoBehaviour {
                     _creatingNewObject = true;                    
                 }
             }
-        }
-	}
+        }        
+    }
     
 	private void OnPointer(Vector2 inputPosition)
 	{
-        if (_rotating && target != null)
+        if (_selectedObj != null && scaleTool.ActiveSelf() && scaleTool.OnPointer(inputPosition, _selectedObj.parent.GetComponent<AG_EditorElement>()))
+        {
+            //DiplayGrid(true);
+        }
+        else if (_rotating && target != null)
         {
             Vector2 dir = inputPosition - (Vector2)_rotation.position;
             float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
@@ -167,7 +227,7 @@ public class AG_EditorManager : MonoBehaviour {
             Vector3 angles;
             if (Vector2.Distance(inputPosition, target.position) < _rotation.GetChild(1).localPosition.y)
             {
-                angles = new Vector3(0, 0, angleZ);                
+                angles = new Vector3(0, 0, angleZ);
             }
             else
             {
@@ -196,8 +256,12 @@ public class AG_EditorManager : MonoBehaviour {
         else
         {
             if ((Vector2)inputPosition != mousePos)
+            {
                 if (downObject != null)
-                    downObject.parent.position = inputPosition;
+                {
+                    downObject.parent.position = inputPosition + _downPosDiff;
+                }
+            }
 
             if (_creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
             {
@@ -213,7 +277,7 @@ public class AG_EditorManager : MonoBehaviour {
 
                     //mousePos = inputPosition;
                     downObject = obj.GetChild(0);
-                    DiplayGrid(true);
+                    //DiplayGrid(true);
                 }
             }
         }
@@ -222,6 +286,9 @@ public class AG_EditorManager : MonoBehaviour {
 	private void OnPointerUp(Vector2 inputPosition)
 	{
         inventory.SetScroll(true);
+
+        if (scaleTool.ActiveSelf() && _selectedObj != null)
+            scaleTool.OnPointerUp(inputPosition, _selectedObj.parent.GetComponent<AG_EditorElement>());
 
         if (_rotating)
             _rotating = false;        
@@ -238,8 +305,11 @@ public class AG_EditorManager : MonoBehaviour {
                     {
                         if (hit.transform == downObject)
                         {
-                            DiplayGrid(false);
-                            selectedObj = downObject;
+                            //DiplayGrid(false);
+                            _selectedObj = downObject;
+
+                            if (_selectedObj.GetComponent<AG_ElementType>().objectType == ObjectType.wall)
+                                scaleTool.InitScaleTool(_selectedObj.parent.GetComponent<RectTransform>());
 
                             //---- add hightlight on selectedobj
 
@@ -248,51 +318,39 @@ public class AG_EditorManager : MonoBehaviour {
                     }
                     else
                     {
-                        if (inputPosition.x < inventory.inventoryLimite.position.x)
+                        if (inputPosition.x > inventory.inventoryLimite.position.x)
                             inventory.AddToInventory(downObject);
-                        else
-                            downObject.parent.position = ChoseClosestPoint(
-                                grid.listPoints,
-                                inputPosition)
-                                .position;
+                        else if (snap)
+                            downObject.parent.position = AG_Grid.ChoseClosestPoint(downObject.parent.position);
 
                         downObject = null;
-                        DiplayGrid(false);
+                        //DiplayGrid(false);
                     }
                 }
                 else
                 {
-                    DiplayGrid(false);
+                    //DiplayGrid(false);
                 }
             }
         }
 	}
 
-	public Transform ChoseClosestPoint(List<Transform> list, Vector2 pos)
-	{
-		if (list != null)
-		{
-			if (list.Count == 1)
-				return list[0];
-			else if (list != null && list.Count > 1)
-			{
-				Transform lastSelected = list[0];
-				for (int i = 1; i < list.Count; i++)
-				{
-					if (Vector2.Distance(lastSelected.position, pos) > Vector2.Distance(list[i].position, pos))
-						lastSelected = list[i];
-				}
-				return lastSelected;
-			}
-		}
-		return null;
-	}
-
 	public void DiplayGrid(bool value)
 	{
-		if (!AG_GameSettings.displayGrid)
+		if (!AG_GameSettings.displayGrid && grid.gameObject.activeSelf != value)
 			grid.gameObject.SetActive(value);
 	}
+
+    public void EnableRotation()
+    {
+        if (_selectedObj != null)
+        {
+            target = _selectedObj.parent;
+            _rotation.transform.eulerAngles = _selectedObj.parent.eulerAngles;
+            _rotation.transform.position = _selectedObj.parent.position;
+            _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
+        }
+    }
 
     #endregion
 
@@ -300,22 +358,22 @@ public class AG_EditorManager : MonoBehaviour {
 
     public void ChangeColor(int _color)
     {
-        if (selectedObj != null)
+        if (_selectedObj != null)
         {
-            AG_ElementType elem = selectedObj.parent.GetComponent<AG_ElementType>();
+            AG_ElementType elem = _selectedObj.parent.GetComponent<AG_ElementType>();
             if (elem != null && elem.objectType != ObjectType.wall)
             {
-                if (elem.objectType == ObjectType.filter)
-                    ((AG_Filter)elem).color = (AG_Color.ColorName)_color;
-                else if (elem.objectType == ObjectType.emitter)
-                    ((AG_Emitter)elem).color = (AG_Color.ColorName)_color;
-                else if (elem.objectType == ObjectType.receiver)
-                    ((AG_Receiver)elem).color = (AG_Color.ColorName)_color;
+                ((AG_ElementType_Color)elem).color = (AG_Color.ColorName)_color;
 
-                Image img = selectedObj.parent.GetComponent<Image>();
-                if (img != null)
+                if (elem.objectType == ObjectType.emitter && _color == 0)
                 {
-                    img.color = AG_Color.colorList[(int)_color];
+                    AG_EditorDebug.DebugLog("A Emitter can't have the white color");
+                }
+                else
+                {
+                    Image img = _selectedObj.parent.GetComponent<Image>();
+                    if (img != null)
+                        img.color = AG_Color.colorList[_color];
                 }
             }
             else

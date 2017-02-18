@@ -64,9 +64,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 57.056465, y: 15.397453}
-      - {x: 88.03876, y: -29.603893}
-      - {x: -90.17174, y: -29.603874}
-      - {x: -56.941017, y: 16.306282}
+      - {x: 87.81726, y: -29.8255}
+      - {x: -88.84204, y: -30.04712}
+      - {x: -56.719482, y: 15.198181}
 --- !u!60 &60881659371270030
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -78,13 +78,13 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 17}
+  m_Offset: {x: 0, y: 31.6}
   m_Points:
     m_Paths:
     - - {x: 57.056465, y: 15.397453}
-      - {x: 88.03876, y: -29.603893}
-      - {x: -90.17174, y: -29.603874}
-      - {x: -56.941017, y: 16.306282}
+      - {x: 87.81726, y: -29.8255}
+      - {x: -88.84204, y: -30.04712}
+      - {x: -56.719482, y: 15.198181}
 --- !u!114 &114129648283054442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
   objectInteractionType: 0
   objectType: 3
   color: 0
-  receiverColorImage: {fileID: 114359624976573702}
+  colorImage: {fileID: 114359624976573702}
   _rect: {fileID: 0}
 --- !u!222 &222464265903227120
 CanvasRenderer:
@@ -188,7 +188,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1663317612686888}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -198,9 +198,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -746.2, y: 181}
-  m_SizeDelta: {x: 167, y: 19}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1364, y: 0}
+  m_SizeDelta: {x: 177, y: 47}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &224890244826660232
 RectTransform:
   m_ObjectHideFlags: 1
@@ -216,6 +216,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 9.5}
+  m_AnchoredPosition: {x: -0, y: -0}
   m_SizeDelta: {x: 177, y: 47}
   m_Pivot: {x: 0.5, y: 0.5}

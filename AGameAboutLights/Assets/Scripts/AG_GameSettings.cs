@@ -10,4 +10,13 @@ public class AG_GameSettings : MonoBehaviour {
         get { return _displayGrid; }
         set { _displayGrid = value; }
     }
+
+    private static bool _snap; // display grid every time
+    public static bool snap
+    {
+        get { return _snap; }
+        set { _snap = value; }
+    }
+
+    public void ToogleSnap() { _snap = !_snap; }
 }

@@ -328,7 +328,7 @@ public class SG_Collector : MonoBehaviour
 	{
 		Save.Infos infos = new Save.Infos();
         List<Save.EmitterInfos> listEmitter = new List<Save.EmitterInfos>();
-        List<Save.ReceiverInfos> listReceiver = new List<Save.ReceiverInfos>();
+        //List<Save.ReceiverInfos> listReceiver = new List<Save.ReceiverInfos>();
 
         AG_ElementType[] elements = CollectSavable();
 

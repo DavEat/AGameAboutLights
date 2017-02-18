@@ -29,17 +29,6 @@ public class AG_Inventory : MonoBehaviour {
     public void AddToInventory(Transform obj)
     {
         AG_ElementType elem = obj.GetComponent<AG_ElementType>();
-
-        switch (elem.objectType)
-        {
-            case ObjectType.prisma:
-                _lisObjects[(int)elem.objectType].AddIn(obj);
-                break;
-            case ObjectType.mirror:
-                _lisObjects[(int)elem.objectType].AddIn(obj);
-                break;
-            default: Debug.Log("out of switch");
-                break;
-        }
+        _lisObjects[(int)elem.objectType].AddIn(obj);
     }
 }

@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AG_Receiver : AG_ElementType 
+public class AG_Receiver : AG_ElementType_Color
 {
-    public AG_Color.ColorName color;
-    public Image receiverColorImage;
     private bool _alimented;
     [HideInInspector] public RectTransform _rect;
 
@@ -18,7 +16,7 @@ public class AG_Receiver : AG_ElementType
     {
         _rect = GetComponent<RectTransform>();
         if (color != AG_Color.ColorName.none)
-            receiverColorImage.color = AG_Color.colorList[(int)color];
-        else receiverColorImage.color = Color.white;
+            colorImage.color = AG_Color.colorList[(int)color];
+        else colorImage.color = Color.white;
     }
 }

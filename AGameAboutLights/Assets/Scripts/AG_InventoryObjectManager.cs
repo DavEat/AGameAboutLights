@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class AG_InventoryObjectManager : MonoBehaviour {
 
     #region Var
+    [SerializeField] private bool editorElem;
     /// <summary> number of item of that type </summary>
     private int _currentNumber;
-    [SerializeField] private int _maxNumber;
+    [SerializeField] private float _maxNumber = Mathf.Infinity;
     /// <summary> list of all already instance object and in the inventory </summary>
     private List<GameObject> _listObjects = new List<GameObject>(); 
 
@@ -26,7 +27,7 @@ public class AG_InventoryObjectManager : MonoBehaviour {
         get { return _currentNumber; }
         set { _currentNumber = value; }
     }
-    private int maxNumber
+    private float maxNumber
     {
         get { return _maxNumber; }
         set { _maxNumber = value; }

@@ -41,10 +41,10 @@ public class AG_DragDrop : MonoBehaviour {
     }
     #endregion
 
-    public RaycastHit2D RaycastScreenPoint()
+    public RaycastHit2D RaycastScreenPoint(Vector2 inputPosition)
 	{
-		Debug.DrawRay (Input.mousePosition, Vector2.up * 10, Color.red, 10);
-		return Physics2D.Raycast(Input.mousePosition, Vector2.up, 0.01f, layer);
+		Debug.DrawRay (inputPosition, Vector2.up * 10, Color.red, 10);
+		return Physics2D.Raycast(inputPosition, Vector2.up, 0.01f, layer);
 	}
 
 	void Update ()
@@ -99,7 +99,7 @@ public class AG_DragDrop : MonoBehaviour {
 
         if (!_rotating)
         {
-            RaycastHit2D hit = RaycastScreenPoint();
+            RaycastHit2D hit = RaycastScreenPoint(inputPosition);
             if (hit.collider != null)
             {
                 if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
@@ -193,7 +193,7 @@ public class AG_DragDrop : MonoBehaviour {
             _rotating = false;        
         else
         {
-            RaycastHit2D hit = RaycastScreenPoint();
+            RaycastHit2D hit = RaycastScreenPoint(inputPosition);
             if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
             {
                 if (lazerTurnOn)
@@ -218,7 +218,7 @@ public class AG_DragDrop : MonoBehaviour {
                         if (inputPosition.x < inventory.inventoryLimite.position.x)
                             inventory.AddToInventory(downObject);
                         else
-                            downObject.parent.position = ChoseClosestPoint(grid.listPoints, inputPosition).position;
+                            downObject.parent.position = AG_Grid.ChoseClosestPoint(inputPosition);
 
                         downObject = null;
                         DiplayGrid(false);
@@ -230,26 +230,6 @@ public class AG_DragDrop : MonoBehaviour {
                 }
             }
         }
-	}
-
-	public Transform ChoseClosestPoint(List<Transform> list, Vector2 pos)
-	{
-		if (list != null)
-		{
-			if (list.Count == 1)
-				return list[0];
-			else if (list != null && list.Count > 1)
-			{
-				Transform lastSelected = list[0];
-				for (int i = 1; i < list.Count; i++)
-				{
-					if (Vector2.Distance(lastSelected.position, pos) > Vector2.Distance(list[i].position, pos))
-						lastSelected = list[i];
-				}
-				return lastSelected;
-			}
-		}
-		return null;
 	}
 
 	public void DiplayGrid(bool value)

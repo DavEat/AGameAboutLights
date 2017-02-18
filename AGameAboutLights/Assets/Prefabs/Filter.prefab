@@ -160,7 +160,7 @@ MonoBehaviour:
   objectInteractionType: 0
   objectType: 5
   color: 0
-  filterColorImage: {fileID: 114170873065262328}
+  colorImage: {fileID: 114170873065262328}
 --- !u!222 &222272242794193478
 CanvasRenderer:
   m_ObjectHideFlags: 1

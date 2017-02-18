@@ -9,11 +9,11 @@ using UnityEditor;
 
 public class SG_GeneratID : MonoBehaviour {
 
-	private int _id;
+	//private int _id;
 
 	public void Generator()
 	{
-		_id = 0;
+		//_id = 0;
         //SG_Savable[] savables = SG_Collector.CollectSavable();
 
         //foreach (SG_Savable save in savables)

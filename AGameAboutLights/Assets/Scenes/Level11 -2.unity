@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0450a7c512e2e49939c7c5d7c5e93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  editorElem: 0
   _maxNumber: 1
   _text: {fileID: 1043096357}
   prefab: {fileID: 1660411507285776, guid: d558d791016c2ac49ab4236075b23136, type: 2}
@@ -201,7 +202,7 @@ Prefab:
     - target: {fileID: 224841707318797778, guid: 606aab6faedc7444c9a19a3f68dbc092,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -257
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224841707318797778, guid: 606aab6faedc7444c9a19a3f68dbc092,
         type: 2}
@@ -839,7 +840,7 @@ Prefab:
     - target: {fileID: 224025373531376948, guid: 28ea2dc9f0c3c154b9a576153bec5c14,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 336
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114044528462948916, guid: 28ea2dc9f0c3c154b9a576153bec5c14,
         type: 2}
@@ -1961,7 +1962,7 @@ Prefab:
     - target: {fileID: 224378825714666952, guid: 25f08af7ad4523b4a811bfb0dfc20b3f,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -79
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224378825714666952, guid: 25f08af7ad4523b4a811bfb0dfc20b3f,
         type: 2}
@@ -2817,6 +2818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0450a7c512e2e49939c7c5d7c5e93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  editorElem: 0
   _maxNumber: 2
   _text: {fileID: 717145392}
   prefab: {fileID: 1558192448209972, guid: dc49c43989ee8d64da80823eb540e9b1, type: 2}
@@ -3072,7 +3074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1861393a8ff307439129daf24fb053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingScreen: {fileID: 945654627}
 --- !u!114 &1287485869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3280,7 +3281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1861393a8ff307439129daf24fb053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingScreen: {fileID: 945654627}
 --- !u!114 &1386439889
 MonoBehaviour:
   m_ObjectHideFlags: 0

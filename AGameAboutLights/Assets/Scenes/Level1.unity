@@ -494,10 +494,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62f3690e25d5b349b48cc8bacd525ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 3
+  tosave: 0
   objectInteractionType: 0
-  colorIndex: -1
-  receiverColorImage: {fileID: 202417912}
+  objectType: 3
+  color: 0
+  colorImage: {fileID: 0}
+  _rect: {fileID: 0}
 --- !u!114 &202417912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,8 +621,8 @@ GameObject:
   - component: {fileID: 368064429}
   - component: {fileID: 368064428}
   - component: {fileID: 368064427}
-  - component: {fileID: 368064426}
   - component: {fileID: 368064425}
+  - component: {fileID: 368064426}
   m_Layer: 10
   m_Name: Emitter
   m_TagString: Untagged
@@ -645,30 +647,36 @@ MonoBehaviour:
     m_Bits: 1024
   listReceiver:
   - {fileID: 202417911}
+  listEmitter:
+  - {fileID: 368064426}
   maxLineOfLine: 25
   lightWidth: 30
   _light: {fileID: 1963911768328412, guid: e18ab32e75e6b6340884233f910f20d1, type: 2}
   victoryScreen: {fileID: 1960575881}
-  stratLightPos: {fileID: 407125565}
   lightContener: {fileID: 990649074}
   lightTurnOn: 0
   dragDrop: {fileID: 1086597374}
-  mirrorChock: {fileID: 0}
+  mirrorChock: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+    type: 2}
   listObject: {fileID: 0}
 --- !u!114 &368064426
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114381680626411016, guid: 1b5f9d0b034b04c4f819357db64c8ed8,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 368064424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
+  m_Script: {fileID: 11500000, guid: d00fa9ffc8159e74a9ed1435fdcebe99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 2
+  tosave: 1
   objectInteractionType: 0
+  objectType: 2
+  color: 1
+  colorImage: {fileID: 368064428}
+  _rect: {fileID: 0}
+  startLightPos: {fileID: 407125565}
 --- !u!60 &368064427
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1698,7 +1706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1861393a8ff307439129daf24fb053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingScreen: {fileID: 167134210}
 --- !u!114 &957237137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3044,7 +3051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1861393a8ff307439129daf24fb053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingScreen: {fileID: 167134210}
 --- !u!114 &1960575884
 MonoBehaviour:
   m_ObjectHideFlags: 0
