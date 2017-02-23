@@ -1,0 +1,39 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 965M (ID=0x1427)
+    Vendor:   NVIDIA
+    VRAM:     2018 MB
+    Driver:   21.20.16.4534
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween50.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween50.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween43.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween43.dll into Unity Child Domain
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween46.dll (this message is harmless)
+Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\DOTween46.dll into Unity Child Domain
+- Completed reload, in  0.033 seconds
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A Game About Light_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.254616 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 16e8 -> priority: 1 
+  Thread -> id: 1080 -> priority: 1 
