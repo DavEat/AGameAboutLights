@@ -14,7 +14,7 @@ public class AG_LightsManagement : MonoBehaviour
 
     public AG_Receiver[] listReceiver;
     public AG_Emitter[] listEmitter;
-    private int currentEmitterIndex = 0;
+    private int currentEmitterIndex = 0, currenttotalLight;
 
     [SerializeField]
     private int maxLineOfLine = 20;
@@ -34,7 +34,7 @@ public class AG_LightsManagement : MonoBehaviour
     [SerializeField] private AG_DragDrop dragDrop;
 
     private PrismaManagement prismaM;
-    private List<LightConstructor> listLightConstructor = new List<LightConstructor>();
+    private List<LightConstructor>[] listLightConstructor;
     #endregion
 
     public void ToggleLight()
@@ -42,13 +42,20 @@ public class AG_LightsManagement : MonoBehaviour
         lightTurnOn = !lightTurnOn;
         if (lightTurnOn)
         {
-            SetLights();
             dragDrop.lazerTurnOn = true;
+            currenttotalLight = 0;
+
+            listLightConstructor = new List<LightConstructor>[listEmitter.Length];
+            for (int i = 0; i < listEmitter.Length; i++)
+                listLightConstructor[i] = new List<LightConstructor>();
+
+            for (currentEmitterIndex = 0; currentEmitterIndex < listEmitter.Length; currentEmitterIndex++)
+                SetLights();            
         }
         else
         {
-            dragDrop.lazerTurnOn = false;
-            listLightConstructor = new List<LightConstructor>();
+            dragDrop.lazerTurnOn = false;            
+
             inTween.Kill();
             //Debug.Log("destroy");
             foreach (GameObject g in listLight)
@@ -97,9 +104,10 @@ public class AG_LightsManagement : MonoBehaviour
             //listLight[currentLight].SetActive(true);
             //listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
 
-            listLightConstructor.Add(new LightConstructor(colorIndex, _origin, hit.point));
+            listLightConstructor[currentEmitterIndex].Add(new LightConstructor(colorIndex, _origin, hit.point));
 
             currentLight++;
+            currenttotalLight++;
             EndPointLightAction(hit, colorIndex);
         }
     }
@@ -129,12 +137,13 @@ public class AG_LightsManagement : MonoBehaviour
 
         if (objectType == ObjectType.wall || objectType == ObjectType.emitter)
         {
-            if (currentLight < maxLineOfLine)
+            Debug.Log("Wall - emitter");
+            if (currenttotalLight < maxLineOfLine)
                 SetWaitingPrismaColor();
         }
         else if (objectType == ObjectType.mirror)
         {
-            if (currentLight < maxLineOfLine)
+            if (currenttotalLight < maxLineOfLine)
             {
                 RaycastIgnore(hit.transform);
                 _direction = -Vector2.Reflect(_origin - hit.point, hit.normal);
@@ -148,22 +157,22 @@ public class AG_LightsManagement : MonoBehaviour
             if (colorIndex == (int)receiver.color || receiver.color == AG_Color.ColorName.none)
                 receiver.alimented = true;
 
-            if (currentLight < maxLineOfLine)
+            if (currenttotalLight < maxLineOfLine)
                 SetWaitingPrismaColor();
 
             CheckVictory();
         }
         else if (objectType == ObjectType.prisma)
-        {
-            if (currentLight < maxLineOfLine)
+        {            
+            if (currenttotalLight < maxLineOfLine)
             {
-                //Debug.Log("Prisma");
+                Debug.Log("Prisma");
                 InitNewPrisma(hit.transform, colorIndex);
             }
         }
         else if (objectType == ObjectType.filter)
         {
-            if (currentLight < maxLineOfLine)
+            if (currenttotalLight < maxLineOfLine)
             {
                 //Debug.Log("colorIndex : " + colorIndex + " filter color index" + (int)hit.transform.GetComponent<AG_Filter>().color);
                 //Debug.Log("color index : " + colorIndex + " -> " + hit.transform.GetComponent<AG_Filter>().color);
@@ -204,6 +213,8 @@ public class AG_LightsManagement : MonoBehaviour
         else
         {
             currentLight = 0;
+            currenttotalLight = 0;
+            currentEmitterIndex = 0;
             SpawnLights();
         }
     }
@@ -218,27 +229,49 @@ public class AG_LightsManagement : MonoBehaviour
         if (victory)
         {
             //victoryScreen.SetActive(true);
-            //Debug.Log("YOU WON");
+            Debug.Log("YOU WON");
             AG_EndLevel.SaveProgression();
         }
         return victory;
     }
 
+    /*private int TotalLightToGenerate()
+    {
+        int value = 0;
+        for (int i = 0; i < listLightConstructor.Length; i++)
+        {
+            value += listLightConstructor[i].Count;
+        }
+        return value;
+    }*/
+
     private void SpawnLights()
     {
+        Debug.Log(currenttotalLight);
         //currentLight = 0;
         //foreach (LightConstructor listConstrucor in listLightConstructor)
-        if (currentLight < maxLineOfLine && currentLight < listLightConstructor.Count)
+        if (currenttotalLight < maxLineOfLine && currentLight < listLightConstructor[currentEmitterIndex].Count)
         {
-            listLight[currentLight].SetActive(true);
-            listLight[currentLight].GetComponent<AG_Light_Mono>().Init(listLightConstructor[currentLight].colorIndex, new AG_Line(listLightConstructor[currentLight].origin, listLightConstructor[currentLight].direction, lightWidth), false);
+            listLight[currenttotalLight].SetActive(true);
+            listLight[currenttotalLight].GetComponent<AG_Light_Mono>().Init(
+                listLightConstructor[currentEmitterIndex][currentLight].colorIndex,
+                new AG_Line(listLightConstructor[currentEmitterIndex][currentLight].origin,
+                listLightConstructor[currentEmitterIndex][currentLight].direction, lightWidth), false);
+
             LightAnim();
             currentLight++;
+            currenttotalLight++;
         }
+        else if (currentEmitterIndex < listLightConstructor.Length)
+            currentEmitterIndex++;
         else
         {
             currentLight = 0;
-            listLightConstructor = new List<LightConstructor>();
+
+            listLightConstructor = new List<LightConstructor>[listEmitter.Length];
+            for (int i = 0; i < listEmitter.Length; i++)
+                listLightConstructor[i] = new List<LightConstructor>();
+
             if (victory)
             {
                 //victoryScreen.SetActive(true);
@@ -254,9 +287,9 @@ public class AG_LightsManagement : MonoBehaviour
     private Sequence inTween;
     private void LightAnim()
     {
-        AG_Line line = listLight[currentLight].GetComponent<AG_Light_Mono>().ag_light.GetLightValue();
+        AG_Line line = listLight[currenttotalLight].GetComponent<AG_Light_Mono>().ag_light.GetLightValue();
         float duration = 0.0005f * line.distance;
-        RectTransform light = listLight[currentLight].GetComponent<RectTransform>();
+        RectTransform light = listLight[currenttotalLight].GetComponent<RectTransform>();
 
         inTween = DOTween.Sequence();
         inTween.Append(light.DOSizeDelta(new Vector2(line.distance, line.width), duration))

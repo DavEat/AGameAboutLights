@@ -1385,7 +1385,7 @@ Prefab:
     - target: {fileID: 224394720145554532, guid: f1534d4088e191d4c901f3996faf52e9,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -14.7
+      value: -53.9
       objectReference: {fileID: 0}
     - target: {fileID: 224394720145554532, guid: f1534d4088e191d4c901f3996faf52e9,
         type: 2}
@@ -1559,7 +1559,7 @@ Prefab:
     - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
         type: 2}
       propertyPath: listEmitter.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
         type: 2}
@@ -1701,6 +1701,11 @@ Prefab:
       propertyPath: maxLineOfLine
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
+        type: 2}
+      propertyPath: listEmitter.Array.data[1]
+      value: 
+      objectReference: {fileID: 1035794703}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d453494760c38c4281ad7ef6a7efa9d, type: 2}
   m_IsPrefabParent: 0
@@ -2800,6 +2805,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224394720145554532, guid: f1534d4088e191d4c901f3996faf52e9,
     type: 2}
   m_PrefabInternal: {fileID: 458210052}
+--- !u!114 &1035794703 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114464226268790924, guid: f1534d4088e191d4c901f3996faf52e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 458210052}
+  m_Script: {fileID: 11500000, guid: d00fa9ffc8159e74a9ed1435fdcebe99, type: 3}
 --- !u!114 &1043096357 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114783851417532584, guid: 25f08af7ad4523b4a811bfb0dfc20b3f,
