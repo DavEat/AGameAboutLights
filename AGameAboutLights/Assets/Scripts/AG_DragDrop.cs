@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AG_DragDrop : MonoBehaviour {
+public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
     #region Var
     [SerializeField] private LayerMask layer;
 

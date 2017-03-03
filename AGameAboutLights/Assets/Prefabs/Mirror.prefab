@@ -39,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224265958084591730}
   - component: {fileID: 114798685917647252}
+  - component: {fileID: 114623500728833674}
   - component: {fileID: 61950661436520498}
   m_Layer: 10
   m_Name: Mirror
@@ -86,8 +87,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 1
+  tosave: 0
   objectInteractionType: 1
+  objectType: 1
+--- !u!114 &114623500728833674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660411507285776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24268c44376acb144a27f2c7cb8be26e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114798685917647252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,8 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 1
+  tosave: 0
   objectInteractionType: 0
+  objectType: 1
 --- !u!114 &114987245583067188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,7 +164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: -424}
+  m_AnchoredPosition: {x: -125, y: 0}
   m_SizeDelta: {x: 250, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224992253579880830

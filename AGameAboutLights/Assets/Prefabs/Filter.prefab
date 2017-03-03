@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222272242794193478}
   - component: {fileID: 114170873065262328}
   - component: {fileID: 114811321697927622}
+  - component: {fileID: 114345393391479360}
   - component: {fileID: 61833654679902520}
   m_Layer: 10
   m_Name: Filter
@@ -104,6 +105,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114345393391479360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1142018811171186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3616a3c0363526c48bc2a46df9b3b98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114674923253246628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,7 +171,7 @@ MonoBehaviour:
   tosave: 1
   objectInteractionType: 0
   objectType: 5
-  color: 0
+  color: 1
   colorImage: {fileID: 114170873065262328}
 --- !u!222 &222272242794193478
 CanvasRenderer:
@@ -189,7 +201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 257, y: -302}
+  m_AnchoredPosition: {x: 309, y: 316}
   m_SizeDelta: {x: 36, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224924697161926430

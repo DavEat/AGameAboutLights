@@ -256,7 +256,7 @@ public class AG_LightsManagement : MonoBehaviour
             listLight[currenttotalLight].GetComponent<AG_Light_Mono>().Init(
                 listLightConstructor[currentEmitterIndex][currentLight].colorIndex,
                 new AG_Line(listLightConstructor[currentEmitterIndex][currentLight].origin,
-                listLightConstructor[currentEmitterIndex][currentLight].direction, lightWidth), false);
+                listLightConstructor[currentEmitterIndex][currentLight].end, lightWidth), false);
 
             LightAnim();
             currentLight++;
@@ -333,7 +333,6 @@ public class PrismaManagement
         _listPrismaFace = new List<Transform>();
         _listPrismaColorIndex = new List<int>();
     }
-
     public int PrismaColorManagement(int colorIndex)
     {
         int[] arrayToReturn;
@@ -371,7 +370,7 @@ public class PrismaManagement
         else return null;
     }
 }
-
+/*
 public class LightConstructor
 {
     private Vector2 _origin, _direction;
@@ -399,4 +398,4 @@ public class LightConstructor
         this._direction = _direction;
         this._colorIndex = _colorIndex;
     }
-}
+}*/
