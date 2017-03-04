@@ -22,5 +22,5 @@ public class AG_ElementType : MonoBehaviour {
 
     public bool tosave;
     public ObjectInteractionType objectInteractionType;
-    public ObjectType objectType;    
+    public ObjectType objectType;
 }

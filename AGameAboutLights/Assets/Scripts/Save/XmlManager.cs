@@ -70,11 +70,12 @@ public class XmlManager
         LoadXML();
         if (_data.ToString() != "")
         {
-			//SG_SavableObj[] savalbesObj = SG_Collector.CollectSavableObjSorted();
-
             // notice how I use a reference to type (UserData) here, you need this 
             // so that the returned object is converted into the correct type 
             mySave = (Save)DeserializeObject(_data);
+
+            Load.Infos elem = SG_Collector.SortObjToLoad();
+          
         }
     }
 
@@ -88,28 +89,9 @@ public class XmlManager
 
         //Save save info
         mySave.infos.saveInfos.date = new DateTime();
+        mySave.infos.saveInfos.difficulty = -1;
 
-        /*//Save player
-        mySave.infos.player.transform.position = listObjToSave.player.position;
-        mySave.infos.player.transform.rotation = listObjToSave.player.localEulerAngles;
-
-        //Save ball
-        mySave.infos.ball.transform.position = listObjToSave.ball.position;
-        mySave.infos.ball.transform.rotation = listObjToSave.ball.eulerAngles;
-        mySave.infos.ball.transform.scale = listObjToSave.ball.localScale;
-
-        //Save cubes
-        Save.cube[] cubes = new Save.cube[listObjToSave.arrayCubes.Length];
-        for (int i = 0; i < listObjToSave.arrayCubes.Length; i++)
-        {
-            cubes[i].transform.position = listObjToSave.arrayCubes[i].position;
-            cubes[i].transform.rotation = listObjToSave.arrayCubes[i].eulerAngles;
-            cubes[i].transform.scale = listObjToSave.arrayCubes[i].localScale;
-        }
-        mySave.infos.cubes = cubes;*/
-
-
-        // Time to creat our XML! 
+        // Time to creat XML! 
         _data = SerializeObject(mySave);
         // This is the final resulting XML from the serialization process 
         CreateXML();
@@ -221,7 +203,7 @@ public class Save
         public int sceneID;
         public string sceneName;
         public SaveInfo saveInfos;
-        LevelInfos levelInfos;
+        public LevelInfos levelInfos;
     }
 
     public struct SaveInfo
@@ -232,7 +214,7 @@ public class Save
 
     public struct InventoryInfos
     {
-        InventoryElem[] listElements;
+        public InventoryElem[] listElements;
     }
 
     public struct InventoryElem
@@ -242,10 +224,11 @@ public class Save
 
     public struct LevelInfos
     {
-        InventoryInfos inventory;
-        EmitterInfos[] emitters;
-        ReceiverInfos[] receivers;
-        WallsInfos[] walls;
+        public InventoryInfos inventory;
+        public EmitterInfos[] emitters;
+        public ReceiverInfos[] receivers;
+        public FiltersInfos[] filters;
+        public WallsInfos[] walls;
     }
 
     public struct EmitterInfos
@@ -291,44 +274,41 @@ public class Save
     }
 }
 
+public class Load
+{
+    public Infos infos;
+
+    public struct Infos
+    {
+        public AG_Emitter[] listEmitter;
+        public AG_Receiver[] listReceiver;
+        public AG_Filter[] listFilter;
+        public AG_Wall[] listWall;
+        public AG_InventoryObjectManager[] inventory;
+    }
+}
+
 public class SG_Collector : MonoBehaviour
 {
 	public static AG_ElementType[] CollectSavable()
 	{
-		return FindObjectsOfType<AG_ElementType> ();
+        AG_ElementType[] array = FindObjectsOfType<AG_ElementType>();
+        List<AG_ElementType> list = new List<AG_ElementType>();
+        foreach (AG_ElementType elem in array)
+            if (elem.tosave)
+                list.Add(elem);
+
+        return list.ToArray();
 	}
-
-	/// Collects the savables sorted by id.
-	/*public static SG_SavableObj[] CollectSavableObjSorted()
-	{
-		SG_Savable[] savables = FindObjectsOfType<SG_Savable>();
-		savables.OrderBy(x => x.id).ToList();
-		SG_SavableObj[] savableObjs = new SG_SavableObj[savables.Length];
-		for (int i = 0; i < savables.Length; i++)
-		{
-			savables[i].SetClass ();
-			savableObjs[i] = savables[i].savable;
-		}
-		return savableObjs;
-	}*/
-
-	/*public static SG_SavableObj[] CollectSavableObj()
-	{
-		AG_ElementType[] savables = CollectSavable();
-		AG_ElementType[] savableObjs = new AG_ElementType[savables.Length];
-		for (int i = 0; i < savables.Length; i++)
-		{
-			savables[i].SetClass ();
-			savableObjs[i] = savables[i].savable;
-		}
-		return savableObjs;
-	}*/
 
 	public static Save.Infos SortObjToSave()
 	{
 		Save.Infos infos = new Save.Infos();
         List<Save.EmitterInfos> listEmitter = new List<Save.EmitterInfos>();
-        //List<Save.ReceiverInfos> listReceiver = new List<Save.ReceiverInfos>();
+        List<Save.ReceiverInfos> listReceiver = new List<Save.ReceiverInfos>();
+        List<Save.FiltersInfos> listFilter = new List<Save.FiltersInfos>();
+        List<Save.WallsInfos> listWall = new List<Save.WallsInfos>();
+        List<Save.InventoryElem> inventory = new List<Save.InventoryElem>();
 
         AG_ElementType[] elements = CollectSavable();
 
@@ -337,16 +317,82 @@ public class SG_Collector : MonoBehaviour
             switch (elem.objectType)
             {                
                 case ObjectType.emitter:
-                    listEmitter.Add(((AG_Emitter)elem).info);
+                    listEmitter.Add(((AG_Emitter)elem).CollectInfos());
+                    break;
+                case ObjectType.receiver:
+                    listReceiver.Add(((AG_Receiver)elem).CollectInfos());
+                    break;
+                case ObjectType.filter:
+                    listFilter.Add(((AG_Filter)elem).CollectInfos());
+                    break;
+                case ObjectType.wall:
+                    listWall.Add(((AG_Wall)elem).CollectInfos());
                     break;
                 default:
-                    Debug.Log("Uncorrect enter in saves");
+                    if (elem.objectInteractionType == ObjectInteractionType.inventory)
+                    {
+                        inventory.Add(elem.GetComponent<AG_InventoryObjectManager>().CollectInfos());
+                    }
+                    else Debug.Log("Uncorrect enter in saves");
                     break;
             }
         }
 
+        infos.levelInfos.emitters = listEmitter.ToArray();
+        infos.levelInfos.receivers = listReceiver.ToArray();
+        infos.levelInfos.filters = listFilter.ToArray();
+        infos.levelInfos.walls = listWall.ToArray();
+        infos.levelInfos.inventory.listElements = inventory.ToArray();
+
         return infos;
 	}
+
+    public static Load.Infos SortObjToLoad()
+    {        
+        List<AG_Emitter> listEmitter = new List<AG_Emitter>();
+        List<AG_Receiver> listReceiver = new List<AG_Receiver>();
+        List<AG_Filter> listFilter = new List<AG_Filter>();
+        List<AG_Wall> listWall = new List<AG_Wall>();
+        List<AG_InventoryObjectManager> inventory = new List<AG_InventoryObjectManager>();
+
+        AG_ElementType[] elements = CollectSavable();
+
+        foreach (AG_ElementType elem in elements)
+        {
+            switch (elem.objectType)
+            {
+                case ObjectType.emitter:
+                    listEmitter.Add((AG_Emitter)elem);
+                    break;
+                case ObjectType.receiver:
+                    listReceiver.Add((AG_Receiver)elem);
+                    break;
+                case ObjectType.filter:
+                    listFilter.Add((AG_Filter)elem);
+                    break;
+                case ObjectType.wall:
+                    listWall.Add((AG_Wall)elem);
+                    break;
+                default:
+                    if (elem.objectInteractionType == ObjectInteractionType.inventory)
+                    {
+                        inventory.Add(elem.GetComponent<AG_InventoryObjectManager>());
+                    }
+                    else Debug.Log("Uncorrect enter in saves");
+                    break;
+            }
+        }
+
+        Load.Infos infos = new Load.Infos();
+
+        infos.listEmitter = listEmitter.ToArray();
+        infos.listReceiver = listReceiver.ToArray();
+        infos.listFilter = listFilter.ToArray();
+        infos.listWall = listWall.ToArray();
+        infos.inventory = inventory.ToArray();
+
+        return infos;
+    }
 }
 
 public class Emcryption

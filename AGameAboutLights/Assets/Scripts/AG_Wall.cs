@@ -34,4 +34,15 @@ public class AG_Wall : AG_EditorElement
         _rect.position = pos;
         _rect.sizeDelta = scale;
     }
+
+    public Save.WallsInfos CollectInfos()
+    {
+        Save.WallsInfos infos = new Save.WallsInfos();
+        infos.typeId = (int)objectType;
+        infos.rect.position = _rect.position;
+        infos.rect.angleZ = _rect.eulerAngles.z;
+        infos.rect.deltaSize = _rect.sizeDelta;
+
+        return infos;
+    }
 }

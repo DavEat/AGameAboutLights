@@ -98,4 +98,13 @@ public class AG_InventoryObjectManager : MonoBehaviour {
         text.text = value.ToString();
     }
     #endregion
+
+    public Save.InventoryElem CollectInfos()
+    {
+        Save.InventoryElem infos = new Save.InventoryElem();
+        infos.typeId = (int)GetComponent<AG_ElementType>().objectType;
+        infos.quantity = (int)maxNumber;
+
+        return infos;
+    }
 }
