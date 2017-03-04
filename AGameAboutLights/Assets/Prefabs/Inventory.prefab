@@ -501,8 +501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0450a7c512e2e49939c7c5d7c5e93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxNumber: 1
-  _text: {fileID: 114379194955639408}
+  editorElem: 0
+  _maxNumber: 10
+  text: {fileID: 114379194955639408}
   prefab: {fileID: 1660411507285776, guid: d558d791016c2ac49ab4236075b23136, type: 2}
   parent: {fileID: 0}
 --- !u!114 &114163093673561558
@@ -608,8 +609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0450a7c512e2e49939c7c5d7c5e93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxNumber: 2
-  _text: {fileID: 114891307950360368}
+  editorElem: 0
+  _maxNumber: 22
+  text: {fileID: 114891307950360368}
   prefab: {fileID: 1558192448209972, guid: dc49c43989ee8d64da80823eb540e9b1, type: 2}
   parent: {fileID: 0}
 --- !u!114 &114321821807808836

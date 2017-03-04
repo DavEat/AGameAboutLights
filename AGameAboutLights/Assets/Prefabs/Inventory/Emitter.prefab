@@ -189,8 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0450a7c512e2e49939c7c5d7c5e93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  editorElem: 0
   _maxNumber: Infinity
-  _text: {fileID: 114219043006467818}
+  text: {fileID: 114219043006467818}
   prefab: {fileID: 1950596063283308, guid: f1534d4088e191d4c901f3996faf52e9, type: 2}
   parent: {fileID: 0}
 --- !u!114 &114454384507543272

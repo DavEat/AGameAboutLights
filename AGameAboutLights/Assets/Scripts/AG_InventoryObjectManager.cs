@@ -13,7 +13,7 @@ public class AG_InventoryObjectManager : MonoBehaviour {
     /// <summary> list of all already instance object and in the inventory </summary>
     private List<GameObject> _listObjects = new List<GameObject>(); 
 
-    [SerializeField] private Text _text;
+    public Text text;
     [SerializeField] private GameObject prefab;
     /// <summary> parent of new obj </summary>
     [SerializeField] private Transform parent;
@@ -27,7 +27,7 @@ public class AG_InventoryObjectManager : MonoBehaviour {
         get { return _currentNumber; }
         set { _currentNumber = value; }
     }
-    private float maxNumber
+    public float maxNumber
     {
         get { return _maxNumber; }
         set { _maxNumber = value; }
@@ -88,14 +88,14 @@ public class AG_InventoryObjectManager : MonoBehaviour {
         o.SetActive(false);
     }
     #region Graphics Function
-    private void UpdateDisplayNumber()
+    public void UpdateDisplayNumber()
     {
-        _text.text = (maxNumber - currentNumber).ToString();
+        text.text = (maxNumber - currentNumber).ToString();
     }
 
     private void SetDisplayNumber(int value)
     {
-        _text.text = value.ToString();
+        text.text = value.ToString();
     }
     #endregion
 }

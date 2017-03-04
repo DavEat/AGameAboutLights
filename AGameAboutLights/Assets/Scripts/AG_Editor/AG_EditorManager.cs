@@ -12,6 +12,7 @@ public class AG_EditorManager : MonoBehaviour {
     
     private Transform _selectedObj;
 
+    [SerializeField] private AG_ChangeIntTool _changeIntTool;
     [SerializeField] private AG_ScaleToolManager _scaleTool;
     public bool snap = true;
 
@@ -204,10 +205,14 @@ public class AG_EditorManager : MonoBehaviour {
                     //DiplayGrid(true);
                 }
                 else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
-                {
-                    mousePos = inputPosition;
-                    _enterObj = hit.transform;
-                    _creatingNewObject = true;                    
+                {                    
+                    if (inputPosition.x > inventory.inventoryLimite.position.x)
+                    {
+                        mousePos = inputPosition;
+                        _enterObj = hit.transform;
+                        _creatingNewObject = true;
+                    }
+                    else _changeIntTool.SetTarget(hit.transform);
                 }
             }
         }        
@@ -274,7 +279,7 @@ public class AG_EditorManager : MonoBehaviour {
                         toggleLight.Invoke();
                     if (_rotation.gameObject.activeSelf)
                         _rotation.gameObject.SetActive(false);
-
+            
                     //mousePos = inputPosition;
                     downObject = obj.GetChild(0);
                     //DiplayGrid(true);

@@ -17,8 +17,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
 
     [SerializeField] private float _lightWidth = 30;
 
-    public GameObject _light, victoryScreen;
-    [SerializeField] private GameObject lastHitObject;
+    public GameObject _light, victoryScreen;    
     private List<GameObject> listLight = new List<GameObject>();
 
     [SerializeField] private Transform lightContener = null;
@@ -32,12 +31,6 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     public bool firstListLightHead = true;
     private List<LightHead> _listLightHeadOne = new List<LightHead>(), _listLightHeadTwo = new List<LightHead>();  // TODO : have to list an swith each step between the two list
 
-    /*public List<LightHead> listLightHead
-    {
-        get { return _firstListLightHead ? _listLightHeadOne : _listLightHeadTwo; }
-        set { if (_firstListLightHead) _listLightHeadOne = value;
-            else _listLightHeadTwo = value; }
-    }*/
     public List<LightHead> GetLightHead(bool _firstListLightHead)
     {
         return _firstListLightHead ? _listLightHeadOne : _listLightHeadTwo;
@@ -48,26 +41,24 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             _listLightHeadOne.Add(value);
         else _listLightHeadTwo.Add(value);
     }
-    public void ResetLightHeadAtIndex(bool _firstListLightHead)
+    public void ResetLightHead(bool _firstListLightHead)
     {
         if (_firstListLightHead)
         {
-            //Debug.Log("_listLightHeadOne.Count : " + _listLightHeadOne.Count);
             int x = _listLightHeadOne.Count;
             for (int i = x - 1; i >= 0; i--)
                 _listLightHeadOne.RemoveAt(i);
-            //Debug.Log("_listLightHeadOne.Count 2 : " + _listLightHeadOne.Count);
+            //_listLightHeadOne = new List<LightHead>();
         }
         else
         {
-            //Debug.Log("_listLightHeadTwo.Count : " + _listLightHeadOne.Count);
             int x = _listLightHeadTwo.Count;
             for (int i = x - 1; i >= 0; i--)
                 _listLightHeadTwo.RemoveAt(i);
-            //Debug.Log("_listLightHeadTwo.Count 2 : " + _listLightHeadTwo.Count);
+            //_listLightHeadTwo = new List<LightHead>();
         }
     }
-    public void _SetLightHeadAtIndex(bool _firstListLightHead, int _index, LightHead value)
+    public void SetLightHeadAtIndex(bool _firstListLightHead, int _index, LightHead value)
     {
         if (_firstListLightHead)
             _listLightHeadOne[_index] = value;
@@ -81,37 +72,96 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     }
     #endregion
 
+    #region Layer Ignore
+    private List<GameObject> _lastHitObjects = new List<GameObject>();
+    private const string raycastable = "RaycastableByLight", ignore = "IgnoreLazerRaycast";
+
+    public void ResetRaycast()
+    {
+        int x = _lastHitObjects.Count;
+        if (x > 0)
+        {            
+            for (int i = x - 1; i >= 0; i--)
+            {
+                _lastHitObjects[i].layer = LayerMask.NameToLayer(raycastable);
+                _lastHitObjects.RemoveAt(i);
+            }
+        }
+    }
+    public void AddRaycastIgnore(GameObject _gameObject)
+    {
+        _lastHitObjects.Add(_gameObject);
+        _gameObject.layer = LayerMask.NameToLayer(ignore);
+    }
+
+    public void SetRaycastIgnore(GameObject _gameObject)
+    {
+        _gameObject.layer = LayerMask.NameToLayer(ignore);
+    }
+    public void SetRaycastEnable(GameObject _gameObject)
+    {
+        _gameObject.layer = LayerMask.NameToLayer(raycastable);
+    }
+    #endregion
+
     private void Start()
     {
+        CreateLights();
+    }
+    private int _maxLineOfLine = 150;
+    private void CreateLights()
+    {
+        for (int i = 0; i < _maxLineOfLine; i++)
+        {
+            listLight.Add(Instantiate(_light, lightContener));
+            listLight[listLight.Count - 1].SetActive(false);
+        }
+    }
+
+    public void ToggleLight()
+    {
+        lightTurnOn = !lightTurnOn;
+        if (lightTurnOn)
+        {
+            Init();            
+        }
+        else
+        {
+            foreach (GameObject g in listLight)
+                if (g.activeSelf)
+                    g.SetActive(false);
+
+            foreach (AG_Receiver receiver in listReceiver)
+                if (receiver.alimented)
+                    receiver.alimented = false;
+        }
+    }
+
+    private void Init()
+    {
+        ResetLightHead(firstListLightHead);
+        ResetRaycast();
+
+        _currentLight = 0;
+
         for (int i = 0; i < listEmitter.Length; i++)
             SetLights(i);
 
         for (int i = 0; i < GetLightHead(firstListLightHead).Count; i++)
-            AddLight(i, GetLightHead(firstListLightHead)[i].colorIndex, GetLightHead(firstListLightHead)[i].origin, GetLightHead(firstListLightHead)[i].direction);
+            AddLight(i, GetLightHead(firstListLightHead)[i]);
         SetListLightHeadAtIndex(0);
-    }
-
-    private void Update()
-    {
-        //for (int i = 0; i < listEmitter.Length; i++)
-        //    SetLights(i);
     }
 
     public void SetLights(int currentEmitter)
     {
-        lastHitObject = gameObject;
-        //lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
-        if (lastHitObject != null)
-            lastHitObject.layer = LayerMask.NameToLayer("RaycastableByLight");//////////////////////////////////////////////
-        ///////////////////////////////////
-        //////////////////////////////////
+        AddRaycastIgnore(listEmitter[currentEmitter].gameObject);
 
         Vector2 origin = listEmitter[currentEmitter].startLightPos.position;
         float angle = listEmitter[currentEmitter].startLightPos.eulerAngles.z;
         Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
         //<new>
-        AddLightHead(firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction));
+        AddLightHead(firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform));
         //</new>
         //AddLight((int)listEmitter[currentEmitter].color, origin, direction);
     }
@@ -121,32 +171,39 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     /// <param name="_colorIndex"></param>
     /// <param name="_origin"></param>
     /// <param name="_direction"></param>
-    public void AddLight(int _currentLightHeadIndex, int _colorIndex, Vector2 _origin, Vector2 _direction)
+    public void AddLight(int _currentLightHeadIndex, LightHead _lightHead)
     {
-        RaycastHit2D hit = Physics2D.Raycast(_origin, _direction, 3000f, layer);
+        SetRaycastIgnore(_lightHead.emitter.gameObject);
+        RaycastHit2D hit = Physics2D.Raycast(_lightHead.origin, _lightHead.direction, 3000f, layer);
+        SetRaycastEnable(_lightHead.emitter.gameObject);
         if (hit.collider != null)
         {
-            Debug.DrawLine(_origin, hit.point, AG_Color.colorList[_colorIndex], 10);
+            Debug.DrawLine(_lightHead.origin, hit.point, AG_Color.colorList[_lightHead.colorIndex], 0.5f);
 
+            if (_currentLight < _maxLineOfLine)
+            {
+                SpawnLights(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point));
+                _currentLight++;
+            }
             //listLight[currentLight].SetActive(true);
             //listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, _lightWidth));
 
-            listLightConstructor.Add(new LightConstructor(_colorIndex, _origin, hit.point));
+            //listLightConstructor.Add(new LightConstructor(_colorIndex, _origin, hit.point));
             //<new>
             AG_LightCaster lightCaster = hit.transform.GetComponent<AG_LightCaster>();
             if (lightCaster != null)
-                lightCaster.Cast(_currentLightHeadIndex, _colorIndex, _origin, hit.point, hit.normal);
+                lightCaster.Cast(_currentLightHeadIndex, _lightHead.colorIndex, _lightHead.origin, hit.point, hit.normal);
+            else
+            {
+                AG_ElementType elem = hit.transform.GetComponent<AG_ElementType>();
+                if (elem != null && elem.objectType == ObjectType.receiver)
+                {
+                    ((AG_Receiver)elem).alimented = true;
+                }
+            }
             //</new>
             //EndPointLightAction(hit, colorIndex);
         }
-    }
-
-    public void RaycastIgnore(Transform _transform)
-    {        
-        if (lastHitObject != null)
-            lastHitObject.layer = LayerMask.NameToLayer("RaycastableByLight");
-        lastHitObject = _transform.gameObject;
-        lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
     }
 
     /// <summary>Check if it's the last object of the list and in that case run the next step</summary>
@@ -157,14 +214,41 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         //if (_currentLightHeadIndex >= GetLightHead(firstListLightHead).Count - 1)
         {
             firstListLightHead = !firstListLightHead;
-            ResetLightHeadAtIndex(firstListLightHead);
-            Debug.Log("firstListLightHead" + firstListLightHead);
-            for (int i = 0; i < GetLightHead(!firstListLightHead).Count; i++)
-                AddLight(i, GetLightHead(!firstListLightHead)[i].colorIndex, GetLightHead(!firstListLightHead)[i].origin, GetLightHead(!firstListLightHead)[i].direction);
+            ResetLightHead(!firstListLightHead);
+            
+            for (int i = 0; i < GetLightHead(firstListLightHead).Count; i++)
+                AddLight(i, GetLightHead(firstListLightHead)[i]);
                 //call the add light for each head in the list
-            if (GetLightHead(!firstListLightHead).Count > 0)
+            ResetRaycast();
+            if (GetLightHead(firstListLightHead).Count > 0)
                 SetListLightHeadAtIndex(0);
+
+            bool victory = true;
+            foreach (AG_Receiver receiver in listReceiver)
+                if (!receiver.alimented)
+                    victory = false;
+
+            if (victory)
+            {
+                AG_EndLevel.SaveProgression();
+                victoryScreen.SetActive(true);
+            }
         }
+
+        
+    }
+
+    private int _currentLight;
+    private void SpawnLights(LightConstructor _lightConstructor)
+    {
+        listLight[_currentLight].SetActive(true);
+        RectTransform rect = listLight[_currentLight].GetComponent<RectTransform>();
+        rect.position = _lightConstructor.origin;
+        Vector2 dir = _lightConstructor.origin - _lightConstructor.end;
+        float angleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        rect.eulerAngles = new Vector3(0, 0, 180 + angleZ);
+        rect.sizeDelta = new Vector2(Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightWidth);
+        listLight[_currentLight].GetComponent<UnityEngine.UI.Image>().color = AG_Color.colorList[_lightConstructor.colorIndex];
     }
 }
 
@@ -201,6 +285,7 @@ public struct LightHead
 {
     private int _colorIndex;
     private Vector2 _origin, _direction;
+    private Transform _emitter;
 
     public int colorIndex
     {
@@ -217,11 +302,17 @@ public struct LightHead
         get { return _direction; }
         set { _direction = value; }
     }
+    public Transform emitter
+    {
+        get { return _emitter; }
+        set { _emitter = value; }
+    }
 
-    public LightHead(int _colorIndex, Vector2 _origin, Vector2 _direction)
+    public LightHead(int _colorIndex, Vector2 _origin, Vector2 _direction, Transform _emitter)
     {
         this._origin = _origin;
         this._direction = _direction;
         this._colorIndex = _colorIndex;
+        this._emitter = _emitter;
     }
 }
