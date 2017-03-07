@@ -1,19 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AG_Menu : MonoBehaviour {
-
-    public GameObject levelsPanel, creditsPanel;
-
-    public void displayLevels()
+public class AG_Menu : MonoBehaviour
+{
+    public void ToogleScreen(GameObject _obj)
     {
-        levelsPanel.SetActive(!levelsPanel.activeSelf);
-    }
-
-    public void displayCredits()
-    {
-        creditsPanel.SetActive(!creditsPanel.activeSelf);
+        _obj.SetActive(!_obj.activeSelf);
     }
 
     public void exitGame()

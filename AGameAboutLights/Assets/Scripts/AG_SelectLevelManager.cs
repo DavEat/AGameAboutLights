@@ -9,7 +9,5 @@ public class AG_SelectLevelManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    private void 
-
 
 }
