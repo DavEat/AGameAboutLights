@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tosave: 1
+  tosave: 0
   objectInteractionType: 1
   objectType: 3
 --- !u!114 &114359624976573702

@@ -7,37 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level1.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level2.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level3.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level4.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level5.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level6.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level7.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level8.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level9.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level10.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level11 - old.unity
-  - enabled: 0
-    path: Assets/Scenes/OldLevel/Level11.unity
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
+    path: Assets/Scenes/Level - Play.unity
   - enabled: 1
-    path: Assets/Scenes/Level2.unity
-  - enabled: 1
-    path: Assets/Scenes/Level3.unity
-  - enabled: 1
-    path: Assets/Scenes/Level4.unity
-  - enabled: 1
-    path: Assets/Scenes/Level5.unity
+    path: Assets/Scenes/Level - Editor.unity

@@ -8,7 +8,7 @@ public class AG_Inventory : MonoBehaviour {
     private List<Transform> _listPoints;
     [SerializeField] private UnityEngine.UI.ScrollRect _scroll;
     /// <summary>order by the enum ObjectType</summary>
-    [SerializeField] private AG_InventoryObjectManager[] _lisObjects;
+    public AG_InventoryObjectManager[] _listObjects;
 
     public Transform inventoryLimite;
 
@@ -29,6 +29,6 @@ public class AG_Inventory : MonoBehaviour {
     public void AddToInventory(Transform obj)
     {
         AG_ElementType elem = obj.GetComponent<AG_ElementType>();
-        _lisObjects[(int)elem.objectType].AddIn(obj);
+        _listObjects[(int)elem.objectType].AddIn(obj);
     }
 }

@@ -9,6 +9,6 @@ public class AG_SelectLevel : MonoBehaviour {
     {
        int level = int.Parse(this.GetComponentInChildren<UnityEngine.UI.Text>().text);
        Debug.Log(level);
-       SceneManager.LoadScene("Level" + level);
+       SceneManager.LoadScene(1);
     } 
 }

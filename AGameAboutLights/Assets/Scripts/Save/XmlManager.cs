@@ -27,18 +27,13 @@ public class XmlManager
         private set { _fileName = value; }
     }
 
-    private void Awake()
+    public XmlManager()
     {
         //DontDestroyOnLoad(gameObject);
         fileLocation = Application.dataPath + "/Save/";
         fileExtention = ".HeiwaSave";
         //fileName = "2017-01-31-01-16-15-12" + fileExtention;
         mySave = new Save();
-    }
-
-    private void OnLevelWasLoaded()
-    {    
-    	Load();
     }
 
     private void SaveExist()
@@ -65,7 +60,7 @@ public class XmlManager
     }
 
     /// <summary>Load data from the file name in : "fileName"</summary>
-    public void Load()
+    public Save Load()
     {
         LoadXML();
         if (_data.ToString() != "")
@@ -74,9 +69,8 @@ public class XmlManager
             // so that the returned object is converted into the correct type 
             mySave = (Save)DeserializeObject(_data);
 
-            Load.Infos elem = SG_Collector.SortObjToLoad();
-          
-        }
+            return mySave;
+        } else return null;
     }
 
     /// <summary>Save data in the file name in : "fileName"</summary>
@@ -84,7 +78,7 @@ public class XmlManager
     {
         fileName = CreateFileName();
 
-		mySave.infos = SG_Collector.SortObjToSave();
+		mySave.infos = SaveSceneManager.SortObjToSave();
 		mySave.infos.sceneName = SceneManager.GetActiveScene().name;
 
         //Save save info
@@ -142,7 +136,7 @@ public class XmlManager
         if (t.Exists)
             t.Delete();
         writer = t.CreateText();
-        writer.Write(Emcryption.Encrypt(_data));
+        writer.Write(/*Emcryption.Encrypt*/(_data));
         writer.Close();
         Debug.Log("File written.");
     }
@@ -157,7 +151,7 @@ public class XmlManager
 		#endif
         string _info = r.ReadToEnd();
         r.Close();
-        _data = Emcryption.Decrypt(_info);
+        _data = /*Emcryption.Decrypt*/(_info);
         Debug.Log("File Read");
     }
 
@@ -190,215 +184,10 @@ public class XmlManager
     }
 }
 
-// Save is our custom class that holds our defined objects we want to store in XML format 
-public class Save
-{
-    public Infos infos;
-
-    public Save() {}
-
-    // Anything we want to store in the XML file, we define it here
-    public struct Infos
-    {
-        public int sceneID;
-        public string sceneName;
-        public SaveInfo saveInfos;
-        public LevelInfos levelInfos;
-    }
-
-    public struct SaveInfo
-    {
-        public int difficulty;
-        public DateTime date;
-    }
-
-    public struct InventoryInfos
-    {
-        public InventoryElem[] listElements;
-    }
-
-    public struct InventoryElem
-    {
-        public int typeId, quantity;
-    }
-
-    public struct LevelInfos
-    {
-        public InventoryInfos inventory;
-        public EmitterInfos[] emitters;
-        public ReceiverInfos[] receivers;
-        public FiltersInfos[] filters;
-        public WallsInfos[] walls;
-    }
-
-    public struct EmitterInfos
-    {
-        public int typeId, colorIndex;
-        public RectMinTransformInfos rect;
-    }
-
-    public struct ReceiverInfos
-    {
-        public int typeId, colorIndex;
-        public RectMinTransformInfos rect;
-    }
-
-    public struct WallsInfos
-    {
-        public int typeId;
-        public RectTransformInfos rect;
-    }
-
-    public struct FiltersInfos
-    {
-        public int typeId, colorIndex;
-        public RectMinTransformInfos rect;
-    }
-
-    public struct RectTransformInfos
-    {
-        public Vector2 position, deltaSize;
-        public float angleZ;
-    }
-
-    public struct RectMinTransformInfos
-    {
-        public Vector2 position;
-        public float angleZ;
-    }
-
-    public struct RectTransformCompleteInfos
-    {
-        public Vector2 position, scale, deltaSize;
-        public float angleZ;
-    }
-}
-
-public class Load
-{
-    public Infos infos;
-
-    public struct Infos
-    {
-        public AG_Emitter[] listEmitter;
-        public AG_Receiver[] listReceiver;
-        public AG_Filter[] listFilter;
-        public AG_Wall[] listWall;
-        public AG_InventoryObjectManager[] inventory;
-    }
-}
-
-public class SG_Collector : MonoBehaviour
-{
-	public static AG_ElementType[] CollectSavable()
-	{
-        AG_ElementType[] array = FindObjectsOfType<AG_ElementType>();
-        List<AG_ElementType> list = new List<AG_ElementType>();
-        foreach (AG_ElementType elem in array)
-            if (elem.tosave)
-                list.Add(elem);
-
-        return list.ToArray();
-	}
-
-	public static Save.Infos SortObjToSave()
-	{
-		Save.Infos infos = new Save.Infos();
-        List<Save.EmitterInfos> listEmitter = new List<Save.EmitterInfos>();
-        List<Save.ReceiverInfos> listReceiver = new List<Save.ReceiverInfos>();
-        List<Save.FiltersInfos> listFilter = new List<Save.FiltersInfos>();
-        List<Save.WallsInfos> listWall = new List<Save.WallsInfos>();
-        List<Save.InventoryElem> inventory = new List<Save.InventoryElem>();
-
-        AG_ElementType[] elements = CollectSavable();
-
-        foreach (AG_ElementType elem in elements)
-        {
-            switch (elem.objectType)
-            {                
-                case ObjectType.emitter:
-                    listEmitter.Add(((AG_Emitter)elem).CollectInfos());
-                    break;
-                case ObjectType.receiver:
-                    listReceiver.Add(((AG_Receiver)elem).CollectInfos());
-                    break;
-                case ObjectType.filter:
-                    listFilter.Add(((AG_Filter)elem).CollectInfos());
-                    break;
-                case ObjectType.wall:
-                    listWall.Add(((AG_Wall)elem).CollectInfos());
-                    break;
-                default:
-                    if (elem.objectInteractionType == ObjectInteractionType.inventory)
-                    {
-                        inventory.Add(elem.GetComponent<AG_InventoryObjectManager>().CollectInfos());
-                    }
-                    else Debug.Log("Uncorrect enter in saves");
-                    break;
-            }
-        }
-
-        infos.levelInfos.emitters = listEmitter.ToArray();
-        infos.levelInfos.receivers = listReceiver.ToArray();
-        infos.levelInfos.filters = listFilter.ToArray();
-        infos.levelInfos.walls = listWall.ToArray();
-        infos.levelInfos.inventory.listElements = inventory.ToArray();
-
-        return infos;
-	}
-
-    public static Load.Infos SortObjToLoad()
-    {        
-        List<AG_Emitter> listEmitter = new List<AG_Emitter>();
-        List<AG_Receiver> listReceiver = new List<AG_Receiver>();
-        List<AG_Filter> listFilter = new List<AG_Filter>();
-        List<AG_Wall> listWall = new List<AG_Wall>();
-        List<AG_InventoryObjectManager> inventory = new List<AG_InventoryObjectManager>();
-
-        AG_ElementType[] elements = CollectSavable();
-
-        foreach (AG_ElementType elem in elements)
-        {
-            switch (elem.objectType)
-            {
-                case ObjectType.emitter:
-                    listEmitter.Add((AG_Emitter)elem);
-                    break;
-                case ObjectType.receiver:
-                    listReceiver.Add((AG_Receiver)elem);
-                    break;
-                case ObjectType.filter:
-                    listFilter.Add((AG_Filter)elem);
-                    break;
-                case ObjectType.wall:
-                    listWall.Add((AG_Wall)elem);
-                    break;
-                default:
-                    if (elem.objectInteractionType == ObjectInteractionType.inventory)
-                    {
-                        inventory.Add(elem.GetComponent<AG_InventoryObjectManager>());
-                    }
-                    else Debug.Log("Uncorrect enter in saves");
-                    break;
-            }
-        }
-
-        Load.Infos infos = new Load.Infos();
-
-        infos.listEmitter = listEmitter.ToArray();
-        infos.listReceiver = listReceiver.ToArray();
-        infos.listFilter = listFilter.ToArray();
-        infos.listWall = listWall.ToArray();
-        infos.inventory = inventory.ToArray();
-
-        return infos;
-    }
-}
-
 public class Emcryption
 {
     private const string key = "12345678901234567890123456789012";
-   
+
     public static string Encrypt(string toEncrypt)
     {
         byte[] keyArray = UTF8Encoding.UTF8.GetBytes(key);
@@ -441,3 +230,4 @@ public class FilesManager
         File.Delete(XmlManager.fileLocation + filename);
     }
 }
+

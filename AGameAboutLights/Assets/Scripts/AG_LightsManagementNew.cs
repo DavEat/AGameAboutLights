@@ -13,8 +13,6 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     public AG_Receiver[] listReceiver;
     public AG_Emitter[] listEmitter;
 
-    private List<List<LightConstructor>> _lightToDrawByCouche = new List<List<LightConstructor>>();
-
     [SerializeField] private float _lightWidth = 30;
 
     public GameObject _light, victoryScreen;    
