@@ -9,9 +9,9 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
     public Transform staticObjectContener, movableObjectContener;
 
     public GameObject[] elementsPrefab;
-    private XmlManager _xml;
     #endregion
 
+    #region Functions
     /// <summary>Collect all object in the scene that they need to be save</summary>
     /// <returns>Return all AG_ElementType that htey need to be save</returns>
     public static AG_ElementType[] CollectSavable()
@@ -77,23 +77,33 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
 
     public void Save()
     {
-        _xml.Save();
+        AG_SelectLevelManager.inst.xml.Save(AG_SelectLevelManager.inst.xml.levelFolderName, "Level42" + AG_SelectLevelManager.inst.xml.fileExtention);
     }
 
-    public void Load()
+    public void Load(string _folder, string _fileName)
     {
-        Save save = _xml.Load();
+        Save save = AG_SelectLevelManager.inst.xml.Load(_folder, _fileName);
 
+        List<AG_Emitter> listEmitter = new List<AG_Emitter>();
         foreach (Save.EmitterInfos emitter in save.infos.levelInfos.emitters)
         {
             GameObject obj = Instantiate(elementsPrefab[emitter.typeId], emitter.rect.position, Quaternion.Euler(new Vector3(0, 0, emitter.rect.angleZ)), staticObjectContener);
-            obj.GetComponent<AG_Emitter>().color = (AG_Color.ColorName)emitter.colorIndex;
+            AG_Emitter _emitter = obj.GetComponent<AG_Emitter>();
+            _emitter.color = (AG_Color.ColorName)emitter.colorIndex;
+
+            listEmitter.Add(_emitter);
         }
+        AG_LightsManagementNew.inst.listEmitter = listEmitter.ToArray();
+        List<AG_Receiver> listReceiver = new List<AG_Receiver>();
         foreach (Save.ReceiverInfos receiver in save.infos.levelInfos.receivers)
         {
             GameObject obj = Instantiate(elementsPrefab[receiver.typeId], receiver.rect.position, Quaternion.Euler(new Vector3(0, 0, receiver.rect.angleZ)), staticObjectContener);
-            obj.GetComponent<AG_Receiver>().color = (AG_Color.ColorName)receiver.colorIndex;
+            AG_Receiver _receiver = obj.GetComponent<AG_Receiver>();
+            _receiver.color = (AG_Color.ColorName)receiver.colorIndex;
+
+            listReceiver.Add(_receiver);
         }
+        AG_LightsManagementNew.inst.listReceiver = listReceiver.ToArray();
         foreach (Save.FiltersInfos filter in save.infos.levelInfos.filters)
         {
             GameObject obj = Instantiate(elementsPrefab[filter.typeId], filter.rect.position, Quaternion.Euler(new Vector3(0, 0, filter.rect.angleZ)), staticObjectContener);
@@ -108,6 +118,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
         {
             if (obj != null)
             {
+                Debug.Log("in 2 : " + save.infos.levelInfos.inventory.listElements.Length);
                 AG_ElementType objectType = obj.GetComponent<AG_ElementType>();
                 if (obj.gameObject.activeSelf)
                     obj.gameObject.SetActive(false);
@@ -115,39 +126,51 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
                 {
                     if ((int)objectType.objectType == elem.typeId)
                     {
+                        Debug.Log("in");
                         obj.maxNumber = elem.quantity;
                         obj.gameObject.SetActive(true);
                     }
+                    else Debug.Log("out");
                 }
             }
+            else Debug.Log("out 2 ");
         }
     }
+
+    private string CreateFileName()
+    {
+        DateTime date = DateTime.Now;
+        int chapter = 15, room = 12;
+
+        string month;
+        if (date.Month < 10)
+            month = "0" + date.Month.ToString();
+        else month = date.Month.ToString();
+
+        string day;
+        if (date.Day < 10)
+            day = "0" + date.Day.ToString();
+        else day = date.Day.ToString();
+
+        string hour;
+        if (date.Hour < 10)
+            hour = "0" + date.Hour.ToString();
+        else hour = date.Hour.ToString();
+
+        string minute;
+        if (date.Minute < 10)
+            minute = "0" + date.Minute.ToString();
+        else minute = date.Minute.ToString();
+
+        return (date.Year.ToString() + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + chapter.ToString() + "-" + room.ToString() + AG_SelectLevelManager.inst.xml);
+    }
+    #endregion
 
     private void OnLevelWasLoaded()
     {
-        Debug.Log("mager");
-    }
+        Load(AG_SelectLevelManager.inst.folder, AG_SelectLevelManager.inst.fileName);
 
-    public bool save;
-    public bool load;
-    void Update()
-    {
-        if (_xml == null)
-        {
-            _xml = new XmlManager();
-        }
-            
-
-        if (save)
-        {
-            save = false;
-            Save();
-        }
-        else if (load)
-        {
-            load = false;
-            Load();
-        }
+        Debug.Log("Level was load");
     }
 }
 
@@ -170,6 +193,7 @@ public class Save
     public struct SaveInfo
     {
         public int difficulty;
+        public bool developperLevel;
         public DateTime date;
     }
 

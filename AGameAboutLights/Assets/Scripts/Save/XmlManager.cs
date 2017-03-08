@@ -6,63 +6,55 @@ using System.IO;
 using System.Text;
 using UnityEngine.SceneManagement;
 using System.Security.Cryptography;
-using System.Collections.Generic;
-using System.Linq;
 
 public class XmlManager
 {
 	#region Var
     [HideInInspector]
-    public static string fileLocation, fileExtention;
+    public string fileLocation, levelFolderName, editorFolderName, _fileExtention;
     private static string _fileName;
     private Save mySave;
     private string _data;
-
-    //public ListObjectToSave listObjToSave;
     #endregion
 
     public string fileName
     {
         get { return _fileName; }
-        private set { _fileName = value; }
+        set { _fileName = value; }
+    }
+    public string fileExtention
+    {
+        get { return _fileExtention; }
+        set { _fileExtention = value; }
     }
 
+    /// <summary>Constructor</summary>
     public XmlManager()
     {
-        //DontDestroyOnLoad(gameObject);
         fileLocation = Application.dataPath + "/Save/";
+        levelFolderName = "/OffcialLevels/";
+        editorFolderName = "/CustomLevel/";
         fileExtention = ".HeiwaSave";
-        //fileName = "2017-01-31-01-16-15-12" + fileExtention;
         mySave = new Save();
     }
 
-    private void SaveExist()
+    /// <summary>Check if the save exist</summary>
+    private void SaveExist(string _folder)
     {
         _data = "";
         // Load our Save into mySave 
-        LoadXML();
+        LoadXML(_folder);
         if (_data.ToString() != "")
             // notice how I use a reference to type (Save) here, you need this 
             // so that the returned object is converted into the correct type 
             mySave = (Save)DeserializeObject(_data);
     }
 
-    public void LoadSavedScene(string fileName)
-    {
-        _fileName = fileName;
-        SaveExist();
-        if (SceneManager.GetActiveScene().name != mySave.infos.sceneName)
-            SceneManager.LoadScene(mySave.infos.sceneName, LoadSceneMode.Single);
-        else //if (listObjToSave != null)
-        {            
-            Load();
-        }
-    }
-
     /// <summary>Load data from the file name in : "fileName"</summary>
-    public Save Load()
+    public Save Load(string _folder, string _fileName)
     {
-        LoadXML();
+        fileName = _fileName;
+        LoadXML(_folder);
         if (_data.ToString() != "")
         {
             // notice how I use a reference to type (UserData) here, you need this 
@@ -74,12 +66,14 @@ public class XmlManager
     }
 
     /// <summary>Save data in the file name in : "fileName"</summary>
-    public void Save()
+    public void Save(string _folder, string _fileName)
     {
-        fileName = CreateFileName();
+        fileName = _fileName;
+        //fileName = SaveSceneManager.inst.CreateFileName();
 
-		mySave.infos = SaveSceneManager.SortObjToSave();
+        mySave.infos = SaveSceneManager.SortObjToSave();
 		mySave.infos.sceneName = SceneManager.GetActiveScene().name;
+        mySave.infos.saveInfos.developperLevel = AG_SelectLevelManager.inst.developper;
 
         //Save save info
         mySave.infos.saveInfos.date = new DateTime();
@@ -88,7 +82,7 @@ public class XmlManager
         // Time to creat XML! 
         _data = SerializeObject(mySave);
         // This is the final resulting XML from the serialization process 
-        CreateXML();
+        CreateXML(_folder);
     }
 
     /* The following metods came from the referenced URL */
@@ -106,7 +100,7 @@ public class XmlManager
         return byteArray;
     }
 
-    // Here we serialize our Save object of mySave 
+    /// <summary>Here we serialize our Save object of mySave</summary>
     private string SerializeObject(object pObject)
     {
         string XmlizedString = null;
@@ -119,7 +113,7 @@ public class XmlManager
         return XmlizedString;
     }
 
-    // Here we deserialize it back into its original form 
+    /// <summary>Here we deserialize it back into its original form </summary>
     private object DeserializeObject(string pXmlizedString)
     {
         XmlSerializer xs = new XmlSerializer(typeof(Save));
@@ -128,11 +122,11 @@ public class XmlManager
         return xs.Deserialize(memoryStream);
     }
 
-    // Finally our save and load methods for the file itself 
-    private void CreateXML()
+    /// <summary>Finally our save and load methods for the file itself </summary>
+    private void CreateXML(string _folder)
     {
         StreamWriter writer;
-        FileInfo t = new FileInfo(fileLocation + "\\" + fileName);
+        FileInfo t = new FileInfo(fileLocation  + _folder  + "\\" + fileName);
         if (t.Exists)
             t.Delete();
         writer = t.CreateText();
@@ -141,46 +135,17 @@ public class XmlManager
         Debug.Log("File written.");
     }
 
-    private void LoadXML()
+    private void LoadXML(string _folder)
     {
-		//Debug.Log ("fileLocation" + "\\" + "fileName : " + fileLocation + "\\" + fileName);
-		#if UNITY_STANDALONE_OSX
-		StreamReader r = File.OpenText(fileLocation + "/" + fileName);
-		#else
-		StreamReader r = File.OpenText(fileLocation + "\\" + fileName);
+        #if UNITY_STANDALONE_OSX
+		StreamReader r = File.OpenText(fileLocation + _folder + "/" + fileName);
+        #else
+        StreamReader r = File.OpenText(fileLocation + _folder + "\\" + fileName);
 		#endif
         string _info = r.ReadToEnd();
         r.Close();
         _data = /*Emcryption.Decrypt*/(_info);
         Debug.Log("File Read");
-    }
-
-    private string CreateFileName()
-    {
-        DateTime date = DateTime.Now;
-        int chapter = 15, room = 12;
-
-        string month;
-        if (date.Month < 10)
-            month = "0" + date.Month.ToString();
-        else month = date.Month.ToString();
-
-        string day;
-        if (date.Day < 10)
-            day = "0" + date.Day.ToString();
-        else day = date.Day.ToString();
-
-        string hour;
-        if (date.Hour < 10)
-            hour = "0" + date.Hour.ToString();
-        else hour = date.Hour.ToString();
-
-        string minute;
-        if (date.Minute < 10)
-            minute = "0" + date.Minute.ToString();
-        else minute = date.Minute.ToString();
-
-        return (date.Year.ToString() + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + chapter.ToString() + "-" + room.ToString() + fileExtention);
     }
 }
 
@@ -219,15 +184,15 @@ public class Emcryption
 
 public class FilesManager
 {
-    public static FileInfo[] FindFiles()
+    public static FileInfo[] FindFiles(string _folder)
     {
-        DirectoryInfo dir = new DirectoryInfo(XmlManager.fileLocation);
-        return dir.GetFiles("*" + XmlManager.fileExtention);
+        DirectoryInfo dir = new DirectoryInfo(AG_SelectLevelManager.inst.xml.fileLocation + _folder);
+        return dir.GetFiles("*" + AG_SelectLevelManager.inst.xml.fileExtention);
     }
 
-    public static void DeleteFile(string filename)
+    public static void DeleteFile(string _folder, string _filename)
     {
-        File.Delete(XmlManager.fileLocation + filename);
+        File.Delete(AG_SelectLevelManager.inst.xml.fileLocation + _folder + _filename);
     }
 }
 

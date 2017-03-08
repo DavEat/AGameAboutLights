@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tosave: 0
+  tosave: 1
   objectInteractionType: 2
   objectType: 1
 --- !u!114 &114363632355282894
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df951327b66d324f856ab68835c61e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tosave: 0
+  tosave: 1
   objectInteractionType: 2
   objectType: 4
 --- !u!114 &114542816363297258

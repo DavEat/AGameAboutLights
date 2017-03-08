@@ -4008,7 +4008,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4416193271708516, guid: 4ca605c1c5b9f3a4fb35a8c8ea7c4a92, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ca605c1c5b9f3a4fb35a8c8ea7c4a92, type: 2}
@@ -4873,16 +4873,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1518395703}
     m_Modifications:
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: listEmitter.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: listReceiver.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 224860918122247254, guid: 3d453494760c38c4281ad7ef6a7efa9d,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -4973,112 +4963,25 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
+    - target: {fileID: 114424892537250878, guid: 3d453494760c38c4281ad7ef6a7efa9d,
         type: 2}
       propertyPath: victoryScreen
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: _lightContener
-      value: 
-      objectReference: {fileID: 774404950}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: dragDrop
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: listObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: listEmitter.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: listEmitter.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: listReceiver.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
+      objectReference: {fileID: 1287485866}
+    - target: {fileID: 114424892537250878, guid: 3d453494760c38c4281ad7ef6a7efa9d,
         type: 2}
       propertyPath: lightContener
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1959341433415102, guid: 3d453494760c38c4281ad7ef6a7efa9d, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: maxLineOfLine
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: layer.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: _light
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: lightTurnOn
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114643286385001120, guid: 3d453494760c38c4281ad7ef6a7efa9d,
-        type: 2}
-      propertyPath: mirrorChock
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 774404950}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d453494760c38c4281ad7ef6a7efa9d, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &629959665 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1959341433415102, guid: 3d453494760c38c4281ad7ef6a7efa9d,
+--- !u!114 &629959666 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114424892537250878, guid: 3d453494760c38c4281ad7ef6a7efa9d,
     type: 2}
   m_PrefabInternal: {fileID: 629959664}
---- !u!114 &629959666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 629959665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7344761a1ed7c047ad3b08d85aac06e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layer:
-    serializedVersion: 2
-    m_Bits: 1024
-  listReceiver:
-  - {fileID: 0}
-  listEmitter:
-  - {fileID: 0}
-  _lightWidth: 30
-  _light: {fileID: 1963911768328412, guid: e18ab32e75e6b6340884233f910f20d1, type: 2}
-  victoryScreen: {fileID: 1287485866}
-  lightContener: {fileID: 774404950}
-  lightTurnOn: 0
-  firstListLightHead: 1
 --- !u!1 &638226307
 GameObject:
   m_ObjectHideFlags: 0
@@ -5284,7 +5187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &641156428
 MonoBehaviour:
@@ -5441,48 +5344,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 677346293}
---- !u!1001 &678123367
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 940
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 551
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 371828003ec697e47a5a42040cce239b, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &687541832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5785,7 +5646,7 @@ RectTransform:
   m_Children:
   - {fileID: 1518395703}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7418,7 +7279,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4971354391741310, guid: b67895d401c9f064ebf099b4e73ca050, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114317181915824426, guid: b67895d401c9f064ebf099b4e73ca050,
         type: 2}
@@ -7435,6 +7296,11 @@ Prefab:
       propertyPath: movableObjectContener
       value: 
       objectReference: {fileID: 1836390583}
+    - target: {fileID: 114317181915824426, guid: b67895d401c9f064ebf099b4e73ca050,
+        type: 2}
+      propertyPath: lightManager
+      value: 
+      objectReference: {fileID: 629959666}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b67895d401c9f064ebf099b4e73ca050, type: 2}
   m_IsPrefabParent: 0

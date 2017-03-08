@@ -7,9 +7,9 @@ public class AG_EndLevel : MonoBehaviour {
 
     public static void SaveProgression()
     {
-        string level = SceneManager.GetActiveScene().name;
-        int levelDone = int.Parse(level.Remove(0, 5));
-		if(levelDone > PlayerPrefs.GetInt("LevelDone") || !PlayerPrefs.HasKey("LevelDone"))
+        //string level = SceneManager.GetActiveScene().name;
+        int levelDone = AG_SelectLevelManager.inst.levelIndex;//int.Parse(level.Remove(0, 5));
+        if (levelDone > PlayerPrefs.GetInt("LevelDone") || !PlayerPrefs.HasKey("LevelDone"))
             PlayerPrefs.SetInt("LevelDone", levelDone);
         Debug.Log(PlayerPrefs.GetInt("LevelDone"));
     }
