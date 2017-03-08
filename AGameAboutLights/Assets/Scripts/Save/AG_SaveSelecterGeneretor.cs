@@ -12,7 +12,7 @@ public class AG_SaveSelecterGeneretor : MonoBehaviour
     {
         XmlManager xml = AG_SelectLevelManager.inst.xml;
         FileInfo[] filesInfos = FilesManager.FindFiles(xml.levelFolderName);
-        filesInfos = filesInfos.OrderByDescending(xx => xx.Name).ToArray();
+        filesInfos = filesInfos.OrderBy(xx => int.Parse((xx.Name.Remove(xx.Name.Length - 10, 10)).Remove(0, 5))).ToArray();
 
         List<Button> listButton = new List<Button>();
 
