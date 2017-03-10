@@ -145,7 +145,7 @@ public class XmlManager
         string _info = r.ReadToEnd();
         r.Close();
         _data = /*Emcryption.Decrypt*/(_info);
-        Debug.Log("File Read");
+        //Debug.Log("File Read");
     }
 }
 

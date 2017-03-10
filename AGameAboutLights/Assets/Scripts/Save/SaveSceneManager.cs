@@ -118,7 +118,6 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
         {
             if (obj != null)
             {
-                Debug.Log("in 2 : " + save.infos.levelInfos.inventory.listElements.Length);
                 AG_ElementType objectType = obj.GetComponent<AG_ElementType>();
                 if (obj.gameObject.activeSelf)
                     obj.gameObject.SetActive(false);
@@ -126,14 +125,11 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
                 {
                     if ((int)objectType.objectType == elem.typeId)
                     {
-                        Debug.Log("in");
                         obj.maxNumber = elem.quantity;
                         obj.gameObject.SetActive(true);
                     }
-                    else Debug.Log("out");
                 }
             }
-            else Debug.Log("out 2 ");
         }
     }
 
@@ -170,7 +166,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
     {
         Load(AG_SelectLevelManager.inst.folder, AG_SelectLevelManager.inst.fileName);
 
-        Debug.Log("Level was load");
+        //Debug.Log("Level was load");
     }
 }
 

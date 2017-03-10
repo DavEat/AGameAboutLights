@@ -149,7 +149,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             SetLights(i);
 
         for (int i = 0; i < GetLightHead(firstListLightHead).Count; i++)
-            AddLight(i, GetLightHead(firstListLightHead)[i], 0, 0);
+            AddLight(i, GetLightHead(firstListLightHead)[i], 0);
         SetListLightHeadAtIndex();
     }
 
@@ -162,7 +162,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
         //<new>
-        AddLightHead(firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform, 0, null));
+        AddLightHead(firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform, null));
         //</new>
         //AddLight((int)listEmitter[currentEmitter].color, origin, direction);
     }
@@ -172,7 +172,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     /// <param name="_colorIndex"></param>
     /// <param name="_origin"></param>
     /// <param name="_direction"></param>
-    public void AddLight(int _currentLightHeadIndex, LightHead _lightHead, float _previousAnimTime, int _previousLightIndex)
+    public void AddLight(int _currentLightHeadIndex, LightHead _lightHead, float _previousAnimTime)
     {
         SetRaycastIgnore(_lightHead.emitter.gameObject);
         RaycastHit2D hit = Physics2D.Raycast(_lightHead.origin, _lightHead.direction, 3000f, layer);
@@ -187,7 +187,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             {
                 float animDuration = 0.0005f * Vector2.Distance(_lightHead.origin, hit.point);
                 currentAnimTime += animDuration;
-                SpawnLights(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, _lightHead.previousAnimDuration, animDuration));
+                SpawnLights(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, _lightHead.nextLightsIndex, animDuration));
                 _currentLight++;
             }
             //listLight[currentLight].SetActive(true);
@@ -222,7 +222,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             ResetLightHead(!firstListLightHead);
             
             for (int i = 0; i < GetLightHead(firstListLightHead).Count; i++)
-                AddLight(i, GetLightHead(firstListLightHead)[i], GetLightHead(firstListLightHead)[i].previousAnimDuration, 0);
+                AddLight(i, GetLightHead(firstListLightHead)[i], 0);
                 //call the add light for each head in the list
             ResetRaycast();
             if (GetLightHead(firstListLightHead).Count > 0)
@@ -253,14 +253,14 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         rect.sizeDelta = new Vector2(0, _lightWidth);
         listLight[_currentLight].GetComponent<UnityEngine.UI.Image>().color = AG_Color.colorList[_lightConstructor.colorIndex];
 
-        LightAnim(rect, _lightConstructor.previousAnimDuration, Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightConstructor.animDuration, _lightConstructor.end);
+        LightAnim(rect, 0, Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightConstructor.animDuration, _lightConstructor.end, _lightConstructor);
     }
 
     private List<LightConstructor> _listLightConstructor = new List<LightConstructor>();
 
     public GameObject mirrorChock;
     private List<Sequence> inTween = new List<Sequence>();
-    private void LightAnim(RectTransform _rect, float _timeToWait, float _distance, float _duration, Vector2 _endPos)
+    private void LightAnim(RectTransform _rect, float _timeToWait, float _distance, float _duration, Vector2 _endPos, LightConstructor _lightConstructor)
     {
         float duration = 0.0005f * _distance;
 
@@ -269,6 +269,14 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
                .Append(_rect.DOSizeDelta(new Vector2(_distance, _rect.sizeDelta.y), _duration))
                .OnComplete(() =>
                {
+                   if (_lightConstructor.nextLightIndex != null)
+                       foreach (int i in _lightConstructor.nextLightIndex)
+                       {
+                           Debug.Log("next light id : " + i);
+                           if (i < listLightConstructor.Count)
+                            SpawnLights(listLightConstructor[i]);
+                       }
+
                    if (mirrorChock != null)
                        Instantiate(mirrorChock, _endPos, Quaternion.Euler(0, 0, 0));
                    inTween.Remove(tween);
@@ -282,7 +290,8 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
 public struct LightConstructor
 {
     //public int previousIndex, nextindex; //light constructor index 
-    private float _previousAnimDuration, _animDuration;
+    private int[] _nextLightIndex;
+    private float _animDuration;
 
     private int _colorIndex;
     private Vector2 _origin, _end;
@@ -302,10 +311,10 @@ public struct LightConstructor
         get { return _end; }
         set { _end = value; }
     }
-    public float previousAnimDuration
+    public int[] nextLightIndex
     {
-        get { return _previousAnimDuration; }
-        set { _previousAnimDuration = value; }
+        get { return _nextLightIndex; }
+        set { _nextLightIndex = value; }
     }
     public float animDuration
     {
@@ -321,12 +330,12 @@ public struct LightConstructor
         this._colorIndex = _colorIndex;
     }*/
 
-    public LightConstructor(int _colorIndex, Vector2 _origin, Vector2 _end, float _previousAnimDuration, float _animDuration)
+    public LightConstructor(int _colorIndex, Vector2 _origin, Vector2 _end, int[] _nextLightIndex, float _animDuration)
     {
         this._origin = _origin;
         this._end = _end;
         this._colorIndex = _colorIndex;
-        this._previousAnimDuration = _previousAnimDuration;
+        this._nextLightIndex = _nextLightIndex;
         this._animDuration = _animDuration;
     }
 }
@@ -335,7 +344,7 @@ public struct LightHead
 {
     private int _colorIndex;
     private int[] _nextLightsIndex;
-    private float _previousAnimDuration;
+    //private float _previousAnimDuration;
     private Vector2 _origin, _direction;
     private Transform _emitter;
 
@@ -359,24 +368,24 @@ public struct LightHead
         get { return _emitter; }
         set { _emitter = value; }
     }
-    public float previousAnimDuration
+    /*public float previousAnimDuration
     {
         get { return _previousAnimDuration; }
         set { _previousAnimDuration = value; }
-    }
+    }*/
     public int[] nextLightsIndex
     {
         get { return _nextLightsIndex; }
         set { _nextLightsIndex = value; }
     }
 
-    public LightHead(int _colorIndex, Vector2 _origin, Vector2 _direction, Transform _emitter, float _previousAnimDuration, int[] _nextLightsIndex)
+    public LightHead(int _colorIndex, Vector2 _origin, Vector2 _direction, Transform _emitter,/* float _previousAnimDuration,*/ int[] _nextLightsIndex)
     {
         this._origin = _origin;
         this._direction = _direction;
         this._colorIndex = _colorIndex;
         this._emitter = _emitter;
-        this._previousAnimDuration = _previousAnimDuration;
+        //this._previousAnimDuration = _previousAnimDuration;
         this._nextLightsIndex = _nextLightsIndex;
     }
 }

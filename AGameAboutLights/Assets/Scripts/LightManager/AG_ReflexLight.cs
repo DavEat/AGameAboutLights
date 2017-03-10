@@ -25,7 +25,7 @@ public class AG_ReflexLight : AG_LightCaster
         Vector2 origin = _hitPoint;
 
         //AG_LightsManagementNew.inst.AddRaycastIgnore(_transform.gameObject);
-        AG_LightsManagementNew.inst.AddLightHead(AG_LightsManagementNew.inst.firstListLightHead, new LightHead(_colorIndex, origin, direction, _transform, _previousAnimDuration));
+        AG_LightsManagementNew.inst.AddLightHead(AG_LightsManagementNew.inst.firstListLightHead, new LightHead(_colorIndex, origin, direction, _transform, new int[] { _lightIndex + 1 }));
         //AG_LightsManagementNew.inst.SetListLightHeadAtIndex(_currentLightHeadIndex);
         //AG_LightsManagementNew.inst.AddLight(_colorIndex, origin, direction);
     }
