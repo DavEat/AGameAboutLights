@@ -34,7 +34,7 @@ public class AG_LightCaster : MonoBehaviour
     /// <param name="_currentEmitterIndex">index of the source of the light</param>
     /// <param name="_origin">origin point of the previous light</param>
     /// <param name="_normal">normal of the previous light and the surface</param>
-    public virtual void Cast(int _currentEmitterIndex, int _colorIndex, Vector2 _origin, Vector2 _hitPoint, Vector2 _normal)
+    public virtual void Cast(int _currentEmitterIndex, int _colorIndex, Vector2 _origin, Vector2 _hitPoint, Vector2 _normal, float _previousAnimTime, int _lightIndex)
     {
         Debug.Log("virtual");
     } 

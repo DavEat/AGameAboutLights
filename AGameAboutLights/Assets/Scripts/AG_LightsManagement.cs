@@ -104,7 +104,7 @@ public class AG_LightsManagement : MonoBehaviour
             //listLight[currentLight].SetActive(true);
             //listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
 
-            listLightConstructor[currentEmitterIndex].Add(new LightConstructor(colorIndex, _origin, hit.point));
+            listLightConstructor[currentEmitterIndex].Add(new LightConstructor(colorIndex, _origin, hit.point, 0, 0));
 
             currentLight++;
             currenttotalLight++;

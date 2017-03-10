@@ -28,7 +28,7 @@ public class AG_LightAbsorber : AG_LightCaster
     #endregion
 
     #region Function
-    public override void Cast(int _currentEmitterIndex, int _colorIndex, Vector2 _origin, Vector2 _hitPoint, Vector2 _normal)
+    public override void Cast(int _currentEmitterIndex, int _colorIndex, Vector2 _origin, Vector2 _hitPoint, Vector2 _normal, float _previousAnimDuration, int _lightIndex)
     {
         //Debug.Log("wall");
         //AG_LightsManagementNew.inst.RemoveLightHeadAtIndex(AG_LightsManagementNew.inst.firstListLightHead , _currentEmitterIndex);

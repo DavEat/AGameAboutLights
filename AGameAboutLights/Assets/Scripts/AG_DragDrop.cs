@@ -102,6 +102,9 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
             RaycastHit2D hit = RaycastScreenPoint(inputPosition);
             if (hit.collider != null)
             {
+                if (AG_LightsManagementNew.inst.lightTurnOn)
+                    toggleLight.Invoke();
+
                 if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
                 {
                     if (lazerTurnOn)

@@ -228,7 +228,7 @@ Prefab:
         type: 2}
       propertyPath: toggleLight.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 629959665}
     - target: {fileID: 114719247784579880, guid: 59d0de4455f803d41b7f4e0bb18cedc5,
         type: 2}
       propertyPath: toggleLight.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -1632,6 +1632,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d453494760c38c4281ad7ef6a7efa9d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &629959665 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114424892537250878, guid: 3d453494760c38c4281ad7ef6a7efa9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 629959664}
+  m_Script: {fileID: 11500000, guid: b7344761a1ed7c047ad3b08d85aac06e, type: 3}
 --- !u!1 &641043499
 GameObject:
   m_ObjectHideFlags: 0
