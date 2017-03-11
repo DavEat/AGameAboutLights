@@ -52,6 +52,8 @@ public class AG_Grid : MonoBehaviour {
                 return listPoints[0].position;
             else if (listPoints != null && listPoints.Count > 1)
             {
+                Debug.Log("manger : ");
+
                 Transform lastSelected = listPoints[0];
                 for (int i = 1; i < listPoints.Count; i++)
                 {
