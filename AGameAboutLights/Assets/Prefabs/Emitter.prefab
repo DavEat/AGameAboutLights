@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114687223241338694}
   - component: {fileID: 60612909644289810}
   - component: {fileID: 114464226268790924}
+  - component: {fileID: 114256156028308192}
   m_Layer: 10
   m_Name: Emitter
   m_TagString: Untagged
@@ -104,6 +105,17 @@ PolygonCollider2D:
       - {x: 84.487564, y: -38.61138}
       - {x: -87.22052, y: -37.830883}
       - {x: -33.17158, y: 39.394386}
+--- !u!114 &114256156028308192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950596063283308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d119e39e1b0f114ab0ac731226caeb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114353870008957916
 MonoBehaviour:
   m_ObjectHideFlags: 1

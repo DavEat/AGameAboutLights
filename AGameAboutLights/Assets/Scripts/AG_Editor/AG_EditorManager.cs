@@ -192,6 +192,9 @@ public class AG_EditorManager : MonoBehaviour {
             RaycastHit2D hit = RaycastScreenPoint();
             if (hit.collider != null)
             {
+                if (AG_LightsManagementNew.inst.lightTurnOn)
+                    toggleLight.Invoke();
+
                 if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
                 {
                     if (lazerTurnOn)
