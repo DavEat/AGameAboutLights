@@ -7,7 +7,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
     #region Var
     public AG_Inventory playerInventory;
     public Transform staticObjectContener, movableObjectContener;
-
+    public UnityEngine.UI.Text saveName;
     public GameObject[] elementsPrefab;
     #endregion
 
@@ -75,9 +75,14 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
         return infos;
     }
 
-    public void Save()
+    public void Save(bool editor)
     {
-        AG_SelectLevelManager.inst.xml.Save(AG_SelectLevelManager.inst.xml.levelFolderName, "Level42" + AG_SelectLevelManager.inst.xml.fileExtention);
+        if (saveName.text.Length > 0)
+        {
+            if (editor)
+                AG_SelectLevelManager.inst.xml.Save(AG_SelectLevelManager.inst.xml.levelFolderName, saveName.text + AG_SelectLevelManager.inst.xml.fileExtention);
+            else AG_SelectLevelManager.inst.xml.Save(AG_SelectLevelManager.inst.xml.editorFolderName, saveName.text + AG_SelectLevelManager.inst.xml.fileExtention);
+        }
     }
 
     public void Load(string _folder, string _fileName)
