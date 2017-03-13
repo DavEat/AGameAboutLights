@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AG_Grid : MonoBehaviour {
+public class AG_Grid : AG_Singleton<AG_Grid> {
 
     #region Var
     [SerializeField]
@@ -13,10 +13,10 @@ public class AG_Grid : MonoBehaviour {
     [SerializeField]
     private GameObject point;
 
-    private static List<Transform> _listPoints = new List<Transform>();
+    private static Transform[] _listPoints;
     #endregion
 
-    public static List<Transform> listPoints
+    public Transform[] listPoints
     {
         get { return _listPoints; }
         private set { _listPoints = value; }
@@ -26,36 +26,46 @@ public class AG_Grid : MonoBehaviour {
     {
         if (transform.childCount == 0)
             CreateGried();
-        else foreach (Transform t in transform.GetComponentsInChildren<Transform>())
-                listPoints.Add(t);
+        else
+        {
+            List<Transform> listPoint = new List<Transform>();
+            foreach (Transform t in transform.GetComponentsInChildren<Transform>())
+                listPoint.Add(t);
+
+            listPoints = listPoint.ToArray();
+        }
+
+
     }
 
     private void CreateGried()
     {
+        List<Transform> listPoint = new List<Transform>();
         for (int i = 0; i < numberX; i++)
         {
             for (int j = 0; j < numberY; j++)
             {
                 GameObject _point = Instantiate(point, transform);
-                _listPoints.Add(_point.transform);
-                _point.transform.localPosition = new Vector2(i * gap + startgapX, j * gap + startgapY); 
+                listPoint.Add(_point.GetComponent<RectTransform>());
+                //_point.transform.localPosition = new Vector2(i * gap + startgapX, j * gap + startgapY); 
             }
         }
+        listPoints = listPoint.ToArray();
         gameObject.SetActive(false);
     }
 
-    public static Vector2 ChoseClosestPoint(Vector2 pos)
+    public Vector2 ChoseClosestPoint(Vector2 pos)
     {
         if (listPoints != null)
         {
-            if (listPoints.Count == 1)
+            if (listPoints.Length == 1)
                 return listPoints[0].position;
-            else if (listPoints != null && listPoints.Count > 1)
+            else if (listPoints != null && listPoints.Length > 1)
             {
                 Transform lastSelected = listPoints[0];
-                for (int i = 1; i < listPoints.Count; i++)
+                for (int i = 1; i < listPoints.Length; i++)
                 {
-                    if (Vector2.Distance(lastSelected.position, pos) > Vector2.Distance(listPoints[i].position, pos))
+                    if (Vector2.Distance(lastSelected.position, pos) >Vector2.Distance(listPoints[i].position, pos))
                         lastSelected = listPoints[i];
                 }
                 return lastSelected.position;
@@ -64,7 +74,7 @@ public class AG_Grid : MonoBehaviour {
         return Vector2.zero;
     }
 
-    public static Vector2 ChoseClosestPoint(List<Transform> list, Vector2 pos)
+    public Vector2 ChoseClosestPoint(List<Transform> list, Vector2 pos)
     {
         if (list != null)
         {

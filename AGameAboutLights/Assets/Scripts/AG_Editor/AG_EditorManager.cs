@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using DG.Tweening;
 
 public class AG_EditorManager : MonoBehaviour {
@@ -17,6 +16,11 @@ public class AG_EditorManager : MonoBehaviour {
     public bool snap = true;
 
     #endregion
+
+    private void Start()
+    {
+        AG_DragDrop.inst.enabled = false;
+    }
 
     #region Struct
     public AG_ScaleToolManager scaleTool
@@ -285,6 +289,16 @@ public class AG_EditorManager : MonoBehaviour {
             
                     //mousePos = inputPosition;
                     downObject = obj.GetChild(0);
+
+                    AG_Emitter emitter = obj.GetComponent<AG_Emitter>();
+                    if (emitter != null)
+                        listEmitter.Add(emitter);
+                    else
+                    {
+                        AG_Receiver receiver = obj.GetComponent<AG_Receiver>();
+                        if (receiver != null)
+                            listReceiver.Add(receiver);
+                    }
                     //DiplayGrid(true);
                 }
             }
@@ -327,9 +341,21 @@ public class AG_EditorManager : MonoBehaviour {
                     else
                     {
                         if (inputPosition.x > inventory.inventoryLimite.position.x)
+                        {
                             inventory.AddToInventory(downObject);
+
+                            AG_Emitter emitter = downObject.GetComponent<AG_Emitter>();
+                            if (emitter != null)
+                                listEmitter.Remove(emitter);
+                            else
+                            {
+                                AG_Receiver receiver = downObject.GetComponent<AG_Receiver>();
+                                if (emitter != null)
+                                    listReceiver.Remove(receiver);
+                            }
+                        }
                         else if (snap)
-                            downObject.parent.position = AG_Grid.ChoseClosestPoint(downObject.parent.position);
+                            downObject.parent.position = AG_Grid.inst.ChoseClosestPoint(downObject.parent.position);
 
                         downObject = null;
                         //DiplayGrid(false);
@@ -391,5 +417,33 @@ public class AG_EditorManager : MonoBehaviour {
         }
     }
 
+    public List<AG_Emitter> listEmitter;
+    public List<AG_Receiver> listReceiver;
+    [SerializeField] private GameObject switchButton, objectlist, optionslist, objectlistBut, optionslistBut;
+    public void Testlevel()
+    {
+        if (_editing)
+        {
+            foreach (AG_Emitter emitter in AG_LightsManagementNew.inst.listEmitter)
+                listEmitter.Add(emitter);
+            AG_LightsManagementNew.inst.listEmitter = listEmitter.ToArray();
+            foreach (AG_Receiver receiver in AG_LightsManagementNew.inst.listReceiver)
+                listReceiver.Add(receiver);
+            AG_LightsManagementNew.inst.listReceiver = listReceiver.ToArray();
+
+            listEmitter.RemoveAll(xx => xx == xx);
+            listReceiver.RemoveAll(xx => xx == xx);
+        }
+        //else if (AG_LightsManagementNew.inst.lightTurnOn)
+        //    AG_DragDrop.inst.toggleLight.Invoke();
+
+        _editing = !_editing;
+        AG_DragDrop.inst.enabled = !AG_DragDrop.inst.enabled;
+        switchButton.SetActive(!switchButton.activeSelf);
+        objectlist.SetActive(!objectlist.activeSelf);
+        optionslist.SetActive(!optionslist.activeSelf);
+        objectlistBut.SetActive(!objectlistBut.activeSelf);
+        optionslistBut.SetActive(!optionslistBut.activeSelf);
+    }
     #endregion
 }

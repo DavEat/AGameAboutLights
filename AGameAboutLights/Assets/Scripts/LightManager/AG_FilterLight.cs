@@ -28,7 +28,7 @@ public class AG_FilterLight : AG_LightCaster
             Vector2 direction = -(_origin - _hitPoint).normalized;
             Vector2 origin = _hitPoint;
 
-            AG_LightsManagementNew.inst.AddLightHead(AG_LightsManagementNew.inst.firstListLightHead, new LightHead(_colorIndex, origin, direction, _transform, new int[] {_lightIndex + 1}, _lightIndex));
+            AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, new LightHead(_colorIndex, origin, direction, _transform, new int[] {_lightIndex + 1}, _lightIndex));
         }
     }
     #endregion

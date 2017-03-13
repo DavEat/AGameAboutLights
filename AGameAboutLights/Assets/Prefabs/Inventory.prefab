@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorElem: 0
-  _maxNumber: 10
+  _maxNumber: 5
   text: {fileID: 114379194955639408}
   prefab: {fileID: 1660411507285776, guid: d558d791016c2ac49ab4236075b23136, type: 2}
   parent: {fileID: 0}
@@ -610,7 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorElem: 0
-  _maxNumber: 22
+  _maxNumber: 5
   text: {fileID: 114891307950360368}
   prefab: {fileID: 1558192448209972, guid: dc49c43989ee8d64da80823eb540e9b1, type: 2}
   parent: {fileID: 0}
@@ -1434,6 +1434,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.24900001}
   m_AnchorMax: {x: 1, y: 0.82500005}
-  m_AnchoredPosition: {x: 0, y: -1}
-  m_SizeDelta: {x: 27, y: 2}
+  m_AnchoredPosition: {x: 0, y: 21}
+  m_SizeDelta: {x: 27, y: -43}
   m_Pivot: {x: 0, y: 0.5}

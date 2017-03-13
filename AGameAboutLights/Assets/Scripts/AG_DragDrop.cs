@@ -25,7 +25,7 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
 	[SerializeField] private AG_Grid grid;	
 	[SerializeField] private AG_Inventory inventory;
 
-    [SerializeField] private UnityEvent toggleLight;
+    [SerializeField] public UnityEvent toggleLight;
 
     #region Inventory Var
     private bool _creatingNewObject;
@@ -40,6 +40,11 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
         private set { _downObject = value; }
     }
     #endregion
+
+    private void Start()
+    {
+        Debug.Log("gried : " + grid != null);
+    }
 
     public RaycastHit2D RaycastScreenPoint(Vector2 inputPosition)
 	{
@@ -221,7 +226,7 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
                         if (inputPosition.x < inventory.inventoryLimite.position.x)
                             inventory.AddToInventory(downObject);
                         else
-                            downObject.parent.position = AG_Grid.ChoseClosestPoint(inputPosition);
+                            downObject.parent.position = AG_Grid.inst.ChoseClosestPoint(inputPosition);
 
                         downObject = null;
                         DiplayGrid(false);

@@ -151,8 +151,8 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         for (int i = 0; i < listEmitter.Length; i++)
             SetLights(i);
 
-        foreach (LightHead lightHead in GetLightHead(firstListLightHead))
-            AddLight(lightHead);
+        /*foreach (LightHead lightHead in GetLightHead(!firstListLightHead))
+            AddLight(lightHead);*/
         SetListLightHeadAtIndex();
     }
 
@@ -162,7 +162,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         float angle = listEmitter[currentEmitter].startLightPos.eulerAngles.z;
         Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
-        AddLightHead(firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform, null, -1));
+        AddLightHead(!firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform, null, -1));
     }
 
     /// <summary>Calcul how place the lights in the next step</summary>
@@ -180,7 +180,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             {
                 listLightConstructor.Add(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, null));
 
-                //SpawnLights(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, _lightHead.nextLightsIndex));
+                SpawnLights(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, _lightHead.nextLightsIndex));
                 _currentLight++;
             }
 
@@ -196,7 +196,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
                         elem.alimented = true;
                 }
             }
-            Debug.Log("current light : " + _currentLight);
+            //Debug.Log("current light : " + _currentLight);
         }
     }
 
@@ -215,8 +215,8 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
 
         Debug.Log("END RECURSIVITY");
 
-        for (int i = 0; i < listEmitter.Length; i++)
-            SpawnLights(listLightConstructor[i]);
+        /*for (int i = 0; i < listEmitter.Length; i++)
+            SpawnLights(listLightConstructor[i]);*/
 
         bool victory = true;
         foreach (AG_Receiver receiver in listReceiver)
@@ -259,17 +259,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
              .Append(_rect.DOSizeDelta(new Vector2(_distance, _rect.sizeDelta.y), _duration))
              .OnComplete(() =>
              {
-                 Debug.Log(" 0 spanw light");
-                 if (_lightConstructor.nextLightIndex != null)
-                 {
-                     foreach (int i in _lightConstructor.nextLightIndex)
-                     {
-                         Debug.Log(" 1 spanw light : " + i + " listLightConstructor.Count : " + listLightConstructor.Count);
-                         //if (i < listLightConstructor.Count)
-                             SpawnLights(listLightConstructor[i]);
-                     }
-                 }else Debug.Log(" 0 spanw light -1");
-
+                
                  if (mirrorChock != null)
                      Instantiate(mirrorChock, _endPos, Quaternion.Euler(0, 0, 0));
                  //inTween.Remove(tween);

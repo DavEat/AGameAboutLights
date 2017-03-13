@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224993140914841988}
   - component: {fileID: 114464263745100984}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Prisma
   m_TagString: Untagged
   m_Icon: {fileID: 0}

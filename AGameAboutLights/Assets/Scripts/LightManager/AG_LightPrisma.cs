@@ -25,8 +25,8 @@ public class AG_LightPrisma : AG_LightCaster
         //Debug.Log("prisma");
         int[] colorsIndexs = PrismaColorManager(_colorIndex);
 
-        AG_LightsManagementNew.inst.AddLightHead(AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face1, _hitPoint, colorsIndexs[0], _lightIndex));
-        AG_LightsManagementNew.inst.AddLightHead(AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face2, _hitPoint, colorsIndexs[1], _lightIndex + 1));
+        AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face1, _hitPoint, colorsIndexs[0], _lightIndex));
+        AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face2, _hitPoint, colorsIndexs[1], _lightIndex + 1));
     }
 
     private LightHead InitLightHead(Transform _face, Vector2 _hitPoint, int _colorIndex, int _lightIndex)

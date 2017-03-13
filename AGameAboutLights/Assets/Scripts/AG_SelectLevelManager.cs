@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AG_SelectLevelManager : AG_Singleton<AG_SelectLevelManager>
@@ -17,6 +15,7 @@ public class AG_SelectLevelManager : AG_Singleton<AG_SelectLevelManager>
     public void Start()
     {
         _xml = new XmlManager();
+        SceneManager.LoadScene(1);
     }
 
     public void SetFileToLoad(string _folder, string _fileName, int _levelIndex)
@@ -25,20 +24,10 @@ public class AG_SelectLevelManager : AG_Singleton<AG_SelectLevelManager>
         fileName = _fileName;
         levelIndex = _levelIndex;
 
-        SceneManager.LoadScene(1);
+        if (loadInEditor)
+            SceneManager.LoadScene(3);
+        else SceneManager.LoadScene(2);
     }
 
-    /*/// <summary>set the save to load</summary>
-    /// <param name="_name">the name of the save to load</param>
-    public void SetSelectedSave(string _name)
-    {
-        xml.fileName = _name;
-    }
-
-    /// <summary>select all save files in al folder</summary>
-    /// <param name="_folderPath">in the folder path</param>
-    public void SelectAllFiles(string _folderPath)
-    {
-
-    } */
+    public bool loadInEditor;
 }

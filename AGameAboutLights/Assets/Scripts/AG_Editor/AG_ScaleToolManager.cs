@@ -80,7 +80,7 @@ public class AG_ScaleToolManager : MonoBehaviour {
     public void OnPointerUp(Vector2 inputPosition, AG_ElementType elem)
     {
         if (editorM.snap)
-            ManageCornersPosition(AG_Grid.ChoseClosestPoint(inputPosition), elem);
+            ManageCornersPosition(AG_Grid.inst.ChoseClosestPoint(inputPosition), elem);
 
         selectedCornerIndex = -1;
 
