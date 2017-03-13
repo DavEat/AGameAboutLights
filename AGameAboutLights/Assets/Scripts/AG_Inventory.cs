@@ -28,14 +28,7 @@ public class AG_Inventory : MonoBehaviour {
 
     public void AddToInventory(Transform obj)
     {
-        AG_ElementType elem = obj.GetComponent<AG_ElementType>();
-
-        if (elem.objectType == ObjectType.mirror)
-        {
-            if (((AG_Mirror)elem).mirrorType == AG_Mirror.MirrorType.Double)
-                _listObjects[(int)elem.objectType].AddIn(obj);
-            else _listObjects[(int)((AG_Mirror)elem).mirrorType].AddIn(obj);
-        }
-        else _listObjects[(int)elem.objectType].AddIn(obj);
+        AG_ElementType elem = obj.parent.GetComponent<AG_ElementType>();
+        _listObjects[(int)elem.objectType].AddIn(obj);
     }
 }

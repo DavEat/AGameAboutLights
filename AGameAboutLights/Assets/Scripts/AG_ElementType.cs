@@ -3,12 +3,13 @@
 public enum ObjectType
 {
     empthy,
-    mirror,
+    mirrorDouble,
     emitter,
     receiver,
     prisma,
     filter,
-    wall
+    wall,
+    mirrorSimple,
 }
 
 public enum ObjectInteractionType

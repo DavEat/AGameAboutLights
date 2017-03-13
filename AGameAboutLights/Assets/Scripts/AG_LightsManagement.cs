@@ -99,7 +99,7 @@ public class AG_LightsManagement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(_origin, _direction, Mathf.Infinity, layer);
         if (hit.collider != null)
         {
-            RaycastIgnore(hit);
+            //RaycastIgnore(hit);
 
             //listLight[currentLight].SetActive(true);
             //listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
@@ -112,7 +112,7 @@ public class AG_LightsManagement : MonoBehaviour
         }
     }
 
-    private void RaycastIgnore(RaycastHit2D hit)
+    /*private void RaycastIgnore(RaycastHit2D hit)
     {
         if (lastHitObject != null)
             lastHitObject.layer = LayerMask.NameToLayer("RaycastableByLight");
@@ -121,7 +121,7 @@ public class AG_LightsManagement : MonoBehaviour
             lastHitObject = hit.transform.gameObject;
             lastHitObject.layer = LayerMask.NameToLayer("IgnoreLazerRaycast");
         }
-    }
+    }*/
 
     private void RaycastIgnore(Transform _transform)
     {
@@ -141,7 +141,7 @@ public class AG_LightsManagement : MonoBehaviour
             if (currenttotalLight < maxLineOfLine)
                 SetWaitingPrismaColor();
         }
-        else if (objectType == ObjectType.mirror)
+        else if (objectType == ObjectType.mirrorDouble)
         {
             if (currenttotalLight < maxLineOfLine)
             {

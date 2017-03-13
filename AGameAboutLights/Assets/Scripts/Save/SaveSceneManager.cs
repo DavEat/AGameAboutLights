@@ -129,15 +129,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
                     obj.gameObject.SetActive(false);
                 foreach (Save.InventoryElem elem in save.infos.levelInfos.inventory.listElements)
                 {
-                    if (objectType.objectType == ObjectType.mirror && ((AG_Mirror)objectType).mirrorType == AG_Mirror.MirrorType.Simple)
-                    {
-                        if ((int)((AG_Mirror)objectType).mirrorType == elem.typeId)
-                        {
-                            obj.maxNumber = elem.quantity;
-                            obj.gameObject.SetActive(true);
-                        }
-                    }
-                    else if ((int)objectType.objectType == elem.typeId)
+                    if ((int)objectType.objectType == elem.typeId)
                     {
                         obj.maxNumber = elem.quantity;
                         obj.gameObject.SetActive(true);

@@ -705,8 +705,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tosave: 1
   objectInteractionType: 2
-  objectType: 1
-  mirrorType: 8
+  objectType: 7
+  mirrorType: 7
 --- !u!114 &114233982049795728
 MonoBehaviour:
   m_ObjectHideFlags: 1
