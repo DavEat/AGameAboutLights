@@ -41,11 +41,6 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
     }
     #endregion
 
-    private void Start()
-    {
-        Debug.Log("gried : " + grid != null);
-    }
-
     public RaycastHit2D RaycastScreenPoint(Vector2 inputPosition)
 	{
 		Debug.DrawRay (inputPosition, Vector2.up * 10, Color.red, 10);

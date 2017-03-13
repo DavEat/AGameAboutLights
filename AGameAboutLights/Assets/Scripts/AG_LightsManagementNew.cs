@@ -240,10 +240,10 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         Vector2 dir = _lightConstructor.origin - _lightConstructor.end;
         float angleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         rect.eulerAngles = new Vector3(0, 0, 180 + angleZ);
-        rect.sizeDelta = new Vector2(0, _lightWidth);
+        rect.sizeDelta = new Vector2(Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightWidth);
         light.GetComponent<UnityEngine.UI.Image>().color = AG_Color.colorList[_lightConstructor.colorIndex];
 
-        LightAnim(rect, 0, Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightConstructor.animDuration, _lightConstructor.end, _lightConstructor);
+        //LightAnim(rect, 0, Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightConstructor.animDuration, _lightConstructor.end, _lightConstructor);
     }
 
     private List<LightConstructor> _listLightConstructor = new List<LightConstructor>();

@@ -18,16 +18,18 @@ public class AG_SelectLevelManager : AG_Singleton<AG_SelectLevelManager>
         SceneManager.LoadScene(1);
     }
 
-    public void SetFileToLoad(string _folder, string _fileName, int _levelIndex)
+    public void SetFileToLoad(string _folder, string _fileName, int _levelIndex, bool _newEditor)
     {
         folder = _folder;
         fileName = _fileName;
         levelIndex = _levelIndex;
 
-        if (loadInEditor)
+        if (loadInEditor || _newEditor)
             SceneManager.LoadScene(3);
         else SceneManager.LoadScene(2);
+
+        loadInEditor = false;
     }
 
-    public bool loadInEditor;
+    [HideInInspector] public bool loadInEditor;
 }

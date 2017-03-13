@@ -102,7 +102,14 @@ public class AG_InventoryObjectManager : MonoBehaviour {
     public Save.InventoryElem CollectInfos()
     {
         Save.InventoryElem infos = new Save.InventoryElem();
-        infos.typeId = (int)GetComponent<AG_ElementType>().objectType;
+
+        AG_ElementType elem = GetComponent<AG_ElementType>();
+        if (elem.objectType == ObjectType.mirror && ((AG_Mirror)elem).mirrorType == AG_Mirror.MirrorType.Simple)
+        {
+            infos.typeId = (int)((AG_Mirror)elem).mirrorType;
+            Debug.Log("mirror type : " + (int)((AG_Mirror)elem).mirrorType);
+        }
+        else infos.typeId = (int)elem.objectType;
         infos.quantity = (int)maxNumber;
 
         return infos;

@@ -19,7 +19,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
         AG_ElementType[] array = FindObjectsOfType<AG_ElementType>();
         List<AG_ElementType> list = new List<AG_ElementType>();
         foreach (AG_ElementType elem in array)
-            if (elem.tosave)
+            if (elem.tosave && elem.gameObject.activeSelf)
                 list.Add(elem);
 
         return list.ToArray();
@@ -119,16 +119,25 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
             GameObject obj = Instantiate(elementsPrefab[wall.typeId], wall.rect.position, Quaternion.Euler(new Vector3(0, 0, wall.rect.angleZ)), staticObjectContener);
             obj.GetComponent<RectTransform>().sizeDelta = wall.rect.deltaSize;
         }
+        AG_EditorManager editor = FindObjectOfType<AG_EditorManager>();
         foreach (AG_InventoryObjectManager obj in playerInventory._listObjects)
         {
             if (obj != null)
             {
                 AG_ElementType objectType = obj.GetComponent<AG_ElementType>();
-                if (obj.gameObject.activeSelf)
+                if (obj.gameObject.activeSelf && editor == null)
                     obj.gameObject.SetActive(false);
                 foreach (Save.InventoryElem elem in save.infos.levelInfos.inventory.listElements)
                 {
-                    if ((int)objectType.objectType == elem.typeId)
+                    if (objectType.objectType == ObjectType.mirror && ((AG_Mirror)objectType).mirrorType == AG_Mirror.MirrorType.Simple)
+                    {
+                        if ((int)((AG_Mirror)objectType).mirrorType == elem.typeId)
+                        {
+                            obj.maxNumber = elem.quantity;
+                            obj.gameObject.SetActive(true);
+                        }
+                    }
+                    else if ((int)objectType.objectType == elem.typeId)
                     {
                         obj.maxNumber = elem.quantity;
                         obj.gameObject.SetActive(true);
@@ -169,6 +178,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
 
     private void OnLevelWasLoaded()
     {
+        if (AG_SelectLevelManager.inst.fileName != "$newLevel$")
         Load(AG_SelectLevelManager.inst.folder, AG_SelectLevelManager.inst.fileName);
 
         //Debug.Log("Level was load");
