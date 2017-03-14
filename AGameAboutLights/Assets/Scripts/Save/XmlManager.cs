@@ -31,7 +31,11 @@ public class XmlManager
     /// <summary>Constructor</summary>
     public XmlManager()
     {
+        #if UNITY_WEBGL
+        fileLocation = Application.streamingAssetsPath + "/Save/";
+        #else
         fileLocation = Application.dataPath + "/Save/";
+        #endif
         levelFolderName = "/OffcialLevels/";
         editorFolderName = "/CustomLevel/";
         fileExtention = ".HeiwaSave";
@@ -137,11 +141,11 @@ public class XmlManager
 
     private void LoadXML(string _folder)
     {
-        #if UNITY_STANDALONE_OSX
+#if UNITY_STANDALONE_OSX
 		StreamReader r = File.OpenText(fileLocation + _folder + "/" + fileName);
-        #else
+#else
         StreamReader r = File.OpenText(fileLocation + _folder + "\\" + fileName);
-		#endif
+#endif
         string _info = r.ReadToEnd();
         r.Close();
         _data = /*Emcryption.Decrypt*/(_info);

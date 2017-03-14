@@ -397,23 +397,20 @@ public class AG_EditorManager : MonoBehaviour {
             AG_ElementType elem = _selectedObj.parent.GetComponent<AG_ElementType>();
             if (elem != null && elem.objectType != ObjectType.wall)
             {
-                ((AG_ElementType_Color)elem).color = (AG_Color.ColorName)_color;
-
                 if (elem.objectType == ObjectType.emitter && _color == 0)
                 {
                     AG_EditorDebug.DebugLog("A Emitter can't have the white color");
                 }
                 else
                 {
+                    ((AG_ElementType_Color)elem).color = (AG_Color.ColorName)_color;
+
                     Image img = _selectedObj.parent.GetComponent<Image>();
                     if (img != null)
                         img.color = AG_Color.colorList[_color];
                 }
             }
-            else
-            {
-
-            }
+            else Debug.Log("You can't change de color of that element");
         }
     }
 
