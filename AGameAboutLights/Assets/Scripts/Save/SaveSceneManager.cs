@@ -87,56 +87,59 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
 
     public void Load(string _folder, string _fileName)
     {
-        Save save = AG_SelectLevelManager.inst.xml.Load(_folder, _fileName);
+        if (true)
+        {
+            Save save = AG_SelectLevelManager.inst.xml.Load(_folder, _fileName);
 
-        List<AG_Emitter> listEmitter = new List<AG_Emitter>();
-        foreach (Save.EmitterInfos emitter in save.infos.levelInfos.emitters)
-        {
-            GameObject obj = Instantiate(elementsPrefab[emitter.typeId], emitter.rect.position, Quaternion.Euler(new Vector3(0, 0, emitter.rect.angleZ)), staticObjectContener);
-            AG_Emitter _emitter = obj.GetComponent<AG_Emitter>();
-            _emitter.color = (AG_Color.ColorName)emitter.colorIndex;
-
-            listEmitter.Add(_emitter);
-        }
-        AG_LightsManagementNew.inst.listEmitter = listEmitter.ToArray();
-        List<AG_Receiver> listReceiver = new List<AG_Receiver>();
-        foreach (Save.ReceiverInfos receiver in save.infos.levelInfos.receivers)
-        {
-            GameObject obj = Instantiate(elementsPrefab[receiver.typeId], receiver.rect.position, Quaternion.Euler(new Vector3(0, 0, receiver.rect.angleZ)), staticObjectContener);
-            AG_Receiver _receiver = obj.GetComponent<AG_Receiver>();
-            _receiver.color = (AG_Color.ColorName)receiver.colorIndex;
-
-            listReceiver.Add(_receiver);
-        }
-        AG_LightsManagementNew.inst.listReceiver = listReceiver.ToArray();
-        foreach (Save.FiltersInfos filter in save.infos.levelInfos.filters)
-        {
-            GameObject obj = Instantiate(elementsPrefab[filter.typeId], filter.rect.position, Quaternion.Euler(new Vector3(0, 0, filter.rect.angleZ)), staticObjectContener);
-            obj.GetComponent<AG_Filter>().color = (AG_Color.ColorName)filter.colorIndex;
-        }
-        foreach (Save.WallsInfos wall in save.infos.levelInfos.walls)
-        {
-            GameObject obj = Instantiate(elementsPrefab[wall.typeId], wall.rect.position, Quaternion.Euler(new Vector3(0, 0, wall.rect.angleZ)), staticObjectContener);
-            obj.GetComponent<RectTransform>().sizeDelta = wall.rect.deltaSize;
-        }
-        AG_EditorManager editor = FindObjectOfType<AG_EditorManager>();
-        foreach (AG_InventoryObjectManager obj in playerInventory._listObjects)
-        {
-            if (obj != null)
+            List<AG_Emitter> listEmitter = new List<AG_Emitter>();
+            foreach (Save.EmitterInfos emitter in save.infos.levelInfos.emitters)
             {
-                AG_ElementType objectType = obj.GetComponent<AG_ElementType>();
-                if (obj.gameObject.activeSelf && editor == null)
-                    obj.gameObject.SetActive(false);
-                foreach (Save.InventoryElem elem in save.infos.levelInfos.inventory.listElements)
+                GameObject obj = Instantiate(elementsPrefab[emitter.typeId], emitter.rect.position, Quaternion.Euler(new Vector3(0, 0, emitter.rect.angleZ)), staticObjectContener);
+                AG_Emitter _emitter = obj.GetComponent<AG_Emitter>();
+                _emitter.color = (AG_Color.ColorName)emitter.colorIndex;
+
+                listEmitter.Add(_emitter);
+            }
+            AG_LightsManagementNew.inst.listEmitter = listEmitter.ToArray();
+            List<AG_Receiver> listReceiver = new List<AG_Receiver>();
+            foreach (Save.ReceiverInfos receiver in save.infos.levelInfos.receivers)
+            {
+                GameObject obj = Instantiate(elementsPrefab[receiver.typeId], receiver.rect.position, Quaternion.Euler(new Vector3(0, 0, receiver.rect.angleZ)), staticObjectContener);
+                AG_Receiver _receiver = obj.GetComponent<AG_Receiver>();
+                _receiver.color = (AG_Color.ColorName)receiver.colorIndex;
+
+                listReceiver.Add(_receiver);
+            }
+            AG_LightsManagementNew.inst.listReceiver = listReceiver.ToArray();
+            foreach (Save.FiltersInfos filter in save.infos.levelInfos.filters)
+            {
+                GameObject obj = Instantiate(elementsPrefab[filter.typeId], filter.rect.position, Quaternion.Euler(new Vector3(0, 0, filter.rect.angleZ)), staticObjectContener);
+                obj.GetComponent<AG_Filter>().color = (AG_Color.ColorName)filter.colorIndex;
+            }
+            foreach (Save.WallsInfos wall in save.infos.levelInfos.walls)
+            {
+                GameObject obj = Instantiate(elementsPrefab[wall.typeId], wall.rect.position, Quaternion.Euler(new Vector3(0, 0, wall.rect.angleZ)), staticObjectContener);
+                obj.GetComponent<RectTransform>().sizeDelta = wall.rect.deltaSize;
+            }
+            AG_EditorManager editor = FindObjectOfType<AG_EditorManager>();
+            foreach (AG_InventoryObjectManager obj in playerInventory._listObjects)
+            {
+                if (obj != null)
                 {
-                    if ((int)objectType.objectType == elem.typeId)
+                    AG_ElementType objectType = obj.GetComponent<AG_ElementType>();
+                    if (obj.gameObject.activeSelf && editor == null)
+                        obj.gameObject.SetActive(false);
+                    foreach (Save.InventoryElem elem in save.infos.levelInfos.inventory.listElements)
                     {
-                        obj.maxNumber = elem.quantity;
-                        obj.gameObject.SetActive(true);
+                        if ((int)objectType.objectType == elem.typeId)
+                        {
+                            obj.maxNumber = elem.quantity;
+                            obj.gameObject.SetActive(true);
+                        }
                     }
                 }
             }
-        }
+        } 
     }
 
     private string CreateFileName()
@@ -168,10 +171,21 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
     }
     #endregion
 
+    public void LoadNext()
+    {
+        int currentLevel = AG_SelectLevelManager.inst.levelIndex;
+        if (AG_SelectLevelManager.inst.savesList.Length > currentLevel)
+        {
+            string name = AG_SelectLevelManager.inst.savesList[currentLevel].Name;
+            int levelIndex = int.Parse((name.Remove(name.Length - 10, 10)).Remove(0, 5));
+            AG_SelectLevelManager.inst.SetFileToLoad(name, levelIndex);
+        }
+    }
+
     private void OnLevelWasLoaded()
     {
         if (AG_SelectLevelManager.inst.fileName != "$newLevel$")
-        Load(AG_SelectLevelManager.inst.folder, AG_SelectLevelManager.inst.fileName);
+            Load(AG_SelectLevelManager.inst.folder, AG_SelectLevelManager.inst.fileName);
 
         //Debug.Log("Level was load");
     }

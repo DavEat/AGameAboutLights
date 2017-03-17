@@ -226,7 +226,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         if (victory)
         {
             AG_EndLevel.SaveProgression();
-            victoryScreen.SetActive(true);
+            AG_EndLevel.inst.SetVictoryScreen(true);
         }
     }
 

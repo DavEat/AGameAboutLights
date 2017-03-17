@@ -141,13 +141,19 @@ public class XmlManager
 
     private void LoadXML(string _folder)
     {
-#if UNITY_STANDALONE_OSX
-		StreamReader r = File.OpenText(fileLocation + _folder + "/" + fileName);
-#else
-        StreamReader r = File.OpenText(fileLocation + _folder + "\\" + fileName);
-#endif
-        string _info = r.ReadToEnd();
+        string _info;
+        #if UNITY_WEBGL
+        _info = AG_FileManagerOnServer.inst.GetData("http://davidmestdagh.com/games/AGAL/StreamingAssets" + _folder + "/" + fileName);
+        #elif UNITY_STANDALONE_OSX
+        StreamReader r = File.OpenText(fileLocation + _folder + "/" + fileName);
+        _info = r.ReadToEnd();
         r.Close();
+        #else
+        StreamReader r = File.OpenText(fileLocation + _folder + "\\" + fileName);
+        _info = r.ReadToEnd();
+        r.Close();
+        #endif
+
         _data = /*Emcryption.Decrypt*/(_info);
         //Debug.Log("File Read");
     }

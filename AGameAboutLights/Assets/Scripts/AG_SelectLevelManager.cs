@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AG_SelectLevelManager : AG_Singleton<AG_SelectLevelManager>
@@ -12,12 +13,22 @@ public class AG_SelectLevelManager : AG_Singleton<AG_SelectLevelManager>
     private XmlManager _xml;
     public XmlManager xml { get { return _xml; } private set { _xml = value; } }
 
+    public FileInfo[] savesList;
+
     public void Start()
     {
         _xml = new XmlManager();
         SceneManager.LoadScene(1);
     }
 
+    public void SetFileToLoad(string _fileName, int _levelIndex)
+    {
+        fileName = _fileName;
+        levelIndex = _levelIndex;
+        SceneManager.LoadScene(2);
+
+        loadInEditor = false;
+    }
     public void SetFileToLoad(string _folder, string _fileName, int _levelIndex, bool _newEditor)
     {
         folder = _folder;

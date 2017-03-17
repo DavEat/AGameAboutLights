@@ -12,7 +12,7 @@
       <inventory>
         <listElements>
           <InventoryElem>
-            <typeId>1</typeId>
+            <typeId>7</typeId>
             <quantity>1</quantity>
           </InventoryElem>
         </listElements>
@@ -29,17 +29,6 @@
             <angleZ>270</angleZ>
           </rect>
         </EmitterInfos>
-        <EmitterInfos>
-          <typeId>2</typeId>
-          <colorIndex>4</colorIndex>
-          <rect>
-            <position>
-              <x>1596.45667</x>
-              <y>450.2967</y>
-            </position>
-            <angleZ>90</angleZ>
-          </rect>
-        </EmitterInfos>
       </emitters>
       <receivers>
         <ReceiverInfos>
@@ -51,17 +40,6 @@
               <y>0.296630859</y>
             </position>
             <angleZ>0</angleZ>
-          </rect>
-        </ReceiverInfos>
-        <ReceiverInfos>
-          <typeId>3</typeId>
-          <colorIndex>4</colorIndex>
-          <rect>
-            <position>
-              <x>836.456665</x>
-              <y>900.296631</y>
-            </position>
-            <angleZ>180</angleZ>
           </rect>
         </ReceiverInfos>
       </receivers>

@@ -12,20 +12,21 @@ public class AG_SaveSelecterGeneretor : MonoBehaviour
 
     public void Start()
     {
+        #if !UNITY_WEBGL
         if (!editor)
         {
             XmlManager xml = AG_SelectLevelManager.inst.xml;
-            FileInfo[] filesInfos = FilesManager.FindFiles(xml.levelFolderName);
-            filesInfos = filesInfos.OrderBy(xx => int.Parse((xx.Name.Remove(xx.Name.Length - 10, 10)).Remove(0, 5))).ToArray();
+            AG_SelectLevelManager.inst.savesList = FilesManager.FindFiles(xml.levelFolderName);
+            AG_SelectLevelManager.inst.savesList = AG_SelectLevelManager.inst.savesList.OrderBy(xx => int.Parse((xx.Name.Remove(xx.Name.Length - 10, 10)).Remove(0, 5))).ToArray();
 
             List<Button> listButton = new List<Button>();
 
-            for (int i = 0; i < filesInfos.Length; i++)
+            for (int i = 0; i < AG_SelectLevelManager.inst.savesList.Length; i++)
             {
-                Save save = xml.Load(xml.levelFolderName, filesInfos[i].Name);
+                Save save = xml.Load(xml.levelFolderName, AG_SelectLevelManager.inst.savesList[i].Name);
                 //if (save.infos.saveInfos.developperLevel)
                 {
-                    string name = filesInfos[i].Name;
+                    string name = AG_SelectLevelManager.inst.savesList[i].Name;
                     string levelIndex = (name.Remove(name.Length - 10, 10)).Remove(0, 5);
 
                     GameObject obj = Instantiate(levelButton, levelButtonParent);
@@ -63,11 +64,10 @@ public class AG_SaveSelecterGeneretor : MonoBehaviour
                     selectLevel.fileName = name;
                     selectLevel.folder = xml.editorFolderName;
                     selectLevel.levelIndex = int.Parse(levelIndex);
-
-                    obj.GetComponent<Button>().interactable = i <= PlayerPrefs.GetInt("LevelDone");
                 }
             }
         }
+        #endif
     }
 
     public void ToogleLoadEditor()
