@@ -182,7 +182,7 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
         }
     }
 
-    private void OnLevelWasLoaded()
+    private void OnEnable()
     {
         if (AG_SelectLevelManager.inst.fileName != "$newLevel$")
             Load(AG_SelectLevelManager.inst.folder, AG_SelectLevelManager.inst.fileName);

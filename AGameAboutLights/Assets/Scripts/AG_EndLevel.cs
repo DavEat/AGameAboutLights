@@ -24,10 +24,13 @@ public class AG_EndLevel : AG_Singleton<AG_EndLevel> {
     public void SetVictoryScreen(bool value)
     {
         gameObject.SetActive(value);
-        buttonNext.gameObject.SetActive(true);
-        bool interactable = AG_SelectLevelManager.inst.savesList.Length > AG_SelectLevelManager.inst.levelIndex;
-        buttonNext.interactable = interactable;
-        buttonNext.transform.GetComponentInChildren<UnityEngine.UI.Text>().color = interactable ? new Color(0.38f, 0.38f, 0.38f, 1) : new Color(0.38f, 0.38f, 0.38f, 0.5f);
+        if (buttonNext != null)
+        {
+            buttonNext.gameObject.SetActive(true);
+            bool interactable = AG_SelectLevelManager.inst.savesList.Length > AG_SelectLevelManager.inst.levelIndex;
+            buttonNext.interactable = interactable;
+            buttonNext.transform.GetComponentInChildren<UnityEngine.UI.Text>().color = interactable ? new Color(0.38f, 0.38f, 0.38f, 1) : new Color(0.38f, 0.38f, 0.38f, 0.5f);
+        }
     }
 
     /*public void NextLevel()
