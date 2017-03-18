@@ -25,41 +25,90 @@ Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\A
 Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\AGAL_Data\Managed\DOTween46.dll into Unity Child Domain
 Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\AGAL_Data\Managed\DOTween50.dll (this message is harmless)
 Loading D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\AGAL_Data\Managed\DOTween50.dll into Unity Child Domain
-- Completed reload, in  0.210 seconds
+- Completed reload, in  0.218 seconds
 Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\AGAL_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Aymeric\Documents\GameDev\AGameAboutLights\Build\Windows\AGAL_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
-XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 29.768633 ms
+UnloadTime: 29.387886 ms
 1
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 14.881551 ms
+UnloadTime: 2.300447 ms
 
 Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 464.
-Total: 10.610546 ms (FindLiveObjects: 0.064789 ms CreateObjectMapping: 0.062419 ms MarkObjects: 10.443830 ms  DeleteObjects: 0.038715 ms)
+Total: 3.145485 ms (FindLiveObjects: 0.099160 ms CreateObjectMapping: 0.020938 ms MarkObjects: 3.010769 ms  DeleteObjects: 0.013827 ms)
 
 11
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.928393 ms
+UnloadTime: 0.702815 ms
 
 Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 487.
-Total: 0.376493 ms (FindLiveObjects: 0.030419 ms CreateObjectMapping: 0.017382 ms MarkObjects: 0.316838 ms  DeleteObjects: 0.011851 ms)
+Total: 0.278123 ms (FindLiveObjects: 0.021333 ms CreateObjectMapping: 0.011851 ms MarkObjects: 0.236642 ms  DeleteObjects: 0.008296 ms)
 
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.114861 ms
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Unloading 57 unused Assets to reduce memory usage. Loaded Objects now: 532.
-Total: 0.769578 ms (FindLiveObjects: 0.077431 ms CreateObjectMapping: 0.027259 ms MarkObjects: 0.463801 ms  DeleteObjects: 0.199900 ms)
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.612248 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 511.
+Total: 0.617482 ms (FindLiveObjects: 0.047407 ms CreateObjectMapping: 0.029234 ms MarkObjects: 0.532543 ms  DeleteObjects: 0.007506 ms)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+hit obj : MirrorInside (UnityEngine.RectTransform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.185581 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 525.
+Total: 0.409284 ms (FindLiveObjects: 0.034370 ms CreateObjectMapping: 0.018567 ms MarkObjects: 0.346864 ms  DeleteObjects: 0.009086 ms)
 
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1c10 -> priority: 1 
-  Thread -> id: 5d0 -> priority: 1 
+  Thread -> id: 1e3c -> priority: 1 
+  Thread -> id: 1214 -> priority: 1 
