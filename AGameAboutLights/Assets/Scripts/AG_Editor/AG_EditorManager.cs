@@ -132,18 +132,18 @@ public class AG_EditorManager : MonoBehaviour {
     }
     #endregion
 
-    public RaycastHit2D RaycastScreenPoint()
+    public RaycastHit2D RaycastScreenPoint(Vector2 inputPosition)
 	{
-		Debug.DrawRay (Input.mousePosition, Vector2.up * 10, Color.red, 10);
-		return Physics2D.Raycast(Input.mousePosition, Vector2.up, 0.01f, layer);
+		Debug.DrawRay (inputPosition, Vector2.up * 10, Color.red, 10);
+		return Physics2D.Raycast(inputPosition, Vector2.up, 0.01f, layer);
 	}
 
 	void Update ()
 	{
 		if (_editing)
 		{
-			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
-            Vector2 inputPosition = Input.mousePosition;
+            #if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR || UNITY_WEBGL)
+            Vector2 inputPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			if (Input.GetMouseButtonUp(0))
 			{				
 				OnPointerUp(inputPosition);
@@ -193,7 +193,7 @@ public class AG_EditorManager : MonoBehaviour {
 
         if (!_rotating)
         {
-            RaycastHit2D hit = RaycastScreenPoint();
+            RaycastHit2D hit = RaycastScreenPoint(inputPosition);
             if (hit.collider != null)
             {
                 if (AG_LightsManagementNew.inst.lightTurnOn)
@@ -316,7 +316,7 @@ public class AG_EditorManager : MonoBehaviour {
             _rotating = false;        
         else
         {
-            RaycastHit2D hit = RaycastScreenPoint();
+            RaycastHit2D hit = RaycastScreenPoint(inputPosition);
             if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
             {
                 if (lazerTurnOn)

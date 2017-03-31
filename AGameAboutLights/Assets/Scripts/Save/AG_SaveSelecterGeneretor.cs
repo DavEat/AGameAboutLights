@@ -19,11 +19,11 @@ public class AG_SaveSelecterGeneretor : MonoBehaviour
             AG_SelectLevelManager.inst.savesList = FilesManager.FindFiles(xml.levelFolderName);
             AG_SelectLevelManager.inst.savesList = AG_SelectLevelManager.inst.savesList.OrderBy(xx => int.Parse((xx.Name.Remove(xx.Name.Length - 10, 10)).Remove(0, 5))).ToArray();
 
-            List<Button> listButton = new List<Button>();
+            //List<Button> listButton = new List<Button>();
 
             for (int i = 0; i < AG_SelectLevelManager.inst.savesList.Length; i++)
             {
-                Save save = xml.Load(xml.levelFolderName, AG_SelectLevelManager.inst.savesList[i].Name);
+                //Save save = xml.Load(xml.levelFolderName, AG_SelectLevelManager.inst.savesList[i].Name);
                 //if (save.infos.saveInfos.developperLevel)
                 {
                     string name = AG_SelectLevelManager.inst.savesList[i].Name;
@@ -47,11 +47,11 @@ public class AG_SaveSelecterGeneretor : MonoBehaviour
             FileInfo[] filesInfos = FilesManager.FindFiles(xml.editorFolderName);
             filesInfos = filesInfos.OrderBy(xx => int.Parse((xx.Name.Remove(xx.Name.Length - 10, 10)).Remove(0, 5))).ToArray();
 
-            List<Button> listButton = new List<Button>();
+            //List<Button> listButton = new List<Button>();
 
             for (int i = 0; i < filesInfos.Length; i++)
             {
-                Save save = xml.Load(xml.editorFolderName, filesInfos[i].Name);
+                //Save save = xml.Load(xml.editorFolderName, filesInfos[i].Name);
                 //if (save.infos.saveInfos.developperLevel)
                 {
                     string name = filesInfos[i].Name;

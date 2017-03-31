@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class AG_Inventory : MonoBehaviour {
 
-    [SerializeField]
-    private List<Transform> _listPoints;
     [SerializeField] private UnityEngine.UI.ScrollRect _scroll;
     /// <summary>order by the enum ObjectType</summary>
     public AG_InventoryObjectManager[] _listObjects;
 
     public Transform inventoryLimite;
-
-    public List<Transform> listPoints
-    {
-        get { return _listPoints; }
-        private set { _listPoints = value; }
-    }
 
     ///<summary>Scrool rect enable = value </summary>
     public void SetScroll(bool value)

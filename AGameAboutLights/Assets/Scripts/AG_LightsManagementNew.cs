@@ -240,19 +240,20 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         Vector2 dir = _lightConstructor.origin - _lightConstructor.end;
         float angleZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         rect.eulerAngles = new Vector3(0, 0, 180 + angleZ);
-        rect.sizeDelta = new Vector2(Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightWidth);
+        rect.localScale = new Vector2(Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightWidth);
         light.GetComponent<UnityEngine.UI.Image>().color = AG_Color.colorList[_lightConstructor.colorIndex];
+        //light.GetComponentInChildren<Light2D.LightSprite>().Color = AG_Color.colorList[_lightConstructor.colorIndex];
 
         //LightAnim(rect, 0, Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightConstructor.animDuration, _lightConstructor.end, _lightConstructor);
     }
 
-    private List<LightConstructor> _listLightConstructor = new List<LightConstructor>();
+    //private List<LightConstructor> _listLightConstructor = new List<LightConstructor>();
 
     public GameObject mirrorChock;
     private List<Sequence> inTween = new List<Sequence>();
     private void LightAnim(RectTransform _rect, float _timeToWait, float _distance, float _duration, Vector2 _endPos, LightConstructor _lightConstructor)
     {
-        float duration = 0.0005f * _distance;
+        //float duration = 0.0005f * _distance;
 
         Sequence tween = DOTween.Sequence();
         tween.AppendInterval(_timeToWait)

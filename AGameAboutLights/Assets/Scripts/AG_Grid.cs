@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class AG_Grid : AG_Singleton<AG_Grid> {
 
-    #region Var
-    [SerializeField]
-    private int numberX = 20, numberY = 11;
-    private int startgapX = 285, startgapY = 90;
-    [SerializeField]
-    private int gap = 90;
-    [SerializeField]
-    private GameObject point;
+    #region Var    
+    [SerializeField] private int numberX = 20, numberY = 11;
+    //private int startgapX = 285, startgapY = 90;
+    
+    //[SerializeField] private int gap = 90;
+    [SerializeField] private GameObject point;
 
     private static Transform[] _listPoints;
     #endregion
