@@ -1,1 +1,50 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Save xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><infos><sceneID>0</sceneID><sceneName>Level - Editor</sceneName><saveInfos><difficulty>-1</difficulty><developperLevel>true</developperLevel><date>0001-01-01T00:00:00</date></saveInfos><levelInfos><inventory><listElements><InventoryElem><typeId>7</typeId><quantity>1</quantity></InventoryElem></listElements></inventory><emitters><EmitterInfos><typeId>2</typeId><colorIndex>3</colorIndex><rect><position><x>193.747986</x><y>540.356</y></position><angleZ>270</angleZ></rect></EmitterInfos></emitters><receivers><ReceiverInfos><typeId>3</typeId><colorIndex>3</colorIndex><rect><position><x>1003.74805</x><y>0.355957031</y></position><angleZ>0</angleZ></rect></ReceiverInfos></receivers><filters /><walls /></levelInfos></infos></Save>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Save xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <infos>
+    <sceneID>0</sceneID>
+    <sceneName>Level - Editor</sceneName>
+    <saveInfos>
+      <difficulty>-1</difficulty>
+      <developperLevel>true</developperLevel>
+      <date>0001-01-01T00:00:00</date>
+    </saveInfos>
+    <levelInfos>
+      <inventory>
+        <listElements>
+          <InventoryElem>
+            <typeId>7</typeId>
+            <quantity>1</quantity>
+          </InventoryElem>
+        </listElements>
+      </inventory>
+      <emitters>
+        <EmitterInfos>
+          <typeId>2</typeId>
+          <colorIndex>3</colorIndex>
+          <rect>
+            <position>
+              <x>161.456665</x>
+              <y>450.2967</y>
+            </position>
+            <angleZ>270</angleZ>
+          </rect>
+        </EmitterInfos>
+      </emitters>
+      <receivers>
+        <ReceiverInfos>
+          <typeId>3</typeId>
+          <colorIndex>3</colorIndex>
+          <rect>
+            <position>
+              <x>836.456665</x>
+              <y>0.296630859</y>
+            </position>
+            <angleZ>0</angleZ>
+          </rect>
+        </ReceiverInfos>
+      </receivers>
+      <filters />
+      <walls />
+    </levelInfos>
+  </infos>
+</Save>

@@ -36,7 +36,7 @@ public class XmlManager
         #else
         fileLocation = Application.dataPath + "/Save/";
         #endif
-        levelFolderName = "/OffcialLevels/";
+        levelFolderName = "/OfficialLevels/";
         editorFolderName = "/CustomLevel/";
         fileExtention = ".HeiwaSave";
         mySave = new Save();

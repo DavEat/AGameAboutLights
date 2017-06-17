@@ -4,15 +4,13 @@ using UnityEngine.UI;
 public class AG_Wall : AG_EditorElement
 {
     private BoxCollider2D _boxCollider;
-    private RectTransform _rect;
 
-    void Start()
+    public override void Init()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
         if (objectInteractionType != ObjectInteractionType.movable)
             _rect = GetComponent<RectTransform>();
-        else _rect = transform.parent.GetComponent<RectTransform>();
-        RestCollider();
+        else _rect = transform.parent.GetComponent<RectTransform>();        
     }
 
     public void RestCollider()
@@ -39,9 +37,9 @@ public class AG_Wall : AG_EditorElement
     {
         Save.WallsInfos infos = new Save.WallsInfos();
         infos.typeId = (int)objectType;
-        infos.rect.position = _rect.position;
+        infos.rect.position = new Vector2(_rect.position.x / Screen.width, _rect.position.y / Screen.height);
         infos.rect.angleZ = _rect.eulerAngles.z;
-        infos.rect.deltaSize = _rect.sizeDelta;
+        infos.rect.deltaSize = new Vector2(_rect.sizeDelta.x / Screen.width, _rect.sizeDelta.y / Screen.height);
 
         return infos;
     }

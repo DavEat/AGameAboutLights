@@ -19,8 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224860918122247254}
-  - component: {fileID: 114643286385001120}
-  - component: {fileID: 114424892537250878}
+  - component: {fileID: 114283785171155586}
   m_Layer: 5
   m_Name: LightManager
   m_TagString: Untagged
@@ -28,7 +27,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114424892537250878
+--- !u!114 &114283785171155586
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -36,47 +35,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1959341433415102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7344761a1ed7c047ad3b08d85aac06e, type: 3}
+  m_Script: {fileID: 11500000, guid: f61709b8ce492664e81d5e8a3a46f5e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
     m_Bits: 1024
-  listReceiver:
-  - {fileID: 0}
-  listEmitter:
-  - {fileID: 0}
+  listReceiver: []
+  listEmitter: []
+  maxLightLenght: 1000
   _lightWidth: 30
   _light: {fileID: 1963911768328412, guid: e18ab32e75e6b6340884233f910f20d1, type: 2}
   victoryScreen: {fileID: 0}
   lightContener: {fileID: 0}
   lightTurnOn: 0
-  firstListLightHead: 1
---- !u!114 &114643286385001120
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1959341433415102}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a946f697fc995294e9ee6fe2f9bb13de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layer:
-    serializedVersion: 2
-    m_Bits: 0
-  listReceiver: []
-  listEmitter: []
-  maxLineOfLine: 20
-  lightWidth: 30
-  _light: {fileID: 0}
-  victoryScreen: {fileID: 0}
-  lightContener: {fileID: 0}
-  lightTurnOn: 1
-  dragDrop: {fileID: 0}
-  mirrorChock: {fileID: 0}
-  listObject: {fileID: 0}
+  mirrorChock: {fileID: 1800829021150116, guid: 34fa470d4dfa5714b9bf55d25da04ca7,
+    type: 2}
 --- !u!224 &224860918122247254
 RectTransform:
   m_ObjectHideFlags: 1

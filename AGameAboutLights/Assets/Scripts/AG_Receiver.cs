@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class AG_Receiver : AG_ElementType_Color
 {
     private bool _alimented;
-    [HideInInspector] public RectTransform _rect;
 
     public bool alimented
     {
@@ -12,7 +11,7 @@ public class AG_Receiver : AG_ElementType_Color
         set { _alimented = value; }
     }
 
-    void Start()
+    public override void Init()
     {
         _rect = GetComponent<RectTransform>();
         if (color != AG_Color.ColorName.none)
@@ -25,7 +24,7 @@ public class AG_Receiver : AG_ElementType_Color
         Save.ReceiverInfos infos = new Save.ReceiverInfos();
         infos.colorIndex = (int)color;
         infos.typeId = (int)objectType;
-        infos.rect.position = _rect.position;
+        infos.rect.position = new Vector2(_rect.position.x / Screen.width, _rect.position.y / Screen.height);
         infos.rect.angleZ = _rect.eulerAngles.z;
 
         return infos;

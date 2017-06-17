@@ -4,7 +4,7 @@ public class AG_LightPrisma : AG_LightCaster
 {
     #region Var
     private Transform _transform;
-    private AG_ElementType _elem;
+    private AG_PrismaFace _elem;
     #endregion
 
     #region Struct
@@ -15,28 +15,29 @@ public class AG_LightPrisma : AG_LightCaster
     void Awake()
     {
         _transform = transform;
-        _elem = GetComponent<AG_ElementType>();
+        _elem = GetComponent<AG_PrismaFace>();
     }
     #endregion
 
     #region Function
-    public override void Cast(int _colorIndex, Vector2 _origin, Vector2 _hitPoint, Vector2 _normal, int _lightIndex)
+    public override LightHead[] Cast(int _colorIndex, float lightPower, Vector2 _origin, Vector2 _hitPoint, Vector2 _normal, int _lightIndex)
     {
         //Debug.Log("prisma");
         int[] colorsIndexs = PrismaColorManager(_colorIndex);
-
-        AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face1, _hitPoint, colorsIndexs[0], _lightIndex));
-        AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face2, _hitPoint, colorsIndexs[1], _lightIndex + 1));
+        lightPower *= 0.5f;
+        //AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face1, _hitPoint, colorsIndexs[0], _lightIndex));
+        //AG_LightsManagementNew.inst.AddLightHead(!AG_LightsManagementNew.inst.firstListLightHead, InitLightHead(((AG_PrismaFace)_elem).face2, _hitPoint, colorsIndexs[1], _lightIndex + 1));
+        return new LightHead[] { InitLightHead(_elem.face1, _hitPoint, colorsIndexs[0], _lightIndex, lightPower), InitLightHead(_elem.face2, _hitPoint, colorsIndexs[1], _lightIndex + 1, lightPower) };
     }
 
-    private LightHead InitLightHead(Transform _face, Vector2 _hitPoint, int _colorIndex, int _lightIndex)
+    private LightHead InitLightHead(Transform _face, Vector2 _hitPoint, int _colorIndex, int _lightIndex, float lightPower)
     {
         Vector2 offset = CalculOffset(_transform.position, _hitPoint, _face);
         Vector2 origin = (Vector2)_face.position + offset;
         float angle = _face.eulerAngles.z + 90;
         Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
-        return new LightHead(_colorIndex, origin, direction, _face, new int[] { _lightIndex + 1 }, _lightIndex);
+        return new LightHead(_colorIndex, lightPower, origin, direction, _face);
     }
     private Vector2 CalculOffset(Vector2 _hitObjPos, Vector2 _hitPoint, Transform _targetObj)
     {

@@ -3,9 +3,7 @@ using UnityEngine.UI;
 
 public class AG_Filter : AG_ElementType_Color
 {
-    [HideInInspector] public RectTransform _rect;
-
-    void Start()
+    public override void Init()
     {
         _rect = GetComponent<RectTransform>();
         if (color != AG_Color.ColorName.none)
@@ -18,7 +16,7 @@ public class AG_Filter : AG_ElementType_Color
         Save.FiltersInfos infos = new Save.FiltersInfos();
         infos.colorIndex = (int)color;
         infos.typeId = (int)objectType;
-        infos.rect.position = _rect.position;
+        infos.rect.position = new Vector2(_rect.position.x / Screen.width, _rect.position.y / Screen.height);
         infos.rect.angleZ = _rect.eulerAngles.z;
 
         return infos;

@@ -196,7 +196,7 @@ public class AG_EditorManager : MonoBehaviour {
             RaycastHit2D hit = RaycastScreenPoint();
             if (hit.collider != null)
             {
-                if (AG_LightsManagementNew.inst.lightTurnOn)
+                if (AG_LightsManagementNewNew.inst.lightTurnOn)
                     toggleLight.Invoke();
 
                 if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
@@ -277,9 +277,10 @@ public class AG_EditorManager : MonoBehaviour {
 
             if (_creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
             {
-                Transform obj = _enterObj.GetComponent<AG_InventoryObjectManager>().OnSelect();
+                AG_EditorElement obj = _enterObj.GetComponent<AG_InventoryObjectManager>().OnSelect().GetComponent<AG_EditorElement>();
                 if (obj != null)
                 {
+                    obj.Init();
                     _creatingNewObject = false;
                     inventory.SetScroll(false);
                     if (lazerTurnOn)
@@ -288,7 +289,7 @@ public class AG_EditorManager : MonoBehaviour {
                         _rotation.gameObject.SetActive(false);
             
                     //mousePos = inputPosition;
-                    downObject = obj.GetChild(0);
+                    downObject = obj._rect.GetChild(0);
 
                     AG_Emitter emitter = obj.GetComponent<AG_Emitter>();
                     if (emitter != null)
@@ -421,17 +422,17 @@ public class AG_EditorManager : MonoBehaviour {
     {
         if (_editing)
         {
-            foreach (AG_Emitter emitter in AG_LightsManagementNew.inst.listEmitter)
+            foreach (AG_Emitter emitter in AG_LightsManagementNewNew.inst.listEmitter)
                 listEmitter.Add(emitter);
-            AG_LightsManagementNew.inst.listEmitter = listEmitter.ToArray();
-            foreach (AG_Receiver receiver in AG_LightsManagementNew.inst.listReceiver)
+            AG_LightsManagementNewNew.inst.listEmitter = listEmitter.ToArray();
+            foreach (AG_Receiver receiver in AG_LightsManagementNewNew.inst.listReceiver)
                 listReceiver.Add(receiver);
-            AG_LightsManagementNew.inst.listReceiver = listReceiver.ToArray();
+            AG_LightsManagementNewNew.inst.listReceiver = listReceiver.ToArray();
 
-            listEmitter.RemoveAll(xx => xx == xx);
-            listReceiver.RemoveAll(xx => xx == xx);
+            listEmitter.Clear();
+            listReceiver.Clear();
         }
-        //else if (AG_LightsManagementNew.inst.lightTurnOn)
+        //else if (AG_LightsManagementNewNew.inst.lightTurnOn)
         //    AG_DragDrop.inst.toggleLight.Invoke();
 
         _editing = !_editing;

@@ -81,6 +81,7 @@ public class AG_InventoryObjectManager : MonoBehaviour {
 
     public void AddIn(Transform obj)
     {
+        obj.parent.position = new Vector2(-100, -100);
         GameObject o = obj.parent.gameObject;
         currentNumber--;
         UpdateDisplayNumber();

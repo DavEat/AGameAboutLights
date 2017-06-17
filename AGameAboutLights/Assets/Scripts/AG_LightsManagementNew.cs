@@ -13,6 +13,8 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     public AG_Receiver[] listReceiver;
     public AG_Emitter[] listEmitter;
 
+    public float maxLightLenght = 1000;
+
     [SerializeField] private float _lightWidth = 30;
 
     public GameObject _light, victoryScreen;    
@@ -21,18 +23,18 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     [SerializeField] private Transform lightContener = null;
     public bool lightTurnOn = true;
 
-    private List<LightConstructor> listLightConstructor = new List<LightConstructor>();
+    private List<LightConstructorOld> listLightConstructor = new List<LightConstructorOld>();
     #endregion
 
     #region listLightHeadOne
     public bool firstListLightHead = true;
-    private List<LightHead> _listLightHeadOne = new List<LightHead>(), _listLightHeadTwo = new List<LightHead>();  // TODO : have to list an swith each step between the two list
+    private List<LightHeadOld> _listLightHeadOne = new List<LightHeadOld>(), _listLightHeadTwo = new List<LightHeadOld>();  // TODO : have to list an swith each step between the two list
 
-    public List<LightHead> GetLightHead(bool _firstListLightHead)
+    public List<LightHeadOld> GetLightHead(bool _firstListLightHead)
     {
         return _firstListLightHead ? _listLightHeadOne : _listLightHeadTwo;
     }
-    public void AddLightHead(bool _firstListLightHead, LightHead value)
+    public void AddLightHead(bool _firstListLightHead, LightHeadOld value)
     {
         if (_firstListLightHead)
             _listLightHeadOne.Add(value);
@@ -45,17 +47,17 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             int x = _listLightHeadOne.Count;
             for (int i = x - 1; i >= 0; i--)
                 _listLightHeadOne.RemoveAt(i);
-            //_listLightHeadOne = new List<LightHead>();
+            //_listLightHeadOne = new List<LightHeadOld>();
         }
         else
         {
             int x = _listLightHeadTwo.Count;
             for (int i = x - 1; i >= 0; i--)
                 _listLightHeadTwo.RemoveAt(i);
-            //_listLightHeadTwo = new List<LightHead>();
+            //_listLightHeadTwo = new List<LightHeadOld>();
         }
     }
-    public void SetLightHeadAtIndex(bool _firstListLightHead, int _index, LightHead value)
+    public void SetLightHeadAtIndex(bool _firstListLightHead, int _index, LightHeadOld value)
     {
         if (_firstListLightHead)
             _listLightHeadOne[_index] = value;
@@ -135,9 +137,9 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
                 if (receiver.alimented)
                     receiver.alimented = false;
 
-            /*foreach (LightConstructor light in listLightConstructor)
+            /*foreach (LightConstructorOld light in listLightConstructor)
                 listLightConstructor.Remove(light);*/
-            listLightConstructor = new List<LightConstructor>();
+            listLightConstructor = new List<LightConstructorOld>();
         }
     }
 
@@ -151,7 +153,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         for (int i = 0; i < listEmitter.Length; i++)
             SetLights(i);
 
-        /*foreach (LightHead lightHead in GetLightHead(!firstListLightHead))
+        /*foreach (LightHeadOld lightHead in GetLightHead(!firstListLightHead))
             AddLight(lightHead);*/
         SetListLightHeadAtIndex();
     }
@@ -162,15 +164,15 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         float angle = listEmitter[currentEmitter].startLightPos.eulerAngles.z;
         Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
 
-        AddLightHead(!firstListLightHead, new LightHead((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform, null, -1));
+        AddLightHead(!firstListLightHead, new LightHeadOld((int)listEmitter[currentEmitter].color, origin, direction, listEmitter[currentEmitter].transform, null, -1));
     }
 
     /// <summary>Calcul how place the lights in the next step</summary>
-    /// <param name="LightHead">Light head</param>
-    public void AddLight(LightHead _lightHead)
+    /// <param name="LightHeadOld">Light head</param>
+    public void AddLight(LightHeadOld _lightHead)
     {
         SetRaycastIgnore(_lightHead.emitter.gameObject);
-        RaycastHit2D hit = Physics2D.Raycast(_lightHead.origin, _lightHead.direction, 3000f, layer);
+        RaycastHit2D hit = Physics2D.Raycast(_lightHead.origin, _lightHead.direction, maxLightLenght, layer);
         SetRaycastEnable(_lightHead.emitter.gameObject);
         if (hit.collider != null)
         {
@@ -178,15 +180,15 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
 
             if (_currentLight < _maxLineOfLine)
             {
-                listLightConstructor.Add(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, null));
+                listLightConstructor.Add(new LightConstructorOld(_lightHead.colorIndex, _lightHead.origin, hit.point, null));
 
-                SpawnLights(new LightConstructor(_lightHead.colorIndex, _lightHead.origin, hit.point, _lightHead.nextLightsIndex));
+                SpawnLights(new LightConstructorOld(_lightHead.colorIndex, _lightHead.origin, hit.point, _lightHead.nextLightsIndex));
                 _currentLight++;
             }
 
             AG_LightCaster lightCaster = hit.transform.GetComponent<AG_LightCaster>();
             if (lightCaster != null)
-                lightCaster.Cast(_lightHead.colorIndex, _lightHead.origin, hit.point, hit.normal, _currentLight);
+                lightCaster.Cast(_lightHead.colorIndex, 0, _lightHead.origin, hit.point, hit.normal, _currentLight);
             else
             {
                 AG_Receiver elem = hit.transform.GetComponent<AG_Receiver>();
@@ -198,6 +200,13 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
             }
             //Debug.Log("current light : " + _currentLight);
         }
+        else if (_currentLight < _maxLineOfLine)
+        {
+            listLightConstructor.Add(new LightConstructorOld(_lightHead.colorIndex, _lightHead.origin, _lightHead.direction * maxLightLenght + _lightHead.origin, null));
+            Debug.Log((_lightHead.direction * maxLightLenght + _lightHead.origin));
+            SpawnLights(new LightConstructorOld(_lightHead.colorIndex, _lightHead.origin, _lightHead.direction * maxLightLenght + _lightHead.origin, _lightHead.nextLightsIndex));
+            _currentLight++;
+        }
     }
 
     /// <summary>Main Recursive Function - Check if it's the last object of the list and in that case run the next step</summary>
@@ -206,7 +215,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         firstListLightHead = !firstListLightHead;
         ResetLightHead(!firstListLightHead);
             
-        foreach(LightHead lightHead in GetLightHead(firstListLightHead))
+        foreach(LightHeadOld lightHead in GetLightHead(firstListLightHead))
             AddLight(lightHead);
             //call the add light for each head in the list
         ResetRaycast();
@@ -231,7 +240,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
     }
 
     private int _currentLight;
-    private void SpawnLights(LightConstructor _lightConstructor)
+    private void SpawnLights(LightConstructorOld _lightConstructor)
     {
         GameObject light = listLight[_currentLight];
         light.SetActive(true);
@@ -246,13 +255,11 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
         //LightAnim(rect, 0, Vector2.Distance(_lightConstructor.origin, _lightConstructor.end), _lightConstructor.animDuration, _lightConstructor.end, _lightConstructor);
     }
 
-    private List<LightConstructor> _listLightConstructor = new List<LightConstructor>();
-
     public GameObject mirrorChock;
     private List<Sequence> inTween = new List<Sequence>();
-    private void LightAnim(RectTransform _rect, float _timeToWait, float _distance, float _duration, Vector2 _endPos, LightConstructor _lightConstructor)
+    private void LightAnim(RectTransform _rect, float _timeToWait, float _distance, float _duration, Vector2 _endPos, LightConstructorOld _lightConstructor)
     {
-        float duration = 0.0005f * _distance;
+        //float duration = 0.0005f * _distance;
 
         Sequence tween = DOTween.Sequence();
         tween.AppendInterval(_timeToWait)
@@ -270,7 +277,7 @@ public class AG_LightsManagementNew : AG_Singleton<AG_LightsManagementNew>
 
 }
 
-public struct LightConstructor
+public struct LightConstructorOld
 {
     #region Var
     private int[] _nextLightIndex;
@@ -307,7 +314,7 @@ public struct LightConstructor
     }
     #endregion
     #region Consdtructor
-    public LightConstructor(int _colorIndex, Vector2 _origin, Vector2 _end, int[] _nextLightIndex)
+    public LightConstructorOld(int _colorIndex, Vector2 _origin, Vector2 _end, int[] _nextLightIndex)
     {
         this._origin = _origin;
         this._end = _end;
@@ -315,7 +322,7 @@ public struct LightConstructor
         this._nextLightIndex = _nextLightIndex;
         _animDuration = 0.0005f * Vector2.Distance(_origin, _end);
     }
-    public LightConstructor(int _colorIndex, Vector2 _origin, Vector2 _end, int[] _nextLightIndex, float _animDuration)
+    public LightConstructorOld(int _colorIndex, Vector2 _origin, Vector2 _end, int[] _nextLightIndex, float _animDuration)
     {
         this._origin = _origin;
         this._end = _end;
@@ -326,7 +333,7 @@ public struct LightConstructor
     #endregion
 }
 
-public struct LightHead
+public struct LightHeadOld
 {
     private int _colorIndex, _previousLightIndex;
     private int[] _nextLightsIndex;
@@ -364,7 +371,7 @@ public struct LightHead
         set { _previousLightIndex = value; }
     }
 
-    public LightHead(int _colorIndex, Vector2 _origin, Vector2 _direction, Transform _emitter, int[] _nextLightsIndex, int _previousLightIndex)
+    public LightHeadOld(int _colorIndex, Vector2 _origin, Vector2 _direction, Transform _emitter, int[] _nextLightsIndex, int _previousLightIndex)
     {
         this._origin = _origin;
         this._direction = _direction;

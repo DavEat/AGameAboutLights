@@ -94,32 +94,46 @@ public class SaveSceneManager : AG_Singleton<SaveSceneManager>
             List<AG_Emitter> listEmitter = new List<AG_Emitter>();
             foreach (Save.EmitterInfos emitter in save.infos.levelInfos.emitters)
             {
-                GameObject obj = Instantiate(elementsPrefab[emitter.typeId], emitter.rect.position, Quaternion.Euler(new Vector3(0, 0, emitter.rect.angleZ)), staticObjectContener);
+                GameObject obj = Instantiate(elementsPrefab[emitter.typeId], Vector3.zero, Quaternion.Euler(new Vector3(0, 0, emitter.rect.angleZ)), staticObjectContener);
                 AG_Emitter _emitter = obj.GetComponent<AG_Emitter>();
                 _emitter.color = (AG_Color.ColorName)emitter.colorIndex;
+                _emitter.Init();
+                _emitter._rect.position = new Vector2(emitter.rect.position.x * Screen.width, emitter.rect.position.y * Screen.height);
 
                 listEmitter.Add(_emitter);
             }
-            AG_LightsManagementNew.inst.listEmitter = listEmitter.ToArray();
+            AG_LightsManagementNewNew.inst.listEmitter = listEmitter.ToArray();
             List<AG_Receiver> listReceiver = new List<AG_Receiver>();
             foreach (Save.ReceiverInfos receiver in save.infos.levelInfos.receivers)
             {
                 GameObject obj = Instantiate(elementsPrefab[receiver.typeId], receiver.rect.position, Quaternion.Euler(new Vector3(0, 0, receiver.rect.angleZ)), staticObjectContener);
                 AG_Receiver _receiver = obj.GetComponent<AG_Receiver>();
                 _receiver.color = (AG_Color.ColorName)receiver.colorIndex;
+                _receiver.Init();
+                _receiver._rect.position = new Vector2(receiver.rect.position.x * Screen.width, receiver.rect.position.y * Screen.height);
 
                 listReceiver.Add(_receiver);
             }
-            AG_LightsManagementNew.inst.listReceiver = listReceiver.ToArray();
+            AG_LightsManagementNewNew.inst.listReceiver = listReceiver.ToArray();
             foreach (Save.FiltersInfos filter in save.infos.levelInfos.filters)
             {
                 GameObject obj = Instantiate(elementsPrefab[filter.typeId], filter.rect.position, Quaternion.Euler(new Vector3(0, 0, filter.rect.angleZ)), staticObjectContener);
-                obj.GetComponent<AG_Filter>().color = (AG_Color.ColorName)filter.colorIndex;
+                AG_Filter _filter = obj.GetComponent<AG_Filter>();
+                _filter.color = (AG_Color.ColorName)filter.colorIndex;
+                _filter.Init();
+                _filter._rect.position = new Vector2(filter.rect.position.x * Screen.width, filter.rect.position.y * Screen.height);
             }
             foreach (Save.WallsInfos wall in save.infos.levelInfos.walls)
             {
                 GameObject obj = Instantiate(elementsPrefab[wall.typeId], wall.rect.position, Quaternion.Euler(new Vector3(0, 0, wall.rect.angleZ)), staticObjectContener);
-                obj.GetComponent<RectTransform>().sizeDelta = wall.rect.deltaSize;
+                AG_Wall _wall = obj.GetComponent<AG_Wall>();
+                _wall.Init();
+                _wall._rect.position = new Vector2(wall.rect.position.x * Screen.width, wall.rect.position.y * Screen.height);
+                _wall._rect.sizeDelta = new Vector2(wall.rect.deltaSize.x * Screen.width, wall.rect.deltaSize.y * Screen.height);
+                _wall.RestCollider();
+                AG_Wall childWall = _wall._rect.GetChild(0).GetComponent<AG_Wall>();
+                childWall.Init();
+                childWall.RestCollider();
             }
             AG_EditorManager editor = FindObjectOfType<AG_EditorManager>();
             foreach (AG_InventoryObjectManager obj in playerInventory._listObjects)

@@ -10,6 +10,7 @@ public enum ObjectType
     filter,
     wall,
     mirrorSimple,
+    repeter,
 }
 
 public enum ObjectInteractionType

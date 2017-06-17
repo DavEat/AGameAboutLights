@@ -34,7 +34,7 @@ public class AG_LightsManagement : MonoBehaviour
     [SerializeField] private AG_DragDrop dragDrop;
 
     private PrismaManagement prismaM;
-    private List<LightConstructor>[] listLightConstructor;
+    private List<LightConstructorOld>[] listLightConstructor;
     #endregion
 
     public void ToggleLight()
@@ -45,9 +45,9 @@ public class AG_LightsManagement : MonoBehaviour
             dragDrop.lazerTurnOn = true;
             currenttotalLight = 0;
 
-            listLightConstructor = new List<LightConstructor>[listEmitter.Length];
+            listLightConstructor = new List<LightConstructorOld>[listEmitter.Length];
             for (int i = 0; i < listEmitter.Length; i++)
-                listLightConstructor[i] = new List<LightConstructor>();
+                listLightConstructor[i] = new List<LightConstructorOld>();
 
             for (currentEmitterIndex = 0; currentEmitterIndex < listEmitter.Length; currentEmitterIndex++)
                 SetLights();            
@@ -104,7 +104,7 @@ public class AG_LightsManagement : MonoBehaviour
             //listLight[currentLight].SetActive(true);
             //listLight[currentLight].GetComponent<AG_Light_Mono>().Init(colorIndex, new AG_Line(_origin, hit.point, lightWidth));
 
-            listLightConstructor[currentEmitterIndex].Add(new LightConstructor(colorIndex, _origin, hit.point, null, 0));
+            listLightConstructor[currentEmitterIndex].Add(new LightConstructorOld(colorIndex, _origin, hit.point, null, 0));
 
             currentLight++;
             currenttotalLight++;
@@ -249,7 +249,7 @@ public class AG_LightsManagement : MonoBehaviour
     {
         Debug.Log(currenttotalLight);
         //currentLight = 0;
-        //foreach (LightConstructor listConstrucor in listLightConstructor)
+        //foreach (LightConstructorOld listConstrucor in listLightConstructor)
         if (currenttotalLight < maxLineOfLine && currentLight < listLightConstructor[currentEmitterIndex].Count)
         {
             listLight[currenttotalLight].SetActive(true);
@@ -268,9 +268,9 @@ public class AG_LightsManagement : MonoBehaviour
         {
             currentLight = 0;
 
-            listLightConstructor = new List<LightConstructor>[listEmitter.Length];
+            listLightConstructor = new List<LightConstructorOld>[listEmitter.Length];
             for (int i = 0; i < listEmitter.Length; i++)
-                listLightConstructor[i] = new List<LightConstructor>();
+                listLightConstructor[i] = new List<LightConstructorOld>();
 
             if (victory)
             {
@@ -371,7 +371,7 @@ public class PrismaManagement
     }
 }
 /*
-public class LightConstructor
+public class LightConstructorOld
 {
     private Vector2 _origin, _direction;
     private int _colorIndex;
@@ -392,7 +392,7 @@ public class LightConstructor
         set { _colorIndex = value; }
     }
 
-    public LightConstructor(int _colorIndex, Vector2 _origin, Vector2 _direction)
+    public LightConstructorOld(int _colorIndex, Vector2 _origin, Vector2 _direction)
     {
         this._origin = _origin;
         this._direction = _direction;
