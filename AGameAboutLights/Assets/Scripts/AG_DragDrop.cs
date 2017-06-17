@@ -51,8 +51,8 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
 	{
 		if (true)
 		{
-			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR || UNITY_WEBGL)
-            Vector2 inputPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
+            Vector2 inputPosition = Input.mousePosition;
 			if (Input.GetMouseButtonUp(0))
 			{				
 				OnPointerUp(inputPosition);
