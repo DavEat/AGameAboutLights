@@ -60,6 +60,7 @@ public class AG_LightsManagementNewNew : AG_Singleton<AG_LightsManagementNewNew>
     private void Start()
     {
         maxLightLenght = (maxLightLenght / screenLenght) * Screen.width;
+        _lightWidth = (_lightWidth / screenLenght) * Screen.width;
 
         CreateLights();
     }
