@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
-using System;
 
 public class AG_LightsManagementNewNew : AG_Singleton<AG_LightsManagementNewNew>
 {
     #region Var
-    public int screenLenght = 1920;
     public LayerMask layer;
 
     public AG_Receiver[] listReceiver;
@@ -59,8 +55,8 @@ public class AG_LightsManagementNewNew : AG_Singleton<AG_LightsManagementNewNew>
 
     private void Start()
     {
-        maxLightLenght = (maxLightLenght / screenLenght) * Screen.width;
-        _lightWidth = (_lightWidth / screenLenght) * Screen.width;
+        maxLightLenght = (AG_Settings.inst.maxLightLenght / AG_Settings.inst.screenLenght) * Screen.width;
+        _lightWidth = (_lightWidth / AG_Settings.inst.screenLenght) * Screen.width;
 
         CreateLights();
     }
@@ -206,7 +202,7 @@ public class AG_LightsManagementNewNew : AG_Singleton<AG_LightsManagementNewNew>
     private void LightAnim(RectTransform light, float timeToWait, LightHead lightHead)
     {
         float distance = lightHead.hit.transform != null ? lightHead.hit.distance : lightHead.lightPower;
-        distance = (distance / Screen.width) * screenLenght;
+        distance = (distance / Screen.width) * AG_Settings.inst.screenLenght;
         float duration = 0.0005f * distance;
 
         Sequence tween = DOTween.Sequence();

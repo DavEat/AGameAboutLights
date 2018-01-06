@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4065317768257132}
   - component: {fileID: 114955244596837912}
   - component: {fileID: 114099553840149210}
+  - component: {fileID: 114175741317892574}
   m_Layer: 0
-  m_Name: SelectLevelManager
+  m_Name: _SelectLevelManager_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +51,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a9216f60bfe204e9c6857c9c0c734a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  folder: 
+  fileName: 
+  levelIndex: 0
+  loadInEditor: 0
+--- !u!114 &114175741317892574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1252266502976170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28ba36c3cd6c584d8c3ec46419475dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114955244596837912

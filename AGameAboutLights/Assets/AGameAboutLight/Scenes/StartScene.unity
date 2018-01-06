@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -87,7 +87,7 @@ LightmapSettings:
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -372,25 +372,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1252266502976170, guid: 0fd0bab4d0fbec345981800945319cc3, type: 2}
+      propertyPath: m_Name
+      value: _SelectLevelManager_
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fd0bab4d0fbec345981800945319cc3, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1285517394 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1252266502976170, guid: 0fd0bab4d0fbec345981800945319cc3,
-    type: 2}
-  m_PrefabInternal: {fileID: 1215433465}
---- !u!114 &1285517395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1285517394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b28ba36c3cd6c584d8c3ec46419475dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1341547545
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,6 +720,10 @@ Prefab:
     - target: {fileID: 4354480023756112, guid: 371828003ec697e47a5a42040cce239b, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1219572065362630, guid: 371828003ec697e47a5a42040cce239b, type: 2}
+      propertyPath: m_Name
+      value: _ButtonPress_
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 371828003ec697e47a5a42040cce239b, type: 2}

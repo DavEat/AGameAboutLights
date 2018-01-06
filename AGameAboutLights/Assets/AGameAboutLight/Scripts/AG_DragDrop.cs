@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
+
     #region Var
     [SerializeField] private LayerMask layer;
 
@@ -10,6 +11,7 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
     [SerializeField] private LayerMask layerRotation;
     [SerializeField] private Transform _rotation;
     private bool _rotating;
+    private float _startAngleZ;
 
     private readonly int[] remarkableAngles45 = {-180, -135, -90, -45, 0, 45, 90, 135, 180};
     private readonly int[] remarkableAngles90 = { -180, -90, 0, 90, 180 };
@@ -93,7 +95,13 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
         {
             RaycastHit2D hitRotation = Physics2D.Raycast(Input.mousePosition, target.rotation * Vector2.up, 0.01f, layerRotation);
             if (hitRotation.collider != null)
+            {
                 _rotating = true;
+                Debug.Log("manger");
+                Vector2 dir = inputPosition - (Vector2)_rotation.position;
+                float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+                _startAngleZ = angleZ - _rotation.eulerAngles.z;
+            }
             else _rotation.gameObject.SetActive(false);
         }
 
@@ -133,8 +141,11 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
             Vector2 dir = inputPosition - (Vector2)_rotation.position;
             float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
 
+            angleZ -= _startAngleZ;
+            
+
             Vector3 angles;
-            if (Vector2.Distance(inputPosition, target.position) < _rotation.GetChild(1).localPosition.y)
+            if (AG_Settings.inst.customAngle && Vector2.Distance(inputPosition, target.position) < _rotation.GetChild(1).localPosition.y)
             {
                 angles = new Vector3(0, 0, angleZ);                
             }
@@ -146,11 +157,11 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
                 else snapAngle = remarkableAngles45;
 
                 int currentNearest = snapAngle[0];
-                int currentDifference = Mathf.Abs(currentNearest - Mathf.RoundToInt(angleZ));
+                int currentDifference = (int)AG_Utils.ClampAngle(Mathf.Abs(currentNearest - Mathf.RoundToInt(angleZ)));
 
                 for (int i = 1; i < snapAngle.Length; i++)
                 {
-                    int diff = Mathf.Abs(snapAngle[i] - Mathf.RoundToInt(angleZ));
+                    int diff = (int)AG_Utils.ClampAngle(Mathf.Abs(snapAngle[i] - Mathf.RoundToInt(angleZ)));
                     if (diff < currentDifference)
                     {
                         currentDifference = diff;
@@ -208,8 +219,8 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
                         if (hit.transform == downObject)
                         {
                             target = downObject.parent;
-                            _rotation.transform.eulerAngles = hit.transform.parent.eulerAngles;
-                            _rotation.transform.position = hit.transform.parent.position;
+                            _rotation.eulerAngles = hit.transform.parent.eulerAngles;
+                            _rotation.position = hit.transform.parent.position;
                             _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
                             
                             downObject = null;
