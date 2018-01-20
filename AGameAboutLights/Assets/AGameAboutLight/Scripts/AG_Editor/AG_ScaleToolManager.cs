@@ -22,13 +22,15 @@ public class AG_ScaleToolManager : MonoBehaviour {
         return _gameObject.activeSelf;
     }
 
-    public void InitScaleTool(RectTransform rect)
+    public void InitScaleTool(RectTransform target)
     {
         _gameObject.SetActive(true);
-        corners[2].position = rect.position;
-        corners[0].position = new Vector2(rect.position.x, rect.sizeDelta.y + rect.position.y);
-        corners[3].position = new Vector2(rect.sizeDelta.x + rect.position.x, rect.position.y);
-        corners[1].position = new Vector2(rect.sizeDelta.x + rect.position.x, rect.sizeDelta.y + rect.position.y);
+        this.transform.eulerAngles = target.eulerAngles;
+
+        corners[2].position = target.position - (target.rotation * (target.sizeDelta * 0.5f));
+        corners[0].localPosition = new Vector2(corners[2].localPosition.x, target.sizeDelta.y + corners[2].localPosition.y);
+        corners[3].localPosition = new Vector2(target.sizeDelta.x + corners[2].localPosition.x, corners[2].localPosition.y);
+        corners[1].localPosition = new Vector2(target.sizeDelta.x + corners[2].localPosition.x, target.sizeDelta.y + corners[2].localPosition.y);
     }
 
     private RaycastHit2D RaycastScreenPoint(Vector2 inputPosition)
@@ -36,7 +38,7 @@ public class AG_ScaleToolManager : MonoBehaviour {
         return Physics2D.Raycast(inputPosition, Vector2.up, 0.01f, layer);
     }
 
-    public void OnPointerDown(Vector2 inputPosition)
+    public bool OnPointerDown(Vector2 inputPosition)
     {
         RaycastHit2D hit = RaycastScreenPoint(inputPosition);
         if (hit.transform != null)
@@ -65,7 +67,13 @@ public class AG_ScaleToolManager : MonoBehaviour {
                 yCornerIndex = 2;
                 xCornerIndex = 1;
             }
-        } else _gameObject.SetActive(false);
+            return true;
+        }
+        else
+        {
+            _gameObject.SetActive(false);
+            return false;
+        }
     }
 
     public bool OnPointer(Vector2 inputPosition, AG_ElementType elem)
@@ -91,13 +99,28 @@ public class AG_ScaleToolManager : MonoBehaviour {
         }
     }
 
-    private void ManageCornersPosition(Vector2 inputPosition, AG_ElementType elem)
+    private void ManageCornersPosition(Vector2 inputPosition, AG_ElementType target)
     {
-        corners[selectedCornerIndex].position = inputPosition;
-        corners[xCornerIndex].position = new Vector2(inputPosition.x, corners[xCornerIndex].position.y);
-        corners[yCornerIndex].position = new Vector2(corners[yCornerIndex].position.x, inputPosition.y);
+        if (selectedCornerIndex == -1)
+            return;
 
-        if (elem.objectType == ObjectType.wall)
-            ((AG_Wall)elem).DoScale(corners[2].position, -(corners[2].position - corners[1].position));
+        corners[selectedCornerIndex].position = inputPosition;
+        corners[xCornerIndex].localPosition = new Vector2(corners[selectedCornerIndex].localPosition.x, corners[xCornerIndex].localPosition.y);
+        corners[yCornerIndex].localPosition = new Vector2(corners[yCornerIndex].localPosition.x, corners[selectedCornerIndex].localPosition.y);
+
+        if (target.objectType == ObjectType.wall)
+        {
+            AG_Wall wall = (AG_Wall)target;
+
+            float minX = Mathf.Min(corners[2].localPosition.x, corners[3].localPosition.x);
+            float maxX = Mathf.Max(corners[2].localPosition.x, corners[3].localPosition.x);
+            float sX = Mathf.Abs(maxX - minX);
+            float minY = Mathf.Min(corners[2].localPosition.y, corners[0].localPosition.y);
+            float maxY = Mathf.Max(corners[2].localPosition.y, corners[0].localPosition.y);
+            float sY = Mathf.Abs(maxY - minY);
+
+            wall._rect.position = corners[2].position + (wall._rect.rotation * (new Vector2(sX, sY) * 0.5f)); ;
+            wall._rect.sizeDelta = new Vector2(sX, sY);
+        }
     }
 }

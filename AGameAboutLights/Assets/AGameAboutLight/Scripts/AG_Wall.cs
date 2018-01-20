@@ -14,7 +14,17 @@ public class AG_Wall : AG_EditorElement
     }
 
     public void RestCollider()
-    {        
+    {
+        if (_boxCollider == null || _rect == null)
+        {
+            Init();
+            if (_boxCollider == null || _rect == null)
+            {
+                Debug.Log("ERROR");
+                return;
+            }
+        }
+
         _boxCollider.size = _rect.sizeDelta;
 
         if (objectInteractionType != ObjectInteractionType.movable)

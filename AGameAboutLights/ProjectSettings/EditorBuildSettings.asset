@@ -6,10 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartScene.unity
+    path: Assets/AGameAboutLight/Scenes/StartScene.unity
+    guid: 94eb0fbca27249740b8543934603fdd8
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/AGameAboutLight/Scenes/Menu.unity
+    guid: 2a7ac5eab2554214d839a6afe2416c2e
   - enabled: 1
-    path: Assets/Scenes/Level - Play.unity
+    path: Assets/AGameAboutLight/Scenes/Level - Play.unity
+    guid: d92999c16989fa7489467de98dba78bb
   - enabled: 1
-    path: Assets/Scenes/Level - Editor.unity
+    path: Assets/AGameAboutLight/Scenes/Level - Editor.unity
+    guid: 35487ca67a80d784f87585ff63ca6514

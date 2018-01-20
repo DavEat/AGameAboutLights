@@ -82,7 +82,7 @@ public class AG_EditorManager : MonoBehaviour {
     }
     private void CloseMenu(RectTransform rect)
     {
-        Debug.Log("close : " + rect.name);
+        //Debug.Log("close : " + rect.name);
         Sequence inTween = DOTween.Sequence();
         inTween.Append(rect.DOAnchorPos(new Vector2(rect.sizeDelta.x + 20, 0), closeTime))
                .OnComplete(() => { _currentOpenMenu = null; });
@@ -100,6 +100,7 @@ public class AG_EditorManager : MonoBehaviour {
     [SerializeField] private LayerMask layerRotation;
     [SerializeField] private Transform _rotation;
     private bool _rotating;
+    private float _startAngleZ;
 
     private readonly int[] remarkableAngles45 = { -180, -135, -90, -45, 0, 45, 90, 135, 180 };
     private readonly int[] remarkableAngles90 = { -180, -90, 0, 90, 180 };
@@ -138,13 +139,20 @@ public class AG_EditorManager : MonoBehaviour {
 		return Physics2D.Raycast(Input.mousePosition, Vector2.up, 0.01f, layer);
 	}
 
+    public bool MouseIsInMenu(Vector2 inputPosition)
+    {
+        return AG_Utils.ScreenPointIsOnRects(new RectTransform[] { objectlist.GetComponent<RectTransform>(), optionslist.GetComponent<RectTransform>(),
+                                            objectlistBut.GetComponent<RectTransform>(), optionslistBut.GetComponent<RectTransform>() }, inputPosition);
+    }
+
 	void Update ()
 	{
 		if (_editing)
 		{
 			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
             Vector2 inputPosition = Input.mousePosition;
-			if (Input.GetMouseButtonUp(0))
+
+            if (Input.GetMouseButtonUp(0))
 			{				
 				OnPointerUp(inputPosition);
 			}
@@ -180,14 +188,21 @@ public class AG_EditorManager : MonoBehaviour {
     private Transform target;
 	private void OnPointerDown(Vector2 inputPosition)
     {
+        bool needClear = true;
         if (scaleTool.ActiveSelf())
-            scaleTool.OnPointerDown(inputPosition);
+            if (scaleTool.OnPointerDown(inputPosition))
+                needClear = false;
 
         if (_rotation.gameObject.activeSelf && !_rotating && target != null && _rotation != null)
         {
             RaycastHit2D hitRotation = Physics2D.Raycast(Input.mousePosition, target.rotation * Vector2.up, 0.01f, layerRotation);
             if (hitRotation.collider != null)
+            {
                 _rotating = true;
+                Vector2 dir = inputPosition - (Vector2)_rotation.position;
+                float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+                _startAngleZ = angleZ - _rotation.eulerAngles.z;
+            }
             else _rotation.gameObject.SetActive(false);
         }
 
@@ -212,8 +227,8 @@ public class AG_EditorManager : MonoBehaviour {
                     //DiplayGrid(true);
                 }
                 else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
-                {                    
-                    if (inputPosition.x > inventory.inventoryLimite.position.x)
+                {
+                    if (inputPosition.x > inventory.inventoryLimite.position.x) 
                     {
                         mousePos = inputPosition;
                         _enterObj = hit.transform;
@@ -221,6 +236,11 @@ public class AG_EditorManager : MonoBehaviour {
                     }
                     else _changeIntTool.SetTarget(hit.transform);
                 }
+            }
+            else if (needClear && !MouseIsInMenu(inputPosition))
+            {
+                _selectedObj = null;
+                Debug.Log("_selectedObj = null");
             }
         }        
     }
@@ -235,6 +255,7 @@ public class AG_EditorManager : MonoBehaviour {
         {
             Vector2 dir = inputPosition - (Vector2)_rotation.position;
             float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+            angleZ -= _startAngleZ;
 
             Vector3 angles;
             if (Vector2.Distance(inputPosition, target.position) < _rotation.GetChild(1).localPosition.y)
@@ -262,18 +283,14 @@ public class AG_EditorManager : MonoBehaviour {
                 }
                 angles = new Vector3(0, 0, currentNearest);
             }
-            _rotation.eulerAngles = angles;
+            _rotation.eulerAngles = angles;            
             target.eulerAngles = angles;
         }
         else
         {
-            if ((Vector2)inputPosition != mousePos)
-            {
+            if (inputPosition != mousePos)
                 if (downObject != null)
-                {
                     downObject.parent.position = inputPosition + _downPosDiff;
-                }
-            }
 
             if (_creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
             {
@@ -318,53 +335,58 @@ public class AG_EditorManager : MonoBehaviour {
         else
         {
             RaycastHit2D hit = RaycastScreenPoint();
-            if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+            if (hit.collider != null)
             {
-                if (lazerTurnOn)
-                    toggleLight.Invoke();
-                if (downObject != null)
+                target = hit.transform;
+                if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
                 {
-                    if (inputPosition == mousePos)
+                    if (lazerTurnOn)
+                        toggleLight.Invoke();
+                    if (downObject != null)
                     {
-                        if (hit.transform == downObject)
+                        if (Vector2.Distance(inputPosition, mousePos) < 1f)
                         {
-                            //DiplayGrid(false);
+                            if (hit.transform == downObject)
+                            {
+                                //DiplayGrid(false);
+                                _selectedObj = downObject;
+                                Debug.Log("initscaleTool : " + (_selectedObj != null) + " ; " + (downObject != null));
+                                if (_selectedObj != null && _selectedObj.GetComponent<AG_ElementType>().objectType == ObjectType.wall)
+                                    scaleTool.InitScaleTool(_selectedObj.parent.GetComponent<RectTransform>());
+
+                                //---- add hightlight on selectedobj
+
+                                downObject = null;
+                            }
+                        }
+                        else
+                        {
+                            if (inputPosition.x > inventory.inventoryLimite.position.x)
+                            {
+                                inventory.AddToInventory(downObject);
+
+                                AG_Emitter emitter = downObject.GetComponent<AG_Emitter>();
+                                if (emitter != null)
+                                    listEmitter.Remove(emitter);
+                                else
+                                {
+                                    AG_Receiver receiver = downObject.GetComponent<AG_Receiver>();
+                                    if (emitter != null)
+                                        listReceiver.Remove(receiver);
+                                }
+                            }
+                            else if (snap)
+                                downObject.parent.position = AG_Grid.inst.ChoseClosestPoint(downObject.parent.position);
+
                             _selectedObj = downObject;
-
-                            if (_selectedObj.GetComponent<AG_ElementType>().objectType == ObjectType.wall)
-                                scaleTool.InitScaleTool(_selectedObj.parent.GetComponent<RectTransform>());
-
-                            //---- add hightlight on selectedobj
-
                             downObject = null;
+                            //DiplayGrid(false);
                         }
                     }
                     else
                     {
-                        if (inputPosition.x > inventory.inventoryLimite.position.x)
-                        {
-                            inventory.AddToInventory(downObject);
-
-                            AG_Emitter emitter = downObject.GetComponent<AG_Emitter>();
-                            if (emitter != null)
-                                listEmitter.Remove(emitter);
-                            else
-                            {
-                                AG_Receiver receiver = downObject.GetComponent<AG_Receiver>();
-                                if (emitter != null)
-                                    listReceiver.Remove(receiver);
-                            }
-                        }
-                        else if (snap)
-                            downObject.parent.position = AG_Grid.inst.ChoseClosestPoint(downObject.parent.position);
-
-                        downObject = null;
                         //DiplayGrid(false);
                     }
-                }
-                else
-                {
-                    //DiplayGrid(false);
                 }
             }
         }
@@ -381,10 +403,14 @@ public class AG_EditorManager : MonoBehaviour {
         if (_selectedObj != null)
         {
             target = _selectedObj.parent;
-            _rotation.transform.eulerAngles = _selectedObj.parent.eulerAngles;
-            _rotation.transform.position = _selectedObj.parent.position;
+            _rotation.eulerAngles = _selectedObj.parent.eulerAngles;
+
+            Vector2 pos = ((RectTransform)target).sizeDelta * 0.5f;
+            _rotation.position = _selectedObj.position;
+
             _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
         }
+        
     }
 
     #endregion

@@ -78,6 +78,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: -81.2, y: 0.91}
   serializedVersion: 2
   m_Radius: 14.74
@@ -92,6 +93,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 81.37, y: 0.91}
   serializedVersion: 2
   m_Radius: 14.74
@@ -106,9 +108,20 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0.6024909, y: -0.25592914}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 140.23386, y: 6.570862}
+  m_EdgeRadius: 0
 --- !u!61 &61294408565036206
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -120,9 +133,20 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: -1.1941643, y: -7.8775525}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 164.6896, y: 11.507921}
+  m_EdgeRadius: 0
 --- !u!61 &61796639720912506
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -134,9 +158,20 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 250, y: 90}
+  m_EdgeRadius: 0
 --- !u!114 &114291975994067962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tosave: 0
   objectInteractionType: 1
-  objectType: 1
+  objectType: 7
 --- !u!114 &114884323863169866
 MonoBehaviour:
   m_ObjectHideFlags: 1

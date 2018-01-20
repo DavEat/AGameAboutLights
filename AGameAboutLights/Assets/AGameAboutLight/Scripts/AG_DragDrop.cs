@@ -20,7 +20,8 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
     [HideInInspector] public bool lazerTurnOn = false; 
 	private bool onInventory, objectDragged;
 	private Transform _downObject;
-	private Vector2 mousePos;
+    private Vector2 _downPosDiff;
+    private Vector2 mousePos;
 
     //private AG_LightsManagement _lightsManagement;
 
@@ -55,6 +56,7 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
 		{
 			#if (UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR)
             Vector2 inputPosition = Input.mousePosition;
+
 			if (Input.GetMouseButtonUp(0))
 			{				
 				OnPointerUp(inputPosition);
@@ -97,7 +99,6 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
             if (hitRotation.collider != null)
             {
                 _rotating = true;
-                Debug.Log("manger");
                 Vector2 dir = inputPosition - (Vector2)_rotation.position;
                 float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
                 _startAngleZ = angleZ - _rotation.eulerAngles.z;
@@ -122,17 +123,18 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
 
                     mousePos = inputPosition;
                     downObject = hit.transform;
+                    _downPosDiff = (Vector2)downObject.parent.position - inputPosition;
                     DiplayGrid(true);
                 }
                 else if (hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.inventory)
                 {
-                    mousePos = inputPosition;
+                    mousePos = inputPosition; //get object in inventory
                     _enterObj = hit.transform;
                     _creatingNewObject = true;                    
                 }
             }
         }
-	}
+    }
     
 	private void OnPointer(Vector2 inputPosition)
 	{
@@ -140,9 +142,7 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
         {
             Vector2 dir = inputPosition - (Vector2)_rotation.position;
             float angleZ = -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-
             angleZ -= _startAngleZ;
-            
 
             Vector3 angles;
             if (AG_Settings.inst.customAngle && Vector2.Distance(inputPosition, target.position) < _rotation.GetChild(1).localPosition.y)
@@ -175,9 +175,9 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
         }
         else
         {
-            if ((Vector2)inputPosition != mousePos)
+            if (inputPosition != mousePos)
                 if (downObject != null)
-                    downObject.parent.position = inputPosition;
+                    downObject.parent.position = inputPosition + _downPosDiff;
 
             if (_creatingNewObject && inputPosition.x > inventory.inventoryLimite.position.x)
             {
@@ -208,33 +208,41 @@ public class AG_DragDrop : AG_Singleton<AG_DragDrop> {
         else
         {
             RaycastHit2D hit = RaycastScreenPoint(inputPosition);
-            if (hit.collider != null && hit.transform.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
+            if (hit.collider != null)
             {
-                if (lazerTurnOn)
-                    toggleLight.Invoke();
-                if (downObject != null)
+                target = hit.transform;
+                if (target.GetComponent<AG_ElementType>().objectInteractionType == ObjectInteractionType.movable)
                 {
-                    if (inputPosition == mousePos)
+                    if (lazerTurnOn)
+                        toggleLight.Invoke();
+                    if (downObject != null)
                     {
-                        if (hit.transform == downObject)
+                        if (inputPosition == mousePos)
                         {
-                            target = downObject.parent;
-                            _rotation.eulerAngles = hit.transform.parent.eulerAngles;
-                            _rotation.position = hit.transform.parent.position;
-                            _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
-                            
+                            if (target == downObject)
+                            {
+                                target = downObject.parent;
+                                _rotation.eulerAngles = target.eulerAngles;
+                                _rotation.position = target.position;
+                                _rotation.gameObject.SetActive(!_rotation.gameObject.activeSelf);
+
+                                downObject = null;
+                                DiplayGrid(false);
+                            }
+                        }
+                        else
+                        {
+                            if (inputPosition.x < inventory.inventoryLimite.position.x)
+                                inventory.AddToInventory(downObject);
+                            else
+                                downObject.parent.position = AG_Grid.inst.ChoseClosestPoint(inputPosition);
+
                             downObject = null;
                             DiplayGrid(false);
                         }
                     }
                     else
                     {
-                        if (inputPosition.x < inventory.inventoryLimite.position.x)
-                            inventory.AddToInventory(downObject);
-                        else
-                            downObject.parent.position = AG_Grid.inst.ChoseClosestPoint(inputPosition);
-
-                        downObject = null;
                         DiplayGrid(false);
                     }
                 }
